@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--        Wskazanie jakiego sterownika używamy do połączenia z bazą danych-->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <!--        Adres do bazy danych-->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hurtowniadoprojektu</property>
+        <!--        Nazwa użytkownika bazodanowego-->
+        <property name="hibernate.connection.username">root</property>
+        <!--        Hasło-->
+        <property name="hibernate.connection.password"></property>
+
+        <!--        Dzięki tej wartości w konsoli będą widoczne zapytania wywoływane przez hibernate-->
+        <property name="hibernate.show_sql">true</property>
+
+        <!--        Jakiego dialektu używa nasza baza danych. Nieodpowiedni dialekt będzie powodował problemy w tworzeniu zapytań-->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
+        <!--        <property name="hibernate.dialect">"org.hibernate.dialect.PostgreSQLDialect"</property>-->
+        <!--        <property name="hibernate.dialect">"org.hibernate.dialect.H2Dialect</property>-->
+
+        <!--        Po połączeniu z bazą danych jest ona tworzona na podstawie klas do których odnośniki znajdują się poniżej w znaczniku <mapping>-->
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <mapping class="entities.Klienci"/>
+        <mapping class="entities.Dostawcy"/>
+        <mapping class="entities.Produkty"/>
+        <mapping class="entities.Zamowienia"/>
+        <mapping class="entities.Elementyzamowienia"/>
+    </session-factory>
+</hibernate-configuration>
