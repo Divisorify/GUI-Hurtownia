@@ -7,6 +7,7 @@ module demo1 {
     requires org.hibernate.orm.core;
     requires java.persistence;
     requires javafx.controls;
+    requires java.sql.rowset;
     opens com.example.demo12 to javafx.fxml;
     exports com.example.demo12;
     opens entities;

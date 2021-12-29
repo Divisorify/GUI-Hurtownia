@@ -7,9 +7,12 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="1004.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HelloController">
    <children>
@@ -43,22 +46,46 @@
                         <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="296.0" text="Produkty" />
                         <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="296.0" text="Zamówienia" />
                         <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="296.0" text="ElementyZamówienia" />
+                        <AnchorPane prefHeight="368.0" prefWidth="296.0">
+                           <children>
+                              <TextField layoutX="133.0" layoutY="45.0" />
+                              <TextField layoutX="133.0" layoutY="70.0" />
+                              <Text layoutX="104.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imie" />
+                              <Text layoutX="79.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwisko" />
+                              <TextField layoutX="133.0" layoutY="95.0" />
+                              <TextField layoutX="133.0" layoutY="120.0" />
+                              <TextField layoutX="133.0" layoutY="145.0" />
+                              <TextField layoutX="133.0" layoutY="172.0" />
+                              <TextField layoutX="133.0" layoutY="197.0" />
+                              <Text layoutX="62.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Miejscowość" />
+                              <Text layoutX="102.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ulica" />
+                              <Text layoutX="30.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer mieszkania" />
+                              <Text layoutX="44.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer telefonu" />
+                              <Text layoutX="100.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                              <Text layoutX="107.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj klienta">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="165.0" layoutY="235.0" mnemonicParsing="false" text="Dodaj klienta" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                <children>
-                  <TableView prefHeight="538.0" prefWidth="694.0">
+                  <TableView fx:id="KlienciTable" prefHeight="538.0" prefWidth="694.0">
                     <columns>
-                      <TableColumn prefWidth="56.0" text="kl_id" />
-                      <TableColumn prefWidth="84.0" text="kl_imie" />
-                        <TableColumn prefWidth="85.0" text="kl_nazwisko" />
-                        <TableColumn prefWidth="94.0" text="kl_miejscowosc" />
-                        <TableColumn prefWidth="90.0" text="kl_ulica" />
-                        <TableColumn prefWidth="94.0" text="kl_nrMieszkania" />
-                        <TableColumn prefWidth="89.0" text="kl_nrTelefonu" />
-                        <TableColumn prefWidth="101.0" text="kl_email" />
+                      <TableColumn fx:id="colkl_id" prefWidth="56.0" text="kl_id" />
+                      <TableColumn fx:id="colkl_imie" prefWidth="84.0" text="kl_imie" />
+                        <TableColumn fx:id="colkl_nazwisko" prefWidth="85.0" text="kl_nazwisko" />
+                        <TableColumn fx:id="colkl_miejscowosc" prefWidth="94.0" text="kl_miejscowosc" />
+                        <TableColumn fx:id="colkl_ulica" prefWidth="90.0" text="kl_ulica" />
+                        <TableColumn fx:id="colkl_nrMieszkania" prefWidth="94.0" text="kl_nrMieszkania" />
+                        <TableColumn fx:id="colkl_nrTelefonu" prefWidth="89.0" text="kl_nrTelefonu" />
+                        <TableColumn fx:id="colkl_email" prefWidth="101.0" text="kl_email" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

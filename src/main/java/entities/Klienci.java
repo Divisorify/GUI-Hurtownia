@@ -1,12 +1,17 @@
 package entities;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 
 @Entity
-public class Klienci {
+public class Klienci{
 
     @Id
-    @Column(name = "kl_id", nullable = false)
+    @Column(name = "kl_id", nullable = true)
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int kl_id;
 
@@ -31,8 +36,8 @@ public class Klienci {
     @Column
     private String kl_email;
 
-    public Klienci() {
-    }
+//    public Klienci() {
+//    }
 
     public Klienci(int kl_id, String kl_imie, String kl_nazwisko, String kl_miejscowosc, String kl_ulica, String kl_nrMieszkania, int kl_nrTelefonu, String kl_email) {
         this.kl_id = kl_id;
@@ -121,5 +126,134 @@ public class Klienci {
                 ", kl_nrTelefonu=" + kl_nrTelefonu +
                 ", kl_email='" + kl_email + '\'' +
                 '}';
+
+
+
+    }
+    @Transient
+    @Column(name = "kl_id", nullable = true)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private IntegerProperty kl_idProperty;
+    @Transient
+    private StringProperty kl_imieProperty;
+    @Transient
+    private StringProperty kl_nazwiskoProperty;
+    @Transient
+    private StringProperty kl_miejscowoscProperty;
+    @Transient
+    private StringProperty kl_ulicaProperty;
+    @Transient
+    private StringProperty kl_nrMieszkaniaProperty;
+    @Transient
+    private IntegerProperty kl_nrTelefonuProperty;
+    @Transient
+    private StringProperty kl_emailProperty;
+
+
+    public Klienci(){
+        this.kl_idProperty = new SimpleIntegerProperty();
+        this.kl_imieProperty = new SimpleStringProperty();
+        this.kl_nazwiskoProperty = new SimpleStringProperty();
+        this.kl_miejscowoscProperty = new SimpleStringProperty();
+        this.kl_ulicaProperty = new SimpleStringProperty();
+        this.kl_nrMieszkaniaProperty = new SimpleStringProperty();
+        this.kl_nrTelefonuProperty = new SimpleIntegerProperty();
+        this.kl_emailProperty = new SimpleStringProperty();
+    }
+
+    public int getKlient_id() {
+        return kl_idProperty.get();
+    }
+
+    public void setKlient_id(int id) {
+        this.kl_idProperty.set(id);
+    }
+
+    public IntegerProperty getKlientId() {
+        return kl_idProperty;
+    }
+
+    public String getKl_imieProperty() {
+        return kl_imieProperty.get();
+    }
+
+    public StringProperty getKlientImie() {
+        return kl_imieProperty;
+    }
+
+    public void setKl_imieProperty(String kl_imieProperty) {
+        this.kl_imieProperty.set(kl_imieProperty);
+    }
+
+    public String getKl_nazwiskoProperty() {
+        return kl_nazwiskoProperty.get();
+    }
+
+    public StringProperty getKlientNazwisko() {
+        return kl_nazwiskoProperty;
+    }
+
+    public void setKl_nazwiskoProperty(String kl_nazwiskoProperty) {
+        this.kl_nazwiskoProperty.set(kl_nazwiskoProperty);
+    }
+
+    public String getKl_miejscowoscProperty() {
+        return kl_miejscowoscProperty.get();
+    }
+
+    public StringProperty getKlientMiejscowosc() {
+        return kl_miejscowoscProperty;
+    }
+
+    public void setKl_miejscowoscProperty(String kl_miejscowoscProperty) {
+        this.kl_miejscowoscProperty.set(kl_miejscowoscProperty);
+    }
+
+    public String getKl_ulicaProperty() {
+        return kl_ulicaProperty.get();
+    }
+
+    public StringProperty getKlientUlica() {
+        return kl_ulicaProperty;
+    }
+
+    public void setKl_ulicaProperty(String kl_ulicaProperty) {
+        this.kl_ulicaProperty.set(kl_ulicaProperty);
+    }
+
+    public String getKl_nrMieszkaniaProperty() {
+        return kl_nrMieszkaniaProperty.get();
+    }
+
+    public StringProperty getKlientnrMieszkania() {
+        return kl_nrMieszkaniaProperty;
+    }
+
+    public void setKl_nrMieszkaniaProperty(String kl_nrMieszkaniaProperty) {
+        this.kl_nrMieszkaniaProperty.set(kl_nrMieszkaniaProperty);
+    }
+
+    public int getKl_nrTelefonuProperty() {
+        return kl_nrTelefonuProperty.get();
+    }
+
+    public IntegerProperty getKlientnrTelefonu() {
+        return kl_nrTelefonuProperty;
+    }
+
+    public void setKl_nrTelefonuProperty(int kl_nrTelefonuProperty) {
+        this.kl_nrTelefonuProperty.set(kl_nrTelefonuProperty);
+    }
+
+    public String getKliEmail() {
+        return kl_emailProperty.get();
+    }
+
+    public StringProperty getKlientEmail() {
+        return kl_emailProperty;
+    }
+
+    public void setKl_emailProperty(String email) {
+        this.kl_emailProperty.set(email);
     }
 }
