@@ -15,4 +15,27 @@ public class KlienciDAO {
             throw e;
         }
     }
+
+    public static void update(int id,String email) throws ClassNotFoundException,SQLException {
+        String sql = "update Klienci set kl_email = '" + email + "' where kl_id = '" + id + "' ";
+
+        try {
+            DBUtil.dbExecuteQuery(sql);
+        } catch (SQLException e) {
+            System.out.println("Wyjątek przy aktualizacji!");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
+        String sql = "delete from klienci where kl_id = '" + id + "'";
+        try {
+            DBUtil.dbExecuteQuery(sql);
+        } catch (SQLException e) {
+            System.out.println("Błąd przy usuwaniu.");
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

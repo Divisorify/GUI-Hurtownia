@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.persistence.Transient;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -130,6 +131,8 @@ public class HelloController {
         try{
             KlienciDAO.dodajKlienta(txtImie.getText(), txtNazwisko.getText(), txtMiejscowosc.getText(),txtUlica.getText(),txtnrMieszkania.getText(),txtnrTelefonu.getText(),txtEmail.getText());
             resultConsole.setText("Sukces! Wartości zostały dodane.");
+            ObservableList<Klienci> klienciList = UserController.getAllRecords();
+            populateTable(klienciList);
         }catch(SQLException e){
             System.out.println("Wystąpił błąd w wartościach."+e);
             e.printStackTrace();
@@ -143,5 +146,35 @@ public class HelloController {
 
     @FXML
     private TextField searchEmail;
+
+    @FXML
+    private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
+        try{
+            KlienciDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
+            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            ObservableList<Klienci> klienciList = UserController.getAllRecords();
+            populateTable(klienciList);
+        }catch (SQLException e){
+            System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
+            e.printStackTrace();
+            throw e;
+
+        }
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
+        try{
+            KlienciDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            resultConsole.setText("Klient usunięty pomyślnie.");
+            ObservableList<Klienci> klienciList = UserController.getAllRecords();
+            populateTable(klienciList);
+        }catch(SQLException e){
+            System.out.println("Błąd przy usuwaniu Klienta: "+ searchId);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 
 }

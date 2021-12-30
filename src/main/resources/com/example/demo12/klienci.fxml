@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="1004.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HelloController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HelloController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1004.0">
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
@@ -35,28 +36,28 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.29797979797979796" layoutX="-5.0" layoutY="27.0" prefHeight="538.0" prefWidth="1004.0">
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="-5.0" layoutY="27.0" prefHeight="564.0" prefWidth="1051.0">
          <items>
             <AnchorPane>
                <children>
-                  <VBox layoutX="6.0" prefHeight="538.0" prefWidth="296.0">
+                  <VBox layoutX="6.0" prefHeight="562.0" prefWidth="304.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#btnKlienci" prefHeight="35.0" prefWidth="296.0" text="Klienci" textAlignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#btnDostawcy" prefHeight="35.0" prefWidth="296.0" text="Dostawcy" />
-                        <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="296.0" text="Produkty" />
-                        <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="296.0" text="Zamówienia" />
-                        <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="296.0" text="ElementyZamówienia" />
-                        <AnchorPane prefHeight="368.0" prefWidth="296.0">
+                        <Button mnemonicParsing="false" onAction="#btnKlienci" prefHeight="35.0" prefWidth="306.0" text="Klienci" textAlignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#btnDostawcy" prefHeight="35.0" prefWidth="306.0" text="Dostawcy" />
+                        <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="306.0" text="Produkty" />
+                        <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="306.0" text="Zamówienia" />
+                        <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
+                        <AnchorPane prefHeight="361.0" prefWidth="305.0">
                            <children>
-                              <TextField layoutX="133.0" layoutY="45.0" />
-                              <TextField layoutX="133.0" layoutY="70.0" />
+                              <TextField fx:id="txtImie" layoutX="133.0" layoutY="45.0" />
+                              <TextField fx:id="txtNazwisko" layoutX="133.0" layoutY="70.0" />
                               <Text layoutX="104.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Imie" />
                               <Text layoutX="79.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nazwisko" />
-                              <TextField layoutX="133.0" layoutY="95.0" />
-                              <TextField layoutX="133.0" layoutY="120.0" />
-                              <TextField layoutX="133.0" layoutY="145.0" />
-                              <TextField layoutX="133.0" layoutY="172.0" />
-                              <TextField layoutX="133.0" layoutY="197.0" />
+                              <TextField fx:id="txtMiejscowosc" layoutX="133.0" layoutY="95.0" />
+                              <TextField fx:id="txtUlica" layoutX="133.0" layoutY="120.0" />
+                              <TextField fx:id="txtnrMieszkania" layoutX="133.0" layoutY="145.0" />
+                              <TextField fx:id="txtnrTelefonu" layoutX="133.0" layoutY="171.0" />
+                              <TextField fx:id="txtEmail" layoutX="133.0" layoutY="197.0" />
                               <Text layoutX="62.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Miejscowość" />
                               <Text layoutX="102.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ulica" />
                               <Text layoutX="30.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer mieszkania" />
@@ -67,7 +68,8 @@
                                     <Font size="14.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="165.0" layoutY="235.0" mnemonicParsing="false" text="Dodaj klienta" />
+                              <Button layoutX="165.0" layoutY="235.0" mnemonicParsing="false" onAction="#dodajKlienta" text="Dodaj klienta" />
+                              <TextArea fx:id="resultConsole" layoutX="65.0" layoutY="331.0" prefHeight="35.0" prefWidth="200.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -76,18 +78,30 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                <children>
-                  <TableView fx:id="KlienciTable" prefHeight="538.0" prefWidth="694.0">
+                  <TableView fx:id="KlienciTable" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
                     <columns>
-                      <TableColumn fx:id="colkl_id" prefWidth="56.0" text="kl_id" />
-                      <TableColumn fx:id="colkl_imie" prefWidth="84.0" text="kl_imie" />
-                        <TableColumn fx:id="colkl_nazwisko" prefWidth="85.0" text="kl_nazwisko" />
+                      <TableColumn fx:id="colkl_id" prefWidth="49.0" text="kl_id" />
+                      <TableColumn fx:id="colkl_imie" prefWidth="82.0" text="kl_imie" />
+                        <TableColumn fx:id="colkl_nazwisko" prefWidth="94.0" text="kl_nazwisko" />
                         <TableColumn fx:id="colkl_miejscowosc" prefWidth="94.0" text="kl_miejscowosc" />
                         <TableColumn fx:id="colkl_ulica" prefWidth="90.0" text="kl_ulica" />
                         <TableColumn fx:id="colkl_nrMieszkania" prefWidth="94.0" text="kl_nrMieszkania" />
-                        <TableColumn fx:id="colkl_nrTelefonu" prefWidth="89.0" text="kl_nrTelefonu" />
-                        <TableColumn fx:id="colkl_email" prefWidth="101.0" text="kl_email" />
+                        <TableColumn fx:id="colkl_nrTelefonu" prefWidth="95.0" text="kl_nrTelefonu" />
+                        <TableColumn fx:id="colkl_email" prefWidth="134.0" text="kl_email" />
                     </columns>
                   </TableView>
+                  <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="searchId" layoutX="159.0" layoutY="31.0" />
+                  <TextField fx:id="searchEmail" layoutX="431.0" layoutY="31.0" />
+                  <Text layoutX="395.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+                  <Text layoutX="137.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                  <Button layoutX="208.0" layoutY="63.0" mnemonicParsing="false" text="Wyszukaj" />
+                  <Button layoutX="308.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
+                  <Button layoutX="416.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
                </children></AnchorPane>
          </items>
       </SplitPane>

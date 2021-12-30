@@ -5,59 +5,57 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="1004.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HelloController">
-   <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1004.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HelloController">
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.29797979797979796" layoutX="-5.0" layoutY="27.0" prefHeight="564.0" prefWidth="1051.0">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                <AnchorPane>
+                    <children>
+                        <VBox layoutX="6.0" prefHeight="562.0" prefWidth="304.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#btnKlienci" prefHeight="35.0" prefWidth="306.0" text="Klienci" textAlignment="CENTER" />
+                                <Button mnemonicParsing="false" onAction="#btnDostawcy" prefHeight="35.0" prefWidth="306.0" text="Dostawcy" />
+                                <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="306.0" text="Produkty" />
+                                <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="306.0" text="Zamówienia" />
+                                <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
+                                <AnchorPane prefHeight="361.0" prefWidth="305.0">
+
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
+                    </AnchorPane>
             </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <SplitPane dividerPositions="0.29797979797979796" layoutX="-5.0" layoutY="27.0" prefHeight="538.0" prefWidth="1004.0">
-        <items>
-          <AnchorPane>
-               <children>
-                  <VBox layoutX="6.0" prefHeight="538.0" prefWidth="296.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#btnKlienci" prefHeight="35.0" prefWidth="296.0" text="Klienci" textAlignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#btnDostawcy" prefHeight="35.0" prefWidth="296.0" text="Dostawcy" />
-                        <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="296.0" text="Produkty" />
-                        <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="296.0" text="Zamówienia" />
-                        <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="296.0" text="ElementyZamówienia" />
-                        <AnchorPane prefHeight="368.0" prefWidth="296.0">
-                           <children>
-                              <TextArea fx:id="resultConsole" layoutX="48.0" layoutY="337.0" prefHeight="34.0" prefWidth="200.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </TextArea>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0" />
-        </items>
-      </SplitPane>
-   </children>
+        </SplitPane>
+    </children>
 </Pane>

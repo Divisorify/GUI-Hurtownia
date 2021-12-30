@@ -149,7 +149,6 @@ public class Klienci{
     @Transient
     private StringProperty kl_emailProperty;
 
-
     public Klienci(){
         this.kl_idProperty = new SimpleIntegerProperty();
         this.kl_imieProperty = new SimpleStringProperty();
