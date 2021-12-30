@@ -2,6 +2,7 @@ package com.example.demo12;
 
 import DataAccessObject.DostawcyDAO;
 import entities.Dostawcy;
+import entities.Produkty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static DataAccessObject.DostawcyDAO.getAllRecords;
+import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
+
 public class DostawcyController {
+    @FXML
+    private TextArea resultConsole;
+    @FXML
+    private TableView Table;
+
+    @FXML
+    private TableColumn<Dostawcy, Integer> coldost_id;
+    @FXML
+    private TableColumn<Dostawcy, String> coldost_nazwa;
+    @FXML
+    private TableColumn<Dostawcy, String> coldost_miejscowosc;
+    @FXML
+    private TableColumn<Dostawcy, String> coldost_ulica;
+    @FXML
+    private TableColumn<Dostawcy, String> coldost_kraj;
+    @FXML
+    private TableColumn<Dostawcy, String> coldost_email;
+
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -69,4 +91,99 @@ public class DostawcyController {
         app_stage.setScene(scenezamowienia);
         app_stage.show();
     }
+    @FXML
+    private void initialize() throws Exception{
+        coldost_id.setCellValueFactory(cellData -> cellData.getValue().dost_idPropertyProperty().asObject());
+        coldost_nazwa.setCellValueFactory(cellData -> cellData.getValue().dost_nazwaPropertyProperty());
+        coldost_miejscowosc.setCellValueFactory(cellData -> cellData.getValue().dost_miejscowoscPropertyProperty());
+        coldost_ulica.setCellValueFactory(cellData -> cellData.getValue().dost_ulicaPropertyProperty());
+        coldost_kraj.setCellValueFactory(cellData -> cellData.getValue().dost_krajPropertyProperty());
+        coldost_email.setCellValueFactory(cellData -> cellData.getValue().dost_emailPropertyProperty());
+        ObservableList<Dostawcy> List = getAllRecords();
+        populateTable(List);
+    }
+
+    private void populateTable(ObservableList<Dostawcy> List) {
+        Table.setItems(List);
+    }
+
+    @FXML
+    private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchByID(searchId.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Znaleziono.");
+        }else{
+            resultConsole.setText("Nie znaleziono.");
+        }
+    }
+
+    @FXML
+    private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> List = getAllRecords();
+        populateTable(List);
+    }
+
+    @FXML
+    private TextField txtNazwa;
+    @FXML
+    private TextField txtMiejscowosc;
+    @FXML
+    private TextField txtUlica;
+    @FXML
+    private TextField txtKraj;
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
+        try{
+            DostawcyDAO.dodaj(txtNazwa.getText(), txtMiejscowosc.getText(),txtUlica.getText(),txtKraj.getText(),txtEmail.getText());
+            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            ObservableList<Dostawcy> List = getAllRecords();
+            populateTable(List);
+        }catch(SQLException e){
+            System.out.println("Wystąpił błąd w wartościach."+e);
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+
+    @FXML
+    private TextField searchId;
+
+    @FXML
+    private TextField searchEmail;
+
+    @FXML
+    private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
+        try{
+            DostawcyDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
+            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            ObservableList<Dostawcy> List = getAllRecords();
+            populateTable(List);
+        }catch (SQLException e){
+            System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
+            e.printStackTrace();
+            throw e;
+
+        }
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
+        try{
+            DostawcyDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            resultConsole.setText("Usunięto pomyślnie.");
+            ObservableList<Dostawcy> List = getAllRecords();
+            populateTable(List);
+        }catch(SQLException e){
+            System.out.println("Błąd przy usuwaniu ID: "+ searchId);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 }

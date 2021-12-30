@@ -1,5 +1,9 @@
 package entities;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -103,4 +107,91 @@ public class Produkty {
                 ", prod_kraj='" + prod_kraj + '\'' +
                 '}';
     }
+
+    @Transient
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private IntegerProperty prod_idProperty;
+    @Transient
+    private IntegerProperty dost_idProperty;
+    @Transient
+    private StringProperty prod_nazwaProperty;
+    @Transient
+    private DoubleProperty prod_cenaProperty;
+    @Transient
+    private StringProperty prod_walutaProperty;
+    @Transient
+    private StringProperty prod_krajProperty;
+
+    public int getProd_idProperty() {
+        return prod_idProperty.get();
+    }
+
+    public IntegerProperty prod_idPropertyProperty() {
+        return prod_idProperty;
+    }
+
+    public void setProd_idProperty(int prod_idProperty) {
+        this.prod_idProperty.set(prod_idProperty);
+    }
+
+    public int getDost_idProperty() {
+        return dost_idProperty.get();
+    }
+
+    public IntegerProperty dost_idPropertyProperty() {
+        return dost_idProperty;
+    }
+
+    public void setDost_idProperty(int dost_idProperty) {
+        this.dost_idProperty.set(dost_idProperty);
+    }
+
+    public String getProd_nazwaProperty() {
+        return prod_nazwaProperty.get();
+    }
+
+    public StringProperty prod_nazwaPropertyProperty() {
+        return prod_nazwaProperty;
+    }
+
+    public void setProd_nazwaProperty(String prod_nazwaProperty) {
+        this.prod_nazwaProperty.set(prod_nazwaProperty);
+    }
+
+    public double getProd_cenaProperty() {
+        return prod_cenaProperty.get();
+    }
+
+    public DoubleProperty prod_cenaPropertyProperty() {
+        return prod_cenaProperty;
+    }
+
+    public void setProd_cenaProperty(double prod_cenaProperty) {
+        this.prod_cenaProperty.set(prod_cenaProperty);
+    }
+
+    public String getProd_walutaProperty() {
+        return prod_walutaProperty.get();
+    }
+
+    public StringProperty prod_walutaPropertyProperty() {
+        return prod_walutaProperty;
+    }
+
+    public void setProd_walutaProperty(String prod_walutaProperty) {
+        this.prod_walutaProperty.set(prod_walutaProperty);
+    }
+
+    public String getProd_krajProperty() {
+        return prod_krajProperty.get();
+    }
+
+    public StringProperty prod_krajPropertyProperty() {
+        return prod_krajProperty;
+    }
+
+    public void setProd_krajProperty(String prod_krajProperty) {
+        this.prod_krajProperty.set(prod_krajProperty);
+    }
 }
+

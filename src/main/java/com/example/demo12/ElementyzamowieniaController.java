@@ -2,6 +2,7 @@ package com.example.demo12;
 
 import DataAccessObject.ElementyzamowieniaDAO;
 import entities.Elementyzamowienia;
+import entities.Produkty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,30 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static DataAccessObject.ElementyzamowieniaDAO.getAllRecords;
+import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
+
 public class ElementyzamowieniaController {
+    @FXML
+    private TextArea resultConsole;
+    @FXML
+    private TableView Table;
+
+    @FXML
+    private TableColumn<Elementyzamowienia, Integer> colzam_id;
+    @FXML
+    private TableColumn<Elementyzamowienia, Integer> colzam_numer;
+    @FXML
+    private TableColumn<Elementyzamowienia, Integer> colzam_elem;
+    @FXML
+    private TableColumn<Elementyzamowienia, Integer> colprod_id;
+    @FXML
+    private TableColumn<Elementyzamowienia, Integer> colilosc;
+    @FXML
+    private TableColumn<Elementyzamowienia, Double> colcena_elem;
+    @FXML
+    private TableColumn<Elementyzamowienia, String> colwaluta;
+
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -68,5 +92,103 @@ public class ElementyzamowieniaController {
         app_stage.hide();
         app_stage.setScene(scenezamowienia);
         app_stage.show();
+    }
+
+    @FXML
+    private void initialize() throws Exception{
+        colzam_id.setCellValueFactory(cellData -> cellData.getValue().zam_idPropertyProperty().asObject());
+        colzam_numer.setCellValueFactory(cellData -> cellData.getValue().zam_numerPropertyProperty().asObject());
+        colzam_elem.setCellValueFactory(cellData -> cellData.getValue().zam_elemPropertyProperty().asObject());
+        colprod_id.setCellValueFactory(cellData -> cellData.getValue().prod_idPropertyProperty().asObject());
+        colilosc.setCellValueFactory(cellData -> cellData.getValue().iloscPropertyProperty().asObject());
+        colcena_elem.setCellValueFactory(cellData -> cellData.getValue().cena_elemPropertyProperty().asObject());
+        colwaluta.setCellValueFactory(cellData -> cellData.getValue().walutaPropertyProperty());
+        ObservableList<Elementyzamowienia> List = getAllRecords();
+        populateTable(List);
+    }
+
+    private void populateTable(ObservableList<Elementyzamowienia> List) {
+        Table.setItems(List);
+    }
+
+    @FXML
+    private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchByID(searchId.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Znaleziono.");
+        }else{
+            resultConsole.setText("Nie znaleziono.");
+        }
+    }
+
+    @FXML
+    private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> List = getAllRecords();
+        populateTable(List);
+    }
+
+    @FXML
+    private TextField txtZamNumer;
+    @FXML
+    private TextField txtZamElem;
+    @FXML
+    private TextField txtProdId;
+    @FXML
+    private TextField txtIlosc;
+    @FXML
+    private TextField txtCenaElem;
+    @FXML
+    private TextField txtWaluta;
+
+    @FXML
+    private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
+        try{
+//            ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
+            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            ObservableList<Elementyzamowienia> List = getAllRecords();
+            populateTable(List);
+        }catch(SQLException e){
+            System.out.println("Wystąpił błąd w wartościach."+e);
+            e.printStackTrace();
+            throw e;
+        }
+
+    }
+
+    @FXML
+    private TextField searchId;
+
+    @FXML
+    private TextField searchEmail;
+
+    @FXML
+    private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
+        try{
+            ElementyzamowieniaDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
+            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            ObservableList<Elementyzamowienia> List = getAllRecords();
+            populateTable(List);
+        }catch (SQLException e){
+            System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
+            e.printStackTrace();
+            throw e;
+
+        }
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
+        try{
+            ElementyzamowieniaDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            resultConsole.setText("Usunięto pomyślnie.");
+            ObservableList<Elementyzamowienia> List = getAllRecords();
+            populateTable(List);
+        }catch(SQLException e){
+            System.out.println("Błąd przy usuwaniu ID: "+ searchId);
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

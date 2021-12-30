@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +15,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.TextArea?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ZamowieniaController">
     <children>
         <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
@@ -49,8 +49,8 @@
                                 <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
                                 <AnchorPane prefHeight="361.0" prefWidth="305.0">
                                     <children>
-                                        <TextField layoutX="133.0" layoutY="45.0" />
-                                        <TextField layoutX="133.0" layoutY="70.0" />
+                                        <TextField fx:id="txtZamData" layoutX="133.0" layoutY="45.0" />
+                                        <TextField fx:id="txtKlId" layoutX="133.0" layoutY="70.0" />
                                         <Text layoutX="40.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data zamówienia" />
                                         <Text layoutX="79.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Klienta" />
                                         <Text layoutX="107.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj zamówienie">
@@ -58,7 +58,7 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Text>
-                                        <Button layoutX="151.0" layoutY="111.0" mnemonicParsing="false" text="Dodaj zamówienie" />
+                                        <Button layoutX="151.0" layoutY="111.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj zamówienie" />
                                         <TextArea fx:id="resultConsole" layoutX="65.0" layoutY="331.0" prefHeight="35.0" prefWidth="200.0" />
                                     </children>
                                 </AnchorPane>
@@ -68,11 +68,11 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                     <children>
-                        <TableView fx:id="KlienciTable" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
+                        <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
                             <columns>
-                                <TableColumn prefWidth="75.0" text="zam_numer" />
-                                <TableColumn prefWidth="180.0" text="zam_data" />
-                                <TableColumn prefWidth="98.0" text="kl_id" />
+                                <TableColumn fx:id="colzam_numer" prefWidth="75.0" text="zam_numer" />
+                                <TableColumn fx:id="colzam_data" prefWidth="180.0" text="zam_data" />
+                                <TableColumn fx:id="colkl_id" prefWidth="98.0" text="kl_id" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">
@@ -82,11 +82,12 @@
                         </Text>
                         <TextField fx:id="searchId" layoutX="159.0" layoutY="31.0" />
                         <TextField fx:id="searchEmail" layoutX="431.0" layoutY="31.0" />
-                        <Text layoutX="367.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Klienta" />
-                        <Text layoutX="50.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer zamówienia" />
-                        <Button layoutX="208.0" layoutY="63.0" mnemonicParsing="false" text="Wyszukaj" />
-                        <Button layoutX="308.0" layoutY="63.0" mnemonicParsing="false" text="Aktualizuj" />
-                        <Button layoutX="416.0" layoutY="63.0" mnemonicParsing="false" text="Usuń" />
+                        <Text layoutX="320.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer zamówienia" />
+                        <Text layoutX="101.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Klienta" />
+                        <Button layoutX="168.0" layoutY="63.0" mnemonicParsing="false" onAction="#search" text="Wyszukaj" />
+                        <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
+                        <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
+                        <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
                     </children></AnchorPane>
             </items>
         </SplitPane>
