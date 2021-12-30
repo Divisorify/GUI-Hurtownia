@@ -36,42 +36,6 @@ public class UserController{
         System.out.println(genders.get(1).toString());
         session.close();
     }
-    public static ObservableList<Klienci> getAllRecords() throws ClassNotFoundException, SQLException {
-        String sql = "select * from Klienci";
-        try{
-            ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Klienci> klienciList = getKlienciObjects(rsSet);
-            return klienciList;
-        }catch(SQLException e){
-            System.out.println("Błąd przy łączeniu z bazą danych"+e);
-            e.printStackTrace();
-            throw e;
-        }
-    }
 
-    private static ObservableList<Klienci> getKlienciObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
-        try{
-            ObservableList<Klienci> klienciList = FXCollections.observableArrayList();
-
-            while(rsSet.next()){
-                Klienci kli = new Klienci();
-                kli.setKlient_id(rsSet.getInt("kl_id"));
-                kli.setKl_imieProperty(rsSet.getString("kl_imie"));
-                kli.setKl_nazwiskoProperty(rsSet.getString("kl_nazwisko"));
-                kli.setKl_miejscowoscProperty(rsSet.getString("kl_miejscowosc"));
-                kli.setKl_ulicaProperty(rsSet.getString("kl_ulica"));
-                kli.setKl_nrMieszkaniaProperty(rsSet.getString("kl_nrMieszkania"));
-                kli.setKl_nrTelefonuProperty(rsSet.getInt("kl_nrTelefonu"));
-                kli.setKl_emailProperty(rsSet.getString("kl_email"));
-                klienciList.add(kli);
-            }
-            return klienciList;
-        }catch(SQLException e){
-            System.out.println("Błąd przy łączeniu z bazą danych"+e);
-            e.printStackTrace();
-            throw e;
-        }
-
-    }
 
 }

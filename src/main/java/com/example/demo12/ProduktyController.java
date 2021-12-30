@@ -1,7 +1,7 @@
 package com.example.demo12;
 
-import DataAccessObject.KlienciDAO;
-import entities.Klienci;
+import DataAccessObject.ProduktyDAO;
+import entities.Produkty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,11 +9,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+import java.sql.SQLException;
 
-public class HelloController {
-
+public class ProduktyController {
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -64,4 +69,5 @@ public class HelloController {
         app_stage.setScene(scenezamowienia);
         app_stage.show();
     }
+
 }
