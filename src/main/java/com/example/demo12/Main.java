@@ -2,18 +2,13 @@ package com.example.demo12;
 
 import entities.Klienci;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Main extends Application {
 
@@ -25,7 +20,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 
     public static void main(String[] args) throws Exception {
 //        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -40,9 +34,6 @@ public class Main extends Application {
         new UserController();
 
         launch();
-
-
-
     }
 }
 

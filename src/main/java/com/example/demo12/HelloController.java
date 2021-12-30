@@ -1,5 +1,6 @@
 package com.example.demo12;
 
+import DataAccessObject.KlienciDAO;
 import entities.Klienci;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.persistence.Transient;
 import java.io.IOException;
 import java.sql.SQLException;
 

@@ -11,4 +11,6 @@ module demo1 {
     opens com.example.demo12 to javafx.fxml;
     exports com.example.demo12;
     opens entities;
+    exports DataAccessObject;
+    opens DataAccessObject to javafx.fxml;
 }
