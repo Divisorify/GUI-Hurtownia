@@ -1,7 +1,6 @@
 package com.example.demo12;
 
 import DataAccessObject.ZamowieniaDAO;
-import entities.Produkty;
 import entities.Zamowienia;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
 import static DataAccessObject.ZamowieniaDAO.getAllRecords;
 
 public class ZamowieniaController {
@@ -98,7 +96,7 @@ public class ZamowieniaController {
 
     @FXML
     private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> list = ZamowieniaDAO.searchByID(searchId.getText());
+        ObservableList<Zamowienia> list = ZamowieniaDAO.search(searchZamNumer.getText());
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
@@ -144,12 +142,15 @@ public class ZamowieniaController {
     private TextField searchId;
 
     @FXML
-    private TextField searchEmail;
+    private TextField searchZamNumer;
+
+    @FXML
+    private TextField updateDataZam;
 
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            ZamowieniaDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
+            ZamowieniaDAO.update(Integer.parseInt(searchZamNumer.getText()),updateDataZam.getText());
             resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);
@@ -164,12 +165,12 @@ public class ZamowieniaController {
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            ZamowieniaDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            ZamowieniaDAO.delete(Integer.parseInt(searchZamNumer.getText()));
             resultConsole.setText("Usunięto pomyślnie.");
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){
-            System.out.println("Błąd przy usuwaniu ID: "+ searchId);
+            System.out.println("Błąd przy usuwaniu numerze zamówienia: "+ searchId);
             e.printStackTrace();
             throw e;
         }

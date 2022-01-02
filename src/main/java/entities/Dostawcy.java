@@ -9,7 +9,9 @@ import javax.persistence.*;
 
 @Entity
 public class Dostawcy {
+
     @Id
+    //@OneToMany(targetEntity = Produkty.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int dost_id;
 
@@ -97,7 +99,7 @@ public class Dostawcy {
                 ", dost_email='" + dost_email + '\'' +
                 '}';
     }
-
+    @Id
     @Transient
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private IntegerProperty dost_idProperty;

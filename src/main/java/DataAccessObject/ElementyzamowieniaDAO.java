@@ -46,7 +46,7 @@ public class ElementyzamowieniaDAO {
 
     }
 
-    public static void dodaj(String numer,Integer element, int prod_id, String ilosc,Double cenaelem,String waluta ) throws SQLException,ClassNotFoundException{
+    public static void dodaj(String numer,String element, String prod_id, String ilosc,String cenaelem,String waluta ) throws SQLException,ClassNotFoundException{
         String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
 
         try{

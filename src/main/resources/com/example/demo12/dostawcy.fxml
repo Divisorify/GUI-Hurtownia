@@ -65,7 +65,7 @@
                                             </font>
                                         </Text>
                                         <Button layoutX="157.0" layoutY="181.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj dostawce" />
-                                        <TextArea fx:id="resultConsole" layoutX="65.0" layoutY="331.0" prefHeight="35.0" prefWidth="200.0" />
+                                        <TextArea fx:id="resultConsole" layoutX="12.0" layoutY="341.0" prefHeight="37.0" prefWidth="285.0" />
                                     </children>
                                 </AnchorPane>
                             </children>
@@ -76,12 +76,12 @@
                     <children>
                         <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
                             <columns>
-                                <TableColumn fx:id="coldost_id" prefWidth="60.0" text="dost_id" />
-                                <TableColumn fx:id="coldost_nazwa" prefWidth="126.0" text="dost_nazwa" />
-                                <TableColumn fx:id="coldost_miejscowosc" prefWidth="119.0" text="dost_miejscowosc" />
-                                <TableColumn fx:id="coldost_ulica" prefWidth="131.0" text="dost_ulica" />
-                                <TableColumn fx:id="coldost_kraj" prefWidth="122.0" text="dost_kraj" />
-                                <TableColumn fx:id="coldost_email" prefWidth="135.0" text="dost_email" />
+                                <TableColumn fx:id="coldost_id" prefWidth="53.0" text="dost_id" />
+                                <TableColumn fx:id="coldost_nazwa" prefWidth="115.0" text="dost_nazwa" />
+                                <TableColumn fx:id="coldost_miejscowosc" prefWidth="122.0" text="dost_miejscowosc" />
+                                <TableColumn fx:id="coldost_ulica" prefWidth="122.0" text="dost_ulica" />
+                                <TableColumn fx:id="coldost_kraj" prefWidth="119.0" text="dost_kraj" />
+                                <TableColumn fx:id="coldost_email" prefWidth="193.0" text="dost_email" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">

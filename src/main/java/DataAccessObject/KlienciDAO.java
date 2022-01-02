@@ -10,44 +10,6 @@ import java.sql.SQLException;
 
 public class KlienciDAO {
 
-//    @FXML
-//    private TableColumn<Klienci, Integer> colkl_id;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_imie;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_nazwisko;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_miejscowosc;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_ulica;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_nrMieszkania;
-//    @FXML
-//    private TableColumn<Klienci, Integer> colkl_nrTelefonu;
-//    @FXML
-//    private TableColumn<Klienci, String> colkl_email;
-//
-//    @FXML
-//    private TableView KlienciTable;
-//    @FXML
-//    private void populateTable(ObservableList<Klienci> klienciList) {
-//        KlienciTable.setItems(klienciList);
-//    }
-//
-//
-//    public void initialize() throws Exception{
-//        colkl_id.setCellValueFactory(cellData -> cellData.getValue().getKlientId().asObject());
-//        colkl_imie.setCellValueFactory(cellData -> cellData.getValue().getKlientImie());
-//        colkl_nazwisko.setCellValueFactory(cellData -> cellData.getValue().getKlientNazwisko());
-//        colkl_miejscowosc.setCellValueFactory(cellData -> cellData.getValue().getKlientMiejscowosc());
-//        colkl_ulica.setCellValueFactory(cellData -> cellData.getValue().getKlientUlica());
-//        colkl_nrMieszkania.setCellValueFactory(cellData -> cellData.getValue().getKlientnrMieszkania());
-//        colkl_nrTelefonu.setCellValueFactory(cellData -> cellData.getValue().getKlientnrTelefonu().asObject());
-//        colkl_email.setCellValueFactory(cellData -> cellData.getValue().getKlientEmail());
-//        ObservableList<Klienci> klienciList = UserController.getAllRecords();
-//        populateTable(klienciList);
-//    }
-
     public static ObservableList<Klienci> getAllRecordsKlienci() throws ClassNotFoundException, SQLException {
         String sql = "select * from Klienci";
         try{

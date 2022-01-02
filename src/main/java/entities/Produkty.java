@@ -1,8 +1,6 @@
 package entities;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import javax.persistence.*;
 
@@ -29,8 +27,6 @@ public class Produkty {
     @Column
     private String prod_kraj;
 
-    public Produkty() {
-    }
 
     public Produkty(int prod_id, int dost_id, String prod_nazwa, Double prod_cena, String prod_waluta, String prod_kraj) {
         this.prod_id = prod_id;
@@ -41,12 +37,12 @@ public class Produkty {
         this.prod_kraj = prod_kraj;
     }
 
-    public Produkty(String prod_nazwa, Double prod_cena, String prod_waluta, String prod_kraj) {
-        this.prod_nazwa = prod_nazwa;
-        this.prod_cena = prod_cena;
-        this.prod_waluta = prod_waluta;
-        this.prod_kraj = prod_kraj;
-    }
+//    public Produkty(String prod_nazwa, Double prod_cena, String prod_waluta, String prod_kraj) {
+//        this.prod_nazwa = prod_nazwa;
+//        this.prod_cena = prod_cena;
+//        this.prod_waluta = prod_waluta;
+//        this.prod_kraj = prod_kraj;
+//    }
 
     public int getProd_id() {
         return prod_id;
@@ -112,6 +108,8 @@ public class Produkty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private IntegerProperty prod_idProperty;
     @Transient
+    @ManyToOne(targetEntity = Dostawcy.class)
+    @JoinColumn(name = "dost_idProperty")
     private IntegerProperty dost_idProperty;
     @Transient
     private StringProperty prod_nazwaProperty;
@@ -121,6 +119,15 @@ public class Produkty {
     private StringProperty prod_walutaProperty;
     @Transient
     private StringProperty prod_krajProperty;
+
+    public Produkty() {
+        this.prod_idProperty = new SimpleIntegerProperty();
+        this.dost_idProperty = new SimpleIntegerProperty();
+        this.prod_nazwaProperty = new SimpleStringProperty();
+        this.prod_cenaProperty = new SimpleDoubleProperty();
+        this.prod_walutaProperty = new SimpleStringProperty();
+        this.prod_krajProperty = new SimpleStringProperty();
+    }
 
     public int getProd_idProperty() {
         return prod_idProperty.get();

@@ -31,7 +31,7 @@ public class ProduktyDAO {
                 kli.setProd_idProperty(rsSet.getInt("prod_id"));
                 kli.setDost_idProperty(rsSet.getInt("dost_id"));
                 kli.setProd_nazwaProperty(rsSet.getString("prod_nazwa"));
-                kli.setProd_cena(rsSet.getDouble("prod_cena"));
+                kli.setProd_cenaProperty(rsSet.getDouble("prod_cena"));
                 kli.setProd_walutaProperty(rsSet.getString("prod_waluta"));
                 kli.setProd_krajProperty(rsSet.getString("prod_kraj"));
                 List.add(kli);

@@ -23,16 +23,16 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
 //        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        SessionFactory sessionFactory = SingletonConnection.getSessionFactory();
-        // Utworzenie obiektów klasy Gender i przesłanie ich do bazy danych
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.save(new Klienci());
-        //session.save(new Gender("Female"));
-        session.getTransaction().commit();
-        session.close();
-        new UserController();
-
+//        SessionFactory sessionFactory = SingletonConnection.getSessionFactory();
+//        // Utworzenie obiektów klasy Gender i przesłanie ich do bazy danych
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        //session.save(new Klienci());
+//        //session.save(new Gender("Female"));
+//        //session.getTransaction().commit();
+//        session.close();
+//        new UserController();
+//
         launch();
     }
 }

@@ -19,11 +19,11 @@ public class Zamowienia {
     @Column
     private String zam_data;
 
-    @ManyToOne
-    @JoinColumn(name = "kl_id",referencedColumnName = "kl_id")
-    private Klienci kl_id;
+    @ManyToOne(targetEntity = Klienci.class)
+    @JoinColumn(name = "kl_id")
+    private int kl_id;
 
-    public Zamowienia(int zam_numer, String zam_data, Klienci kl_id) {
+    public Zamowienia(int zam_numer, String zam_data, int kl_id) {
         this.zam_numer = zam_numer;
         this.zam_data = zam_data;
         this.kl_id = kl_id;
@@ -48,11 +48,11 @@ public class Zamowienia {
         this.zam_data = zam_data;
     }
 
-    public Klienci getKl_id() {
+    public int getKl_id() {
         return kl_id;
     }
 
-    public void setKl_id(Klienci kl_id) {
+    public void setKl_id(int kl_id) {
         this.kl_id = kl_id;
     }
 
@@ -72,6 +72,8 @@ public class Zamowienia {
     @Transient
     private StringProperty zam_dataProperty;
     @Transient
+    @ManyToOne(targetEntity = Klienci.class)
+    @JoinColumn(name = "kl_id")
     private IntegerProperty kl_idProperty;
 
     public Zamowienia() {

@@ -65,7 +65,7 @@
                                             </font>
                                         </Text>
                                         <Button layoutX="161.0" layoutY="181.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj produkt" />
-                                        <TextArea fx:id="resultConsole" layoutX="65.0" layoutY="331.0" prefHeight="35.0" prefWidth="200.0" />
+                                        <TextArea fx:id="resultConsole" layoutX="12.0" layoutY="341.0" prefHeight="37.0" prefWidth="285.0" />
                                     </children>
                                 </AnchorPane>
                             </children>
@@ -80,8 +80,8 @@
                                 <TableColumn fx:id="coldost_id" prefWidth="75.0" text="dost_id" />
                                 <TableColumn fx:id="colprod_nazwa" prefWidth="196.0" text="prod_nazwa" />
                                 <TableColumn fx:id="colprod_cena" prefWidth="90.0" text="prod_cena" />
-                                <TableColumn fx:id="colprod_waluta" prefWidth="76.0" text="prod_waluta" />
-                                <TableColumn fx:id="colprod_kraj" prefWidth="181.0" text="prod_kraj" />
+                                <TableColumn fx:id="colprod_waluta" prefWidth="109.0" text="prod_waluta" />
+                                <TableColumn fx:id="colprod_kraj" prefWidth="148.0" text="prod_kraj" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">

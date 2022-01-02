@@ -1,7 +1,6 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
-import entities.Klienci;
 import entities.Zamowienia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,9 +28,9 @@ public class ZamowieniaDAO {
 
             while(rsSet.next()){
                 Zamowienia kli = new Zamowienia();
-                kli.setZam_numer(rsSet.getInt("zam_numer"));
-                kli.setZam_data(rsSet.getString("zam_data"));
-               // kli.setKl_id(rsSet.getObject("kl_id"));
+                kli.setZam_numerProperty(rsSet.getInt("zam_numer"));
+                kli.setZam_dataProperty(rsSet.getString("zam_data"));
+                kli.setKl_idProperty(rsSet.getInt("kl_id"));
                 List.add(kli);
             }
             return List;
@@ -55,8 +54,8 @@ public class ZamowieniaDAO {
         }
     }
 
-    public static void update(int id,String data) throws ClassNotFoundException,SQLException {
-        String sql = "update Zamowienia set zam_data = '" + data + "' where kl_id = '" + id + "' ";
+    public static void update(int zamnumer,String data) throws ClassNotFoundException,SQLException {
+        String sql = "update Zamowienia set zam_data = '" + data + "' where zam_numer = '" + zamnumer + "' ";
 
         try {
             DBUtil.dbExecuteQuery(sql);
@@ -67,7 +66,7 @@ public class ZamowieniaDAO {
         }
     }
 
-    public static void deleteByID(int numer) throws ClassNotFoundException,SQLException {
+    public static void delete(int numer) throws ClassNotFoundException,SQLException {
         String sql = "delete from Zamowienia where zam_numer = '" + numer + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
@@ -78,15 +77,15 @@ public class ZamowieniaDAO {
         }
     }
 
-    public static ObservableList<Zamowienia> searchByID(String id) throws ClassNotFoundException,SQLException{
-        String sql = "select * from Zamowienia where zam_id = "+id;
+    public static ObservableList<Zamowienia> search(String zamnumer) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Zamowienia where zam_numer = "+zamnumer;
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Zamowienia>  list = getObjects(rsSet);
             return list;
         }catch(SQLException e){
-            System.out.println("Błąd przy szukaniu po ID "+e);
+            System.out.println("Błąd przy szukaniu po numerze zamówienia "+e);
             e.printStackTrace();
             throw e;
         }

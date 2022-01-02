@@ -145,7 +145,7 @@ public class ElementyzamowieniaController {
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-//            ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
+            ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
             resultConsole.setText("Sukces! Wartości zostały dodane.");
             ObservableList<Elementyzamowienia> List = getAllRecords();
             populateTable(List);

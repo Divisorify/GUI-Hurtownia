@@ -5,9 +5,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -54,7 +51,23 @@
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
-                    </AnchorPane>
+               <children>
+                  <Text layoutX="299.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Witaj!" textAlignment="CENTER" wrappingWidth="135.603515625">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="217.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baza Danych Hurtowni" textAlignment="CENTER">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="160.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wybierz interesującą Cię tabelę" textAlignment="CENTER">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+               </children></AnchorPane>
             </items>
         </SplitPane>
     </children>
