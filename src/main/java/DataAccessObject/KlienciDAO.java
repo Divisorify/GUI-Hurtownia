@@ -2,6 +2,7 @@ package DataAccessObject;
 
 import com.example.demo12.DBUtil;
 import entities.Klienci;
+import entities.Produkty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -92,6 +93,111 @@ public class KlienciDAO {
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po ID "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Klienci> searchkl_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po ID. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_imie(String imie) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_imie like '%"+imie+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu imienia klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_nazwisko(String nazwisko) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_nazwisko like '%"+nazwisko+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu nazwiska klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_miejscowosc(String miejscowosc) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_miejscowosc like '%"+miejscowosc+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu miejscowości klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_ulica(String ulica) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_ulica like '%"+ulica+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu ulicy klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_nrMieszkania(String nrMieszkania) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_nrMieszkania like '%"+nrMieszkania+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu numeru mieszkania klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_nrTel(String nrTel) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_nrTelefonu like '%"+nrTel+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu numeru telefonu klienta. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Klienci> searchkl_email(String email) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Klienci where kl_email like '%"+email+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Klienci>  list = getKlienciObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu emailu klienta. "+e);
             e.printStackTrace();
             throw e;
         }

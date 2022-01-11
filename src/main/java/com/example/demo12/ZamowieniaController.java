@@ -1,6 +1,8 @@
 package com.example.demo12;
 
+import DataAccessObject.ProduktyDAO;
 import DataAccessObject.ZamowieniaDAO;
+import entities.Produkty;
 import entities.Zamowienia;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -175,4 +177,50 @@ public class ZamowieniaController {
             throw e;
         }
     }
+
+    @FXML
+    private TextField txtZamNumersearch;
+    @FXML
+    private TextField txtZamDatasearch;
+    @FXML
+    private TextField txtKlIdsearch;
+
+    @FXML
+    private void advencedsearchkl_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Zamowienia> list = ZamowieniaDAO.searchkl_id(txtKlIdsearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Zamówienie zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego zamówienia po ID.");
+        }
+    }
+
+    @FXML
+    private void advencedsearchzam_data(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Zamowienia> list = ZamowieniaDAO.searchzam_data(txtZamDatasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Zamówienie z taką datą zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono zamówienia z taką datą.");
+        }
+    }
+
+    @FXML
+    private void advencedsearchzam_numer(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Zamowienia> list = ZamowieniaDAO.searchzam_numer(txtZamNumersearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Zamówienie zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego numeru zamówienia.");
+        }
+    }
+
+
+
 }

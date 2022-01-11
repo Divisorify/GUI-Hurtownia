@@ -1,6 +1,7 @@
 package com.example.demo12;
 
 import DataAccessObject.ElementyzamowieniaDAO;
+import DataAccessObject.ProduktyDAO;
 import entities.Elementyzamowienia;
 import entities.Produkty;
 import javafx.collections.ObservableList;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import static DataAccessObject.ElementyzamowieniaDAO.getAllRecords;
-import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
 
 public class ElementyzamowieniaController {
     @FXML
@@ -191,4 +191,97 @@ public class ElementyzamowieniaController {
             throw e;
         }
     }
+
+    @FXML
+    private TextField txtIdZamowieniasearch;
+    @FXML
+    private TextField txtNumZamowieniasearch;
+    @FXML
+    private TextField txtElemZamowieniasearch;
+    @FXML
+    private TextField txtIdProduktusearch;
+    @FXML
+    private TextField txtIloscsearch;
+    @FXML
+    private TextField txtCenaElemsearch;
+    @FXML
+    private TextField txtwalutasearch;
+
+    @FXML
+    private void advencedsearchZam_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchzam_id(txtIdZamowieniasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Element zamówienia został znaleziony po ID.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego elementu zamówienia.");
+        }
+    }
+    @FXML
+    private void advencedsearchZam_numer(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchzam_numer(txtNumZamowieniasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Numer elementu zamówienia został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego numeru elementu zamówienia.");
+        }
+    }
+    @FXML
+    private void advencedsearchZam_elem(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchzam_elem(txtElemZamowieniasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Element zamówienia został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego elementu zamówienia.");
+        }
+    }
+    @FXML
+    private void advencedsearchProd_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchprod_id(txtIdProduktusearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Element zamówienia został znaleziony po ID produktu.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego ID produktu.");
+        }
+    }
+    @FXML
+    private void advencedsearchIlosc(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchilosc(txtIloscsearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Ilość elementów zamówienia została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej ilości elementów zamówienia.");
+        }
+    }@FXML
+    private void advencedsearchCena_elem(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchcena_elem(txtCenaElemsearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Cena elementu zamówienia została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej ceny elementu zamówienia.");
+        }
+    }@FXML
+    private void advencedsearchWaluta(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchwaluta(txtwalutasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Waluta elementu zamówienia została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej waluty elementu zamówienia.");
+        }
+    }
+
+
 }

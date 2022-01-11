@@ -2,6 +2,7 @@ package DataAccessObject;
 
 import com.example.demo12.DBUtil;
 import entities.Elementyzamowienia;
+import entities.Produkty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -94,4 +95,101 @@ public class ElementyzamowieniaDAO {
             throw e;
         }
     }
+
+    public static ObservableList<Elementyzamowienia> searchzam_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where zam_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po zam_ID. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Elementyzamowienia> searchzam_numer(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where zam_numer like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu numeru zamówienia. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Elementyzamowienia> searchzam_elem(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where zam_elem like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu elementów zamówienia. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Elementyzamowienia> searchprod_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where prod_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po prod_ID. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Elementyzamowienia> searchilosc(String ilosc) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where ilosc like '%"+ilosc+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu liczby sztuk. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Elementyzamowienia> searchcena_elem(String cena) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where cena_elem like '%"+cena+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu ceny elementu. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Elementyzamowienia> searchwaluta(String waluta) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Elementyzamowienia where waluta like '%"+waluta+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu waluty. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 }

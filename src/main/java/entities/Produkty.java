@@ -37,12 +37,6 @@ public class Produkty {
         this.prod_kraj = prod_kraj;
     }
 
-//    public Produkty(String prod_nazwa, Double prod_cena, String prod_waluta, String prod_kraj) {
-//        this.prod_nazwa = prod_nazwa;
-//        this.prod_cena = prod_cena;
-//        this.prod_waluta = prod_waluta;
-//        this.prod_kraj = prod_kraj;
-//    }
 
     public int getProd_id() {
         return prod_id;
@@ -200,5 +194,7 @@ public class Produkty {
     public void setProd_krajProperty(String prod_krajProperty) {
         this.prod_krajProperty.set(prod_krajProperty);
     }
+
+
 }
 

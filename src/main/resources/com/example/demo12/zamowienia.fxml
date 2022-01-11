@@ -68,11 +68,11 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                     <children>
-                        <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
+                        <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0" AnchorPane.topAnchor="121.0">
                             <columns>
                                 <TableColumn fx:id="colzam_numer" prefWidth="75.0" text="zam_numer" />
                                 <TableColumn fx:id="colzam_data" prefWidth="140.0" text="zam_data" />
-                                <TableColumn fx:id="colkl_id" prefWidth="101.0" text="kl_id" />
+                                <TableColumn fx:id="colkl_id" prefWidth="100.0" text="kl_id" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">
@@ -90,6 +90,9 @@
                         <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
                   <Text layoutX="435.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data zamówienia" />
                   <TextField fx:id="updateDataZam" layoutX="534.0" layoutY="31.0" />
+                  <TextField fx:id="txtZamNumersearch" layoutY="96.0" onAction="#advencedsearchzam_numer" prefHeight="25.0" prefWidth="75.0" />
+                  <TextField fx:id="txtZamDatasearch" layoutX="75.0" layoutY="96.0" onAction="#advencedsearchzam_data" prefHeight="25.0" prefWidth="140.0" />
+                  <TextField fx:id="txtKlIdsearch" layoutX="215.0" layoutY="96.0" onAction="#advencedsearchkl_id" prefHeight="25.0" prefWidth="100.0" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

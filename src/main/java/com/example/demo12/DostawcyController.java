@@ -1,6 +1,7 @@
 package com.example.demo12;
 
 import DataAccessObject.DostawcyDAO;
+import DataAccessObject.ProduktyDAO;
 import entities.Dostawcy;
 import entities.Produkty;
 import javafx.collections.ObservableList;
@@ -17,10 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static DataAccessObject.DostawcyDAO.getAllRecords;
-import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
 
 public class DostawcyController {
     @FXML
@@ -185,5 +186,87 @@ public class DostawcyController {
             throw e;
         }
     }
+
+    @FXML
+    private TextField txtIdDostawcysearch;
+    @FXML
+    private TextField txtNazwaDostawcysearch;
+    @FXML
+    private TextField txtMiejscowoscDostawcysearch;
+    @FXML
+    private TextField txtUlicasearch;
+    @FXML
+    private TextField txtKrajProdukcjisearch;
+    @FXML
+    private TextField txtEmailDostawcysearch;
+
+    @FXML
+    private void advencedsearchDost_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_id(txtIdDostawcysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("ID dostawcy został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego ID dostawcy.");
+        }
+    }
+    @FXML
+    private void advencedsearchDost_nazwa(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_nazwa(txtNazwaDostawcysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Nazwa dostawcy została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej nazwy dostawcy.");
+        }
+    }
+    @FXML
+    private void advencedsearchDost_miejscowosc(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_miejscowosc(txtMiejscowoscDostawcysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Miejscowość dostawcy została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej miejscowości dostawcy.");
+        }
+    }
+    @FXML
+    private void advencedsearchDost_ulica(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_ulica(txtUlicasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Ulica dostawcy została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego kraju dostawcy.");
+        }
+    }
+    @FXML
+    private void advencedsearchDost_kraj(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_kraj(txtKrajProdukcjisearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Kraj dostawcy został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego kraju dostawcy.");
+        }
+    }
+
+    @FXML
+    private void advencedsearchDost_email(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Dostawcy> list = DostawcyDAO.searchdost_email(txtEmailDostawcysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Email dostawcy został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego emaila dostawcy.");
+        }
+    }
+
 
 }

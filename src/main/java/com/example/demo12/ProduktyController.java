@@ -5,16 +5,16 @@ import DataAccessObject.ProduktyDAO;
 import entities.Produkty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -94,9 +94,35 @@ public class ProduktyController {
 
     @FXML
     private void initialize() throws Exception{
+        Table.setEditable(true);
         colprod_id.setCellValueFactory(cellData -> cellData.getValue().prod_idPropertyProperty().asObject());
+        colprod_id.setOnEditCommit(
+                (TableColumn.CellEditEvent<Produkty, Integer> t) ->
+                        ( t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setProd_id(t.getNewValue())
+        );
         coldost_id.setCellValueFactory(cellData -> cellData.getValue().dost_idPropertyProperty().asObject());
         colprod_nazwa.setCellValueFactory(cellData -> cellData.getValue().prod_nazwaPropertyProperty());
+        colprod_nazwa.setEditable(true);
+        Callback<TableColumn<Produkty, String>, TableCell<Produkty, String>> defaultCellFactory
+                = TextFieldTableCell.forTableColumn();
+
+        colprod_nazwa.setCellFactory(col -> {
+            TableCell<Produkty, String> cell = defaultCellFactory.call(col);
+            //cell.setAlignment(Pos.CENTER_LEFT);
+            return cell;
+        });
+
+        colprod_nazwa.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Produkty, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Produkty, String> t) {
+                        Produkty produkty = t.getRowValue();
+                        produkty.setProd_nazwa(t.getNewValue());
+                    }
+            }
+        );
         colprod_cena.setCellValueFactory(cellData -> cellData.getValue().prod_cenaPropertyProperty().asObject());
         colprod_waluta.setCellValueFactory(cellData -> cellData.getValue().prod_walutaPropertyProperty());
         colprod_kraj.setCellValueFactory(cellData -> cellData.getValue().prod_krajPropertyProperty());
@@ -114,9 +140,9 @@ public class ProduktyController {
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
-            resultConsole.setText("Klient został znaleziony.");
+            resultConsole.setText("Produkt został znaleziony.");
         }else{
-            resultConsole.setText("Nie znaleziono takiego Klienta.");
+            resultConsole.setText("Nie znaleziono takiego produktu.");
         }
     }
 
@@ -185,4 +211,108 @@ public class ProduktyController {
             throw e;
         }
     }
+
+    @FXML
+    private TextField txtIdProduktysearch;
+    @FXML
+    private TextField txtIdDostawcysearch;
+    @FXML
+    private TextField txtNazwaProduktusearch;
+    @FXML
+    private TextField txtCenasearch;
+    @FXML
+    private TextField txtWalutasearch;
+    @FXML
+    private TextField txtKrajProdukcjisearch;
+
+    @FXML
+    private void advencedsearchProd_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchprod_id(txtIdProduktysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("ID produktu zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego ID produktu.");
+        }
+    }
+    @FXML
+    private void advencedsearchDost_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchdost_id(txtIdDostawcysearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("ID dostawcy zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego ID dostawcy.");
+        }
+    }
+    @FXML
+    private void advencedsearchProd_nazwa(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchprod_nazwa(txtNazwaProduktusearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Nazwa produktu została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej nazwy produktu.");
+        }
+    }
+    @FXML
+    private void advencedsearchProd_cena(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchprod_cena(txtCenasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Cena produktu została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej ceny produktu.");
+        }
+    }
+    @FXML
+    private void advencedsearchProd_waluta(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchprod_waluta(txtWalutasearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Waluta produktu została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej waluty produktu.");
+        }
+    }
+
+    @FXML
+    private void advencedsearchProd_kraj(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Produkty> list = ProduktyDAO.searchprod_kraj(txtKrajProdukcjisearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Kraj produkcji został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego kraju produkcji.");
+        }
+    }
+
+//    private void edit(ActionEvent event) {
+//        colprod_nazwa.setEditable(true);
+//        Callback<TableColumn<Produkty, String>, TableCell<Produkty, String>> defaultCellFactory
+//                = TextFieldTableCell.forTableColumn();
+//
+//        colprod_nazwa.setCellFactory(col -> {
+//            TableCell<Produkty, String> cell = defaultCellFactory.call(col);
+//            //cell.setAlignment(Pos.CENTER_LEFT);
+//            return cell;
+//        });
+//
+//        colprod_nazwa.setOnEditCommit(
+//                new EventHandler<TableColumn.CellEditEvent<Produkty, String>>() {
+//                    @Override
+//                    public void handle(TableColumn.CellEditEvent<Produkty, String> t) {
+//                        ((Produkty) t.getTableView().getItems().get(
+//                                t.getTablePosition().getRow())).setProd_nazwa(t.getNewValue());
+//                    }
+//                }
+//        );
+//    }
+
 }

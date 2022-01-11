@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ProduktyController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ProduktyController">
     <children>
         <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
             <menus>
@@ -74,13 +74,13 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                     <children>
-                        <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
+                        <TableView fx:id="Table" layoutY="121.0" prefHeight="442.0" prefWidth="733.0" AnchorPane.topAnchor="121.0">
                             <columns>
-                                <TableColumn fx:id="colprod_id" prefWidth="75.0" text="prod_id" />
+                                <TableColumn fx:id="colprod_id" prefWidth="74.0" text="prod_id" />
                                 <TableColumn fx:id="coldost_id" prefWidth="75.0" text="dost_id" />
                                 <TableColumn fx:id="colprod_nazwa" prefWidth="196.0" text="prod_nazwa" />
-                                <TableColumn fx:id="colprod_cena" prefWidth="90.0" text="prod_cena" />
-                                <TableColumn fx:id="colprod_waluta" prefWidth="109.0" text="prod_waluta" />
+                                <TableColumn fx:id="colprod_cena" prefWidth="93.0" text="prod_cena" />
+                                <TableColumn fx:id="colprod_waluta" prefWidth="107.0" text="prod_waluta" />
                                 <TableColumn fx:id="colprod_kraj" prefWidth="148.0" text="prod_kraj" />
                             </columns>
                         </TableView>
@@ -97,6 +97,12 @@
                         <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
                         <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
                         <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
+                  <TextField fx:id="txtIdProduktysearch" layoutX="-6.0" layoutY="96.0" onAction="#advencedsearchProd_id" onKeyTyped="#advencedsearchProd_id" prefHeight="25.0" prefWidth="81.0" />
+                  <TextField fx:id="txtIdDostawcysearch" layoutX="74.0" layoutY="96.0" onAction="#advencedsearchDost_id" prefHeight="25.0" prefWidth="75.0" />
+                  <TextField fx:id="txtNazwaProduktusearch" layoutX="149.0" layoutY="96.0" onAction="#advencedsearchProd_nazwa" prefHeight="25.0" prefWidth="196.0" />
+                  <TextField fx:id="txtCenasearch" layoutX="345.0" layoutY="96.0" onAction="#advencedsearchProd_cena" prefHeight="25.0" prefWidth="94.0" />
+                  <TextField fx:id="txtWalutasearch" layoutX="439.0" layoutY="96.0" onAction="#advencedsearchProd_waluta" onKeyTyped="#advencedsearchProd_waluta" prefHeight="25.0" prefWidth="107.0" />
+                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="546.0" layoutY="96.0" onAction="#advencedsearchProd_kraj" onKeyTyped="#advencedsearchProd_kraj" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

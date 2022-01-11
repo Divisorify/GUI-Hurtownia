@@ -1,7 +1,9 @@
 package com.example.demo12;
 
 import DataAccessObject.KlienciDAO;
+import DataAccessObject.ProduktyDAO;
 import entities.Klienci;
+import entities.Produkty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -195,6 +197,110 @@ public class KlienciController {
             throw e;
         }
     }
+    @FXML
+    private TextField txtIdKlientasearch;
+    @FXML
+    private TextField txtImieKlientasearch;
+    @FXML
+    private TextField txtNazwiskoKlientasearch;
+    @FXML
+    private TextField txtMiejscowoscKlientasearch;
+    @FXML
+    private TextField txtUlicaKlientasearch;
+    @FXML
+    private TextField txtnrMieszkaniaKlientasearch;
+    @FXML
+    private TextField txtnrTelefonuKlientasearch;
+    @FXML
+    private TextField txtEmailKlientasearch;
 
+    @FXML
+    private void advencedsearchKl_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_id(txtIdKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Klient został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono klienta o takim ID.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_imie(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_imie(txtImieKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Imię klienta zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono klienta o takim imieniu.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_nazwisko(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_nazwisko(txtNazwiskoKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Nazwisko klienta zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono klienta o takim nazwisku.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_miejscowosc(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_miejscowosc(txtMiejscowoscKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Miejscowość klienta została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej miejscowości.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_ulica(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_ulica(txtUlicaKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Ulica klienta została znaleziona.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiej ulicy.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_nrMieszkania(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_nrMieszkania(txtnrMieszkaniaKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Numer mieszkania klienta został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego numeru mieszkania klienta.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_nrTelefonu(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_nrTel(txtnrTelefonuKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Numer telefonu klienta został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego numeru telefonu klienta.");
+        }
+    }
+    @FXML
+    private void advencedsearchKl_email(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Klienci> list = KlienciDAO.searchkl_email(txtEmailKlientasearch.getText());
+        populateTableKlienci(list);
+        if(list.size()>0){
+            populateTableKlienci(list);
+            resultConsole.setText("Email klienta został znaleziony.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego emaila klienta.");
+        }
+    }
 
 }

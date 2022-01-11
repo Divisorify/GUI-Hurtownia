@@ -56,8 +56,8 @@
                               <TextField fx:id="txtMiejscowosc" layoutX="133.0" layoutY="95.0" />
                               <TextField fx:id="txtUlica" layoutX="133.0" layoutY="120.0" />
                               <TextField fx:id="txtnrMieszkania" layoutX="133.0" layoutY="145.0" />
-                              <TextField fx:id="txtnrTelefonu" layoutX="133.0" layoutY="171.0" />
-                              <TextField fx:id="txtEmail" layoutX="133.0" layoutY="197.0" />
+                              <TextField fx:id="txtnrTelefonu" layoutX="133.0" layoutY="171.0" AnchorPane.topAnchor="170.0" />
+                              <TextField fx:id="txtEmail" layoutX="133.0" layoutY="197.0" AnchorPane.topAnchor="195.0" />
                               <Text layoutX="62.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Miejscowość" />
                               <Text layoutX="102.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ulica" />
                               <Text layoutX="30.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer mieszkania" />
@@ -78,7 +78,7 @@
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                <children>
-                  <TableView fx:id="KlienciTable" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
+                  <TableView fx:id="KlienciTable" layoutY="96.0" prefHeight="467.0" prefWidth="733.0" AnchorPane.topAnchor="121.0">
                     <columns>
                       <TableColumn fx:id="colkl_id" prefWidth="34.0" text="kl_id" />
                       <TableColumn fx:id="colkl_imie" prefWidth="71.0" text="kl_imie" />
@@ -103,6 +103,14 @@
                   <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#updateKlienci" text="Aktualizuj" />
                   <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#deleteKlienci" text="Usuń" />
                   <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAllKlienci" text="Pokaż wszystko" />
+                  <TextField fx:id="txtIdKlientasearch" layoutY="96.0" onAction="#advencedsearchKl_id" prefHeight="25.0" prefWidth="34.0" />
+                  <TextField fx:id="txtImieKlientasearch" layoutX="36.0" layoutY="96.0" onAction="#advencedsearchKl_imie" prefHeight="25.0" prefWidth="71.0" AnchorPane.leftAnchor="34.0" />
+                  <TextField fx:id="txtNazwiskoKlientasearch" layoutX="104.0" layoutY="96.0" onAction="#advencedsearchKl_nazwisko" prefHeight="25.0" prefWidth="91.0" AnchorPane.leftAnchor="105.0" />
+                  <TextField fx:id="txtMiejscowoscKlientasearch" layoutX="196.0" layoutY="96.0" onAction="#advencedsearchKl_miejscowosc" prefHeight="25.0" prefWidth="107.0" AnchorPane.leftAnchor="196.0" />
+                  <TextField fx:id="txtUlicaKlientasearch" layoutX="302.0" layoutY="96.0" onAction="#advencedsearchKl_ulica" prefHeight="25.0" prefWidth="83.0" AnchorPane.leftAnchor="302.0" />
+                  <TextField fx:id="txtnrMieszkaniaKlientasearch" layoutX="386.0" layoutY="96.0" onAction="#advencedsearchKl_nrMieszkania" prefHeight="25.0" prefWidth="94.0" AnchorPane.leftAnchor="385.0" />
+                  <TextField fx:id="txtnrTelefonuKlientasearch" layoutX="478.0" layoutY="96.0" onAction="#advencedsearchKl_nrTelefonu" prefHeight="25.0" prefWidth="83.0" AnchorPane.leftAnchor="479.0" AnchorPane.rightAnchor="169.0" />
+                  <TextField fx:id="txtEmailKlientasearch" layoutX="564.0" layoutY="96.0" onAction="#advencedsearchKl_email" prefHeight="25.0" prefWidth="169.0" AnchorPane.leftAnchor="562.0" AnchorPane.rightAnchor="0.0" />
                </children></AnchorPane>
          </items>
       </SplitPane>

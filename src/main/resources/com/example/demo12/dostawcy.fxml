@@ -74,7 +74,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="740.0">
                     <children>
-                        <TableView fx:id="Table" layoutY="96.0" prefHeight="467.0" prefWidth="733.0">
+                        <TableView fx:id="Table" layoutY="119.0" prefHeight="444.0" prefWidth="733.0" AnchorPane.topAnchor="121.0">
                             <columns>
                                 <TableColumn fx:id="coldost_id" prefWidth="53.0" text="dost_id" />
                                 <TableColumn fx:id="coldost_nazwa" prefWidth="115.0" text="dost_nazwa" />
@@ -97,6 +97,12 @@
                         <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
                         <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
                         <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
+                  <TextField fx:id="txtIdDostawcysearch" layoutY="96.0" onAction="#advencedsearchDost_id" prefHeight="25.0" prefWidth="53.0" />
+                  <TextField fx:id="txtNazwaDostawcysearch" layoutX="53.0" layoutY="96.0" onAction="#advencedsearchDost_nazwa" prefHeight="25.0" prefWidth="115.0" />
+                  <TextField fx:id="txtMiejscowoscDostawcysearch" layoutX="168.0" layoutY="96.0" onAction="#advencedsearchDost_miejscowosc" prefHeight="25.0" prefWidth="122.0" />
+                  <TextField fx:id="txtUlicasearch" layoutX="290.0" layoutY="96.0" onAction="#advencedsearchDost_ulica" prefHeight="25.0" prefWidth="122.0" />
+                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="412.0" layoutY="96.0" onAction="#advencedsearchDost_kraj" prefHeight="25.0" prefWidth="119.0" />
+                  <TextField fx:id="txtEmailDostawcysearch" layoutX="531.0" layoutY="96.0" onAction="#advencedsearchDost_email" prefWidth="193.0" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

@@ -42,7 +42,6 @@ public class ProduktyDAO {
             e.printStackTrace();
             throw e;
         }
-
     }
 
     public static void dodaj(String Dost_id, String nazwa, String cena, String waluta, String kraj) throws SQLException,ClassNotFoundException{
@@ -70,7 +69,7 @@ public class ProduktyDAO {
     }
 
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
-        String sql = "delete from klienci where prod_id = '" + id + "'";
+        String sql = "delete from produkty where prod_id = '" + id + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
@@ -81,7 +80,7 @@ public class ProduktyDAO {
     }
 
     public static ObservableList<Produkty> searchByID(String id) throws ClassNotFoundException,SQLException{
-        String sql = "select * from produkty where prod_id = "+id;
+        String sql = "select * from produkty where prod_id like "+id;
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
@@ -89,6 +88,90 @@ public class ProduktyDAO {
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po ID "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchprod_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where prod_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po ID. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchdost_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where dost_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po ID."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchprod_nazwa(String nazwa) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where prod_nazwa like '%"+nazwa+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu nazwy."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchprod_cena(String cena) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where prod_cena like'"+cena+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu ceny."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchprod_waluta(String waluta) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where prod_waluta like '%"+waluta+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu waluty."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Produkty> searchprod_kraj(String kraj) throws ClassNotFoundException,SQLException{
+        String sql = "select * from produkty where prod_kraj like '%"+kraj+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Produkty>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu kraju."+e);
             e.printStackTrace();
             throw e;
         }

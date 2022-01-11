@@ -93,4 +93,89 @@ public class DostawcyDAO {
             throw e;
         }
     }
+
+    public static ObservableList<Dostawcy> searchdost_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po ID."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Dostawcy> searchdost_nazwa(String nazwa) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_nazwa like '%"+nazwa+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu nazwy."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Dostawcy> searchdost_miejscowosc(String miejscowosc) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_miejscowosc like'"+miejscowosc+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu miejscowości."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Dostawcy> searchdost_ulica(String ulica) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_ulica like '%"+ulica+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu ulicy."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Dostawcy> searchdost_kraj(String kraj) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_kraj like '%"+kraj+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu kraju."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Dostawcy> searchdost_email(String email) throws ClassNotFoundException,SQLException{
+        String sql = "select * from Dostawcy where dost_email like '%"+email+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Dostawcy>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu emaila."+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
+

@@ -1,6 +1,7 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import entities.Produkty;
 import entities.Zamowienia;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -86,6 +87,47 @@ public class ZamowieniaDAO {
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po numerze zamówienia "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Zamowienia> searchzam_numer(String numer) throws ClassNotFoundException,SQLException{
+        String sql = "select * from zamowienia where zam_numer like '%"+numer+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po numerze zamówienia. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Zamowienia> searchzam_data(String data) throws ClassNotFoundException,SQLException{
+        String sql = "select * from zamowienia where zam_data like '%"+data+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po dacie. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    public static ObservableList<Zamowienia> searchkl_id(String id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from zamowienia where kl_id like '%"+id+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po ID. "+e);
             e.printStackTrace();
             throw e;
         }

@@ -32,13 +32,13 @@ public class DBUtil {
             System.err.println("2. Problem z otwarciem połączenia");
             e.printStackTrace();
         }
-        try{
-            connection = DriverManager.getConnection(DBURL);
-            statement = connection.createStatement();
-
-        } catch (SQLException e){
-            System.err.println("3.Nie można wykonać tego polecenia!");
-        }
+//        try{
+//            connection = DriverManager.getConnection(DBURL);
+//            statement = connection.createStatement();
+//
+//        } catch (SQLException e){
+//            System.err.println("3.Nie można wykonać tego polecenia!");
+//        }
     }
     public static void dbDisconnect() throws SQLException{
         try{
