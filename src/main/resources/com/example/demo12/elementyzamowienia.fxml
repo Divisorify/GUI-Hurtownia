@@ -101,7 +101,7 @@
                         <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
                         <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
                   <TextField fx:id="txtIdZamowieniasearch" layoutY="96.0" onAction="#advencedsearchZam_id" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="0.0" />
-                  <TextField fx:id="txtNumZamowieniasearch" layoutX="74.0" layoutY="96.0" onAction="#advencedsearchZam_elem" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="75.0" />
+                  <TextField fx:id="txtNumZamowieniasearch" layoutX="74.0" layoutY="96.0" onAction="#advencedsearchZam_numer" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="75.0" />
                   <TextField fx:id="txtElemZamowieniasearch" layoutX="149.0" layoutY="96.0" onAction="#advencedsearchZam_elem" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="150.0" />
                   <TextField fx:id="txtIdProduktusearch" layoutX="224.0" layoutY="96.0" onAction="#advencedsearchProd_id" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="225.0" />
                   <TextField fx:id="txtIloscsearch" layoutX="299.0" layoutY="96.0" onAction="#advencedsearchIlosc" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="300.0" />

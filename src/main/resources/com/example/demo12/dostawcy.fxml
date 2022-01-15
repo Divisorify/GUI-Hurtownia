@@ -79,9 +79,9 @@
                                 <TableColumn fx:id="coldost_id" prefWidth="53.0" text="dost_id" />
                                 <TableColumn fx:id="coldost_nazwa" prefWidth="115.0" text="dost_nazwa" />
                                 <TableColumn fx:id="coldost_miejscowosc" prefWidth="122.0" text="dost_miejscowosc" />
-                                <TableColumn fx:id="coldost_ulica" prefWidth="122.0" text="dost_ulica" />
+                                <TableColumn fx:id="coldost_ulica" prefWidth="131.0" text="dost_ulica" />
                                 <TableColumn fx:id="coldost_kraj" prefWidth="119.0" text="dost_kraj" />
-                                <TableColumn fx:id="coldost_email" prefWidth="193.0" text="dost_email" />
+                                <TableColumn fx:id="coldost_email" prefWidth="201.0" text="dost_email" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">
@@ -100,9 +100,9 @@
                   <TextField fx:id="txtIdDostawcysearch" layoutY="96.0" onAction="#advencedsearchDost_id" prefHeight="25.0" prefWidth="53.0" />
                   <TextField fx:id="txtNazwaDostawcysearch" layoutX="53.0" layoutY="96.0" onAction="#advencedsearchDost_nazwa" prefHeight="25.0" prefWidth="115.0" />
                   <TextField fx:id="txtMiejscowoscDostawcysearch" layoutX="168.0" layoutY="96.0" onAction="#advencedsearchDost_miejscowosc" prefHeight="25.0" prefWidth="122.0" />
-                  <TextField fx:id="txtUlicasearch" layoutX="290.0" layoutY="96.0" onAction="#advencedsearchDost_ulica" prefHeight="25.0" prefWidth="122.0" />
-                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="412.0" layoutY="96.0" onAction="#advencedsearchDost_kraj" prefHeight="25.0" prefWidth="119.0" />
-                  <TextField fx:id="txtEmailDostawcysearch" layoutX="531.0" layoutY="96.0" onAction="#advencedsearchDost_email" prefWidth="193.0" />
+                  <TextField fx:id="txtUlicasearch" layoutX="290.0" layoutY="96.0" onAction="#advencedsearchDost_ulica" prefHeight="25.0" prefWidth="131.0" />
+                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="412.0" layoutY="96.0" onAction="#advencedsearchDost_kraj" prefHeight="25.0" prefWidth="119.0" AnchorPane.rightAnchor="193.0" />
+                  <TextField fx:id="txtEmailDostawcysearch" layoutX="531.0" layoutY="96.0" onAction="#advencedsearchDost_email" prefWidth="193.0" AnchorPane.rightAnchor="0.0" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

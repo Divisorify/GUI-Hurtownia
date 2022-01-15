@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloController {
-
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));

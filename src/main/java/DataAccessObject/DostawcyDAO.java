@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DostawcyDAO {
+    //Wypisanie wszystkich dostawców
     public static ObservableList<Dostawcy> getAllRecords() throws ClassNotFoundException, SQLException {
         String sql = "select * from Dostawcy";
         try{
@@ -22,6 +23,7 @@ public class DostawcyDAO {
         }
     }
 
+    //Przyporządkowanie danych kolumnom
     private static ObservableList<Dostawcy> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Dostawcy> List = FXCollections.observableArrayList();
@@ -45,6 +47,7 @@ public class DostawcyDAO {
 
     }
 
+    //Dodanie dostawcy
     public static void dodaj(String nazwa, String miejscowosc, String ulica, String kraj, String email) throws SQLException,ClassNotFoundException{
         String sql = "insert into Dostawcy(dost_nazwa,dost_miejscowosc,dost_ulica,dost_kraj,dost_email)values(' "+nazwa+"', '"+miejscowosc+"', '"+ulica+"', '"+kraj+"', '"+email+"')";
 
@@ -57,6 +60,7 @@ public class DostawcyDAO {
         }
     }
 
+    //Aktualizacja emailu dostawcy
     public static void update(int id,String email) throws ClassNotFoundException,SQLException {
         String sql = "update Dostawcy set dost_email = '" + email + "' where dost_id = '" + id + "' ";
 
@@ -69,6 +73,7 @@ public class DostawcyDAO {
         }
     }
 
+    //Usunięcie dostawcy po ID
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from Dostawcy where dost_id = '" + id + "'";
         try {
@@ -80,6 +85,7 @@ public class DostawcyDAO {
         }
     }
 
+    //Wyszukanie dostawcy po ID
     public static ObservableList<Dostawcy> searchByID(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Dostawcy where dost_id = "+id;
 
@@ -94,6 +100,7 @@ public class DostawcyDAO {
         }
     }
 
+    //Wyszukiwanie zaawansowane
     public static ObservableList<Dostawcy> searchdost_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Dostawcy where dost_id like '%"+id+"%'";
 

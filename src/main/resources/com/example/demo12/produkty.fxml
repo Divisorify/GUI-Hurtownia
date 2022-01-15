@@ -76,12 +76,12 @@
                     <children>
                         <TableView fx:id="Table" layoutY="121.0" prefHeight="442.0" prefWidth="733.0" AnchorPane.topAnchor="121.0">
                             <columns>
-                                <TableColumn fx:id="colprod_id" prefWidth="74.0" text="prod_id" />
+                                <TableColumn fx:id="colprod_id" onEditCommit="#initialize" prefWidth="74.0" text="prod_id" />
                                 <TableColumn fx:id="coldost_id" prefWidth="75.0" text="dost_id" />
-                                <TableColumn fx:id="colprod_nazwa" prefWidth="196.0" text="prod_nazwa" />
+                                <TableColumn fx:id="colprod_nazwa" onEditCommit="#changeProdNameCellEvent" prefWidth="196.0" text="prod_nazwa" />
                                 <TableColumn fx:id="colprod_cena" prefWidth="93.0" text="prod_cena" />
                                 <TableColumn fx:id="colprod_waluta" prefWidth="107.0" text="prod_waluta" />
-                                <TableColumn fx:id="colprod_kraj" prefWidth="148.0" text="prod_kraj" />
+                                <TableColumn fx:id="colprod_kraj" prefWidth="187.0" text="prod_kraj" />
                             </columns>
                         </TableView>
                         <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wyszukiwanie">
@@ -101,8 +101,8 @@
                   <TextField fx:id="txtIdDostawcysearch" layoutX="74.0" layoutY="96.0" onAction="#advencedsearchDost_id" prefHeight="25.0" prefWidth="75.0" />
                   <TextField fx:id="txtNazwaProduktusearch" layoutX="149.0" layoutY="96.0" onAction="#advencedsearchProd_nazwa" prefHeight="25.0" prefWidth="196.0" />
                   <TextField fx:id="txtCenasearch" layoutX="345.0" layoutY="96.0" onAction="#advencedsearchProd_cena" prefHeight="25.0" prefWidth="94.0" />
-                  <TextField fx:id="txtWalutasearch" layoutX="439.0" layoutY="96.0" onAction="#advencedsearchProd_waluta" onKeyTyped="#advencedsearchProd_waluta" prefHeight="25.0" prefWidth="107.0" />
-                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="546.0" layoutY="96.0" onAction="#advencedsearchProd_kraj" onKeyTyped="#advencedsearchProd_kraj" />
+                  <TextField fx:id="txtWalutasearch" layoutX="439.0" layoutY="96.0" onAction="#advencedsearchProd_waluta" onKeyTyped="#advencedsearchProd_waluta" prefHeight="25.0" prefWidth="107.0" AnchorPane.rightAnchor="187.0" />
+                  <TextField fx:id="txtKrajProdukcjisearch" layoutX="546.0" layoutY="96.0" onAction="#advencedsearchProd_kraj" onKeyTyped="#advencedsearchProd_kraj" prefWidth="187.0" AnchorPane.rightAnchor="0.0" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

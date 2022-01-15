@@ -15,7 +15,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,11 +26,13 @@ import java.sql.SQLException;
 import static DataAccessObject.ElementyzamowieniaDAO.getAllRecords;
 
 public class ElementyzamowieniaController {
+    //Pole do wypisywania rezultatów oraz stworzenie tabeli
     @FXML
     private TextArea resultConsole;
     @FXML
     private TableView Table;
 
+    //Tworzenie kolumn
     @FXML
     private TableColumn<Elementyzamowienia, Integer> colzam_id;
     @FXML
@@ -43,6 +48,7 @@ public class ElementyzamowieniaController {
     @FXML
     private TableColumn<Elementyzamowienia, String> colwaluta;
 
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -96,6 +102,9 @@ public class ElementyzamowieniaController {
 
     @FXML
     private void initialize() throws Exception{
+        Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
+
+        //Wypisanie danych z bazy
         colzam_id.setCellValueFactory(cellData -> cellData.getValue().zam_idPropertyProperty().asObject());
         colzam_numer.setCellValueFactory(cellData -> cellData.getValue().zam_numerPropertyProperty().asObject());
         colzam_elem.setCellValueFactory(cellData -> cellData.getValue().zam_elemPropertyProperty().asObject());
@@ -103,6 +112,16 @@ public class ElementyzamowieniaController {
         colilosc.setCellValueFactory(cellData -> cellData.getValue().iloscPropertyProperty().asObject());
         colcena_elem.setCellValueFactory(cellData -> cellData.getValue().cena_elemPropertyProperty().asObject());
         colwaluta.setCellValueFactory(cellData -> cellData.getValue().walutaPropertyProperty());
+
+        //Edycja komórki
+        colzam_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colzam_numer.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colzam_elem.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colprod_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colilosc.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colcena_elem.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colwaluta.setCellFactory(TextFieldTableCell.forTableColumn());
+
         ObservableList<Elementyzamowienia> List = getAllRecords();
         populateTable(List);
     }
@@ -111,6 +130,7 @@ public class ElementyzamowieniaController {
         Table.setItems(List);
     }
 
+    //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
     private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchByID(searchId.getText());
@@ -122,13 +142,14 @@ public class ElementyzamowieniaController {
             resultConsole.setText("Nie znaleziono.");
         }
     }
-
+    //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
         ObservableList<Elementyzamowienia> List = getAllRecords();
         populateTable(List);
     }
 
+    //Pola tekstowe do dodania elementu zamówienia
     @FXML
     private TextField txtZamNumer;
     @FXML
@@ -142,6 +163,7 @@ public class ElementyzamowieniaController {
     @FXML
     private TextField txtWaluta;
 
+    //Dodanie elementu zamówienia
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -154,15 +176,15 @@ public class ElementyzamowieniaController {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField searchId;
-
     @FXML
     private TextField searchEmail;
 
+    //Aktualizacja
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
@@ -174,10 +196,9 @@ public class ElementyzamowieniaController {
             System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
             e.printStackTrace();
             throw e;
-
         }
     }
-
+    //Usuwanie
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
@@ -192,6 +213,7 @@ public class ElementyzamowieniaController {
         }
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField txtIdZamowieniasearch;
     @FXML

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ElementyzamowieniaDAO {
+    //Wypisanie wszystkich elementów zamówienia
     public static ObservableList<Elementyzamowienia> getAllRecords() throws ClassNotFoundException, SQLException {
         String sql = "select * from Elementyzamowienia";
         try{
@@ -23,6 +24,7 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+    //Przyporządkowanie danych kolumnom
     private static ObservableList<Elementyzamowienia> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Elementyzamowienia> List = FXCollections.observableArrayList();
@@ -47,6 +49,7 @@ public class ElementyzamowieniaDAO {
 
     }
 
+    //Dodanie elementu zamówienia
     public static void dodaj(String numer,String element, String prod_id, String ilosc,String cenaelem,String waluta ) throws SQLException,ClassNotFoundException{
         String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
 
@@ -59,6 +62,7 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+    //Aktualizacja ilości zamówionych produktów
     public static void update(int id,String ilosc) throws ClassNotFoundException,SQLException {
         String sql = "update Elementyzamowienia set ilosc = '" + ilosc + "' where zam_id = '" + id + "' ";
 
@@ -71,6 +75,7 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+    //Usunięcie elementu zamówienia po ID
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from Elementyzamowienia where zam_id = '" + id + "'";
         try {
@@ -82,6 +87,7 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+    //Wyszukanie elementu zamówienia po ID zamówienia
     public static ObservableList<Elementyzamowienia> searchByID(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Elementyzamowienia where zam_id = "+id;
 
@@ -96,6 +102,7 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+    //Wyszukiwanie zaawansowane
     public static ObservableList<Elementyzamowienia> searchzam_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Elementyzamowienia where zam_id like '%"+id+"%'";
 

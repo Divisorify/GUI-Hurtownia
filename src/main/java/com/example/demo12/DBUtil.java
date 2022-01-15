@@ -7,7 +7,7 @@ import javax.sql.rowset.*;
 import com.sun.rowset.CachedRowSetImpl;
 
 public class DBUtil {
-
+    //Łączenie z bazą danych
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DBURL = "jdbc:mysql://localhost/hurtowniadoprojektu";
     private static Connection connection;

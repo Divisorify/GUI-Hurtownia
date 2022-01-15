@@ -15,7 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -24,11 +26,13 @@ import java.sql.SQLException;
 import static DataAccessObject.DostawcyDAO.getAllRecords;
 
 public class DostawcyController {
+    //Pole do wypisywania rezultatów oraz stworzenie tabeli
     @FXML
     private TextArea resultConsole;
     @FXML
     private TableView Table;
 
+    //Tworzenie kolumn
     @FXML
     private TableColumn<Dostawcy, Integer> coldost_id;
     @FXML
@@ -42,6 +46,7 @@ public class DostawcyController {
     @FXML
     private TableColumn<Dostawcy, String> coldost_email;
 
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -94,12 +99,24 @@ public class DostawcyController {
     }
     @FXML
     private void initialize() throws Exception{
+        Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
+
+        //Wypisanie danych z bazy
         coldost_id.setCellValueFactory(cellData -> cellData.getValue().dost_idPropertyProperty().asObject());
         coldost_nazwa.setCellValueFactory(cellData -> cellData.getValue().dost_nazwaPropertyProperty());
         coldost_miejscowosc.setCellValueFactory(cellData -> cellData.getValue().dost_miejscowoscPropertyProperty());
         coldost_ulica.setCellValueFactory(cellData -> cellData.getValue().dost_ulicaPropertyProperty());
         coldost_kraj.setCellValueFactory(cellData -> cellData.getValue().dost_krajPropertyProperty());
         coldost_email.setCellValueFactory(cellData -> cellData.getValue().dost_emailPropertyProperty());
+
+        //Edycja komórki
+        coldost_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        coldost_nazwa.setCellFactory(TextFieldTableCell.forTableColumn());
+        coldost_miejscowosc.setCellFactory(TextFieldTableCell.forTableColumn());
+        coldost_ulica.setCellFactory(TextFieldTableCell.forTableColumn());
+        coldost_kraj.setCellFactory(TextFieldTableCell.forTableColumn());
+        coldost_email.setCellFactory(TextFieldTableCell.forTableColumn());
+
         ObservableList<Dostawcy> List = getAllRecords();
         populateTable(List);
     }
@@ -108,6 +125,7 @@ public class DostawcyController {
         Table.setItems(List);
     }
 
+    //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
     private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Dostawcy> list = DostawcyDAO.searchByID(searchId.getText());
@@ -120,12 +138,14 @@ public class DostawcyController {
         }
     }
 
+    //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
         ObservableList<Dostawcy> List = getAllRecords();
         populateTable(List);
     }
 
+    //Pola tekstowe do dodania dostawcy
     @FXML
     private TextField txtNazwa;
     @FXML
@@ -137,6 +157,7 @@ public class DostawcyController {
     @FXML
     private TextField txtEmail;
 
+    //Dodanie dostawcy
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -149,15 +170,15 @@ public class DostawcyController {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField searchId;
-
     @FXML
     private TextField searchEmail;
 
+    //Aktualizacja
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
@@ -169,10 +190,10 @@ public class DostawcyController {
             System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
             e.printStackTrace();
             throw e;
-
         }
     }
 
+    //Usuwanie
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
@@ -187,6 +208,7 @@ public class DostawcyController {
         }
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField txtIdDostawcysearch;
     @FXML

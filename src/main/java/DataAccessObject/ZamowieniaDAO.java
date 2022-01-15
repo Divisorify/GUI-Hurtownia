@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ZamowieniaDAO {
+    //Wypisanie wszystkich zamówień
     public static ObservableList<Zamowienia> getAllRecords() throws ClassNotFoundException, SQLException {
         String sql = "select * from Zamowienia";
         try{
@@ -23,6 +24,7 @@ public class ZamowieniaDAO {
         }
     }
 
+    //Przyporządkowanie danych kolumnom
     private static ObservableList<Zamowienia> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Zamowienia> List = FXCollections.observableArrayList();
@@ -43,6 +45,7 @@ public class ZamowieniaDAO {
 
     }
 
+    //Dodanie zamówienia
     public static void dodaj(String data, String id) throws SQLException,ClassNotFoundException{
         String sql = "insert into Zamowienia(zam_data,kl_id)values(' "+data+"', '"+id+"')";
 
@@ -55,6 +58,7 @@ public class ZamowieniaDAO {
         }
     }
 
+    //Aktualizacja daty zamówienia
     public static void update(int zamnumer,String data) throws ClassNotFoundException,SQLException {
         String sql = "update Zamowienia set zam_data = '" + data + "' where zam_numer = '" + zamnumer + "' ";
 
@@ -67,6 +71,7 @@ public class ZamowieniaDAO {
         }
     }
 
+    //Usunięcie zamówienia po ID
     public static void delete(int numer) throws ClassNotFoundException,SQLException {
         String sql = "delete from Zamowienia where zam_numer = '" + numer + "'";
         try {
@@ -78,6 +83,7 @@ public class ZamowieniaDAO {
         }
     }
 
+    //Wyszukanie zamówienia po numerze
     public static ObservableList<Zamowienia> search(String zamnumer) throws ClassNotFoundException,SQLException{
         String sql = "select * from Zamowienia where zam_numer = "+zamnumer;
 
@@ -92,6 +98,7 @@ public class ZamowieniaDAO {
         }
     }
 
+    //Wyszukiwanie zaawansowane
     public static ObservableList<Zamowienia> searchzam_numer(String numer) throws ClassNotFoundException,SQLException{
         String sql = "select * from zamowienia where zam_numer like '%"+numer+"%'";
 

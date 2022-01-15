@@ -15,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import org.hibernate.mapping.List;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,11 +25,13 @@ import java.sql.SQLException;
 import static DataAccessObject.ProduktyDAO.getAllRecords;
 
 public class ProduktyController {
+    //Pole do wypisywania rezultatów oraz stworzenie tabeli
     @FXML
     private TextArea resultConsole;
     @FXML
     private TableView Table;
 
+    //Tworzenie kolumn
     @FXML
     private TableColumn<Produkty, Integer> colprod_id;
     @FXML
@@ -40,7 +45,7 @@ public class ProduktyController {
     @FXML
     private TableColumn<Produkty, String> colprod_kraj;
 
-
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -94,7 +99,9 @@ public class ProduktyController {
 
     @FXML
     private void initialize() throws Exception{
-        Table.setEditable(true);
+        Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
+
+        //Wypisanie danych z bazy
         colprod_id.setCellValueFactory(cellData -> cellData.getValue().prod_idPropertyProperty().asObject());
         colprod_id.setOnEditCommit(
                 (TableColumn.CellEditEvent<Produkty, Integer> t) ->
@@ -104,28 +111,18 @@ public class ProduktyController {
         );
         coldost_id.setCellValueFactory(cellData -> cellData.getValue().dost_idPropertyProperty().asObject());
         colprod_nazwa.setCellValueFactory(cellData -> cellData.getValue().prod_nazwaPropertyProperty());
-        colprod_nazwa.setEditable(true);
-        Callback<TableColumn<Produkty, String>, TableCell<Produkty, String>> defaultCellFactory
-                = TextFieldTableCell.forTableColumn();
-
-        colprod_nazwa.setCellFactory(col -> {
-            TableCell<Produkty, String> cell = defaultCellFactory.call(col);
-            //cell.setAlignment(Pos.CENTER_LEFT);
-            return cell;
-        });
-
-        colprod_nazwa.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Produkty, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Produkty, String> t) {
-                        Produkty produkty = t.getRowValue();
-                        produkty.setProd_nazwa(t.getNewValue());
-                    }
-            }
-        );
         colprod_cena.setCellValueFactory(cellData -> cellData.getValue().prod_cenaPropertyProperty().asObject());
         colprod_waluta.setCellValueFactory(cellData -> cellData.getValue().prod_walutaPropertyProperty());
         colprod_kraj.setCellValueFactory(cellData -> cellData.getValue().prod_krajPropertyProperty());
+
+        //Edycja komórki
+        colprod_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        coldost_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colprod_nazwa.setCellFactory(TextFieldTableCell.forTableColumn());
+        colprod_cena.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        colprod_waluta.setCellFactory(TextFieldTableCell.forTableColumn());
+        colprod_kraj.setCellFactory(TextFieldTableCell.forTableColumn());
+
         ObservableList<Produkty> List = getAllRecords();
         populateTable(List);
     }
@@ -134,6 +131,7 @@ public class ProduktyController {
         Table.setItems(List);
     }
 
+    //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
     private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Produkty> list = ProduktyDAO.searchByID(searchId.getText());
@@ -146,12 +144,14 @@ public class ProduktyController {
         }
     }
 
+    //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
         ObservableList<Produkty> List = getAllRecords();
         populateTable(List);
     }
 
+    //Pola tekstowe do dodania produktu
     @FXML
     private TextField txtIdDostawcy;
     @FXML
@@ -163,6 +163,7 @@ public class ProduktyController {
     @FXML
     private TextField txtKrajProdukcji;
 
+    //Dodanie produktu
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -175,15 +176,15 @@ public class ProduktyController {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField searchId;
-
     @FXML
     private TextField searchNazwa;
 
+    //Aktualizacja
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
@@ -198,6 +199,7 @@ public class ProduktyController {
         }
     }
 
+    //Usuwanie
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
@@ -212,6 +214,7 @@ public class ProduktyController {
         }
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField txtIdProduktysearch;
     @FXML
@@ -293,26 +296,21 @@ public class ProduktyController {
         }
     }
 
-//    private void edit(ActionEvent event) {
-//        colprod_nazwa.setEditable(true);
-//        Callback<TableColumn<Produkty, String>, TableCell<Produkty, String>> defaultCellFactory
-//                = TextFieldTableCell.forTableColumn();
-//
-//        colprod_nazwa.setCellFactory(col -> {
-//            TableCell<Produkty, String> cell = defaultCellFactory.call(col);
-//            //cell.setAlignment(Pos.CENTER_LEFT);
-//            return cell;
-//        });
-//
-//        colprod_nazwa.setOnEditCommit(
-//                new EventHandler<TableColumn.CellEditEvent<Produkty, String>>() {
-//                    @Override
-//                    public void handle(TableColumn.CellEditEvent<Produkty, String> t) {
-//                        ((Produkty) t.getTableView().getItems().get(
-//                                t.getTablePosition().getRow())).setProd_nazwa(t.getNewValue());
-//                    }
-//                }
-//        );
-//    }
 
+    public void changeProdNameCellEvent(TableColumn.CellEditEvent edditedCell) throws SQLException, ClassNotFoundException {
+//        colprod_nazwa.setOnEditCommit(
+//                    (TableColumn.CellEditEvent<Produkty, String> t) -> {
+//                        t.getTableView().getItems().get(t.getTablePosition().getRow()).setProd_nazwa(t.getNewValue());
+//                    }
+//        );
+                colprod_nazwa.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Produkty, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Produkty, String> t) {
+                        Produkty produkty = t.getRowValue();
+                        produkty.setProd_nazwa(t.getNewValue());
+                    }
+            }
+        );
+    }
 }

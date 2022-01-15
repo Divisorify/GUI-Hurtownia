@@ -5,10 +5,12 @@ import entities.Produkty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.persistence.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProduktyDAO {
+    //Wypisanie wszystkich produktów
     public static ObservableList<Produkty> getAllRecords() throws ClassNotFoundException, SQLException {
         String sql = "select * from Produkty";
         try{
@@ -22,6 +24,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Przyporządkowanie danych kolumnom
     private static ObservableList<Produkty> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Produkty> List = FXCollections.observableArrayList();
@@ -44,6 +47,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Dodanie produktu
     public static void dodaj(String Dost_id, String nazwa, String cena, String waluta, String kraj) throws SQLException,ClassNotFoundException{
         String sql = "insert into produkty(dost_id,prod_nazwa,prod_cena,prod_waluta,prod_kraj)values(' "+Dost_id+"', '"+nazwa+"', '"+cena+"', '"+waluta+"', '"+kraj+"')";
 
@@ -56,6 +60,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Aktualizacja nazwy produktu
     public static void update(int id,String nazwa) throws ClassNotFoundException,SQLException {
         String sql = "update produkty set prod_nazwa = '" + nazwa + "' where prod_id = '" + id + "' ";
 
@@ -68,6 +73,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Usunięcie produktu po ID
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from produkty where prod_id = '" + id + "'";
         try {
@@ -79,6 +85,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Wyszukanie produktu po ID
     public static ObservableList<Produkty> searchByID(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from produkty where prod_id like "+id;
 
@@ -93,6 +100,7 @@ public class ProduktyDAO {
         }
     }
 
+    //Wyszukiwanie zaawansowane
     public static ObservableList<Produkty> searchprod_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from produkty where prod_id like '%"+id+"%'";
 

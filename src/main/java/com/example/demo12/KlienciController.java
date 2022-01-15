@@ -15,7 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,9 +25,13 @@ import java.sql.SQLException;
 import static DataAccessObject.KlienciDAO.getAllRecordsKlienci;
 
 public class KlienciController {
+    //Pole do wypisywania rezultatów oraz stworzenie tabeli
     @FXML
     private TextArea resultConsole;
+    @FXML
+    private TableView KlienciTable;
 
+    //Tworzenie kolumn
     @FXML
     private TableColumn<Klienci, Integer> colkl_id;
     @FXML
@@ -43,9 +49,7 @@ public class KlienciController {
     @FXML
     private TableColumn<Klienci, String> colkl_email;
 
-    @FXML
-    private TableView KlienciTable;
-
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -99,6 +103,9 @@ public class KlienciController {
 
     @FXML
     private void initialize() throws Exception{
+        KlienciTable.setEditable(true); //Ustawienie możliwości edytowania tabeli
+
+        //Wypisanie danych z bazy
         colkl_id.setCellValueFactory(cellData -> cellData.getValue().getKlientId().asObject());
         colkl_imie.setCellValueFactory(cellData -> cellData.getValue().getKlientImie());
         colkl_nazwisko.setCellValueFactory(cellData -> cellData.getValue().getKlientNazwisko());
@@ -107,6 +114,17 @@ public class KlienciController {
         colkl_nrMieszkania.setCellValueFactory(cellData -> cellData.getValue().getKlientnrMieszkania());
         colkl_nrTelefonu.setCellValueFactory(cellData -> cellData.getValue().getKlientnrTelefonu().asObject());
         colkl_email.setCellValueFactory(cellData -> cellData.getValue().getKlientEmail());
+
+        //Edycja komórki
+        colkl_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colkl_imie.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_nazwisko.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_miejscowosc.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_ulica.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_nrMieszkania.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_nrTelefonu.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colkl_email.setCellFactory(TextFieldTableCell.forTableColumn());
+
         ObservableList<Klienci> klienciList = getAllRecordsKlienci();
         populateTableKlienci(klienciList);
     }
@@ -115,6 +133,7 @@ public class KlienciController {
         KlienciTable.setItems(klienciList);
     }
 
+    //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
     private void searchKlienci(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Klienci> list = KlienciDAO.searchByID(searchId.getText());
@@ -127,12 +146,14 @@ public class KlienciController {
         }
     }
 
+    //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAllKlienci(ActionEvent event) throws ClassNotFoundException,SQLException{
         ObservableList<Klienci> kliList = getAllRecordsKlienci();
         populateTableKlienci(kliList);
     }
 
+    //Pola tekstowe do dodania klienta
     @FXML
     private TextField txtImie;
     @FXML
@@ -148,6 +169,7 @@ public class KlienciController {
     @FXML
     private TextField txtEmail;
 
+    //Dodanie klienta
     @FXML
     private void dodajKlienta(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -160,15 +182,15 @@ public class KlienciController {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField searchId;
-
     @FXML
     private TextField searchEmail;
 
+    //Aktualizacja
     @FXML
     private void updateKlienci(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
@@ -180,10 +202,10 @@ public class KlienciController {
             System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
             e.printStackTrace();
             throw e;
-
         }
     }
 
+    //Usuwanie
     @FXML
     private void deleteKlienci(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
@@ -197,6 +219,8 @@ public class KlienciController {
             throw e;
         }
     }
+
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField txtIdKlientasearch;
     @FXML

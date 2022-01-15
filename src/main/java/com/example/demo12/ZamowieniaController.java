@@ -15,7 +15,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +25,13 @@ import java.sql.SQLException;
 import static DataAccessObject.ZamowieniaDAO.getAllRecords;
 
 public class ZamowieniaController {
+    //Pole do wypisywania rezultatów oraz stworzenie tabeli
+    @FXML
+    private TextArea resultConsole;
+    @FXML
+    private TableView Table;
 
+    //Tworzenie kolumn
     @FXML
     private TableColumn<Zamowienia, Integer> colzam_numer;
     @FXML
@@ -31,7 +39,7 @@ public class ZamowieniaController {
     @FXML
     private TableColumn<Zamowienia, Integer> colkl_id;
 
-
+    //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
@@ -85,9 +93,18 @@ public class ZamowieniaController {
 
     @FXML
     private void initialize() throws Exception{
+        Table.setEditable(true);  //Ustawienie możliwości edytowania tabeli
+
+        //Wypisanie danych z bazy
         colzam_numer.setCellValueFactory(cellData -> cellData.getValue().zam_numerPropertyProperty().asObject());
         colzam_data.setCellValueFactory(cellData -> cellData.getValue().zam_dataPropertyProperty());
         colkl_id.setCellValueFactory(cellData -> cellData.getValue().kl_idPropertyProperty().asObject());
+
+        //Edycja komórki
+        colzam_numer.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        colzam_data.setCellFactory(TextFieldTableCell.forTableColumn());
+        colkl_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
         ObservableList<Zamowienia> List = getAllRecords();
         populateTable(List);
     }
@@ -96,6 +113,7 @@ public class ZamowieniaController {
         Table.setItems(List);
     }
 
+    //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
     private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Zamowienia> list = ZamowieniaDAO.search(searchZamNumer.getText());
@@ -108,23 +126,20 @@ public class ZamowieniaController {
         }
     }
 
+    //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
         ObservableList<Zamowienia> List = getAllRecords();
         populateTable(List);
     }
 
-    @FXML
-    private TextArea resultConsole;
-    @FXML
-    private TableView Table;
-
+    //Pola tekstowe do dodania zamówienia
     @FXML
     private TextField txtZamData;
     @FXML
     private TextField txtKlId;
 
-
+    //Dodanie zamówienia
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -137,18 +152,17 @@ public class ZamowieniaController {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField searchId;
-
     @FXML
     private TextField searchZamNumer;
-
     @FXML
     private TextField updateDataZam;
 
+    //Aktualizacja
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
@@ -160,10 +174,10 @@ public class ZamowieniaController {
             System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
             e.printStackTrace();
             throw e;
-
         }
     }
 
+    //Usuwanie
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
@@ -178,6 +192,7 @@ public class ZamowieniaController {
         }
     }
 
+    //Pola tekstowe do wyszukiwania
     @FXML
     private TextField txtZamNumersearch;
     @FXML

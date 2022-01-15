@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class KlienciDAO {
-
+    //Wypisanie wszystkich klientów
     public static ObservableList<Klienci> getAllRecordsKlienci() throws ClassNotFoundException, SQLException {
         String sql = "select * from Klienci";
         try{
@@ -24,6 +24,7 @@ public class KlienciDAO {
         }
     }
 
+    //Przyporządkowanie danych kolumnom
     private static ObservableList<Klienci> getKlienciObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Klienci> klienciList = FXCollections.observableArrayList();
@@ -46,9 +47,9 @@ public class KlienciDAO {
             e.printStackTrace();
             throw e;
         }
-
     }
 
+    //Dodanie klienta
     public static void dodajKlienta(String imie,String nazwisko,String miejscowosc, String ulica, String nrMieszkania, String nrTelefonu, String email) throws SQLException,ClassNotFoundException{
         String sql = "insert into klienci(kl_imie,kl_nazwisko,kl_miejscowosc,kl_ulica,kl_nrMieszkania,kl_nrTelefonu,kl_email)values(' "+imie+"', '"+nazwisko+"', '"+miejscowosc+"', '"+ulica+"', '"+nrMieszkania+"', '"+nrTelefonu+"', '"+email+"')";
 
@@ -61,6 +62,7 @@ public class KlienciDAO {
         }
     }
 
+    //Aktualizacja emaila klienta
     public static void update(int id,String email) throws ClassNotFoundException,SQLException {
         String sql = "update Klienci set kl_email = '" + email + "' where kl_id = '" + id + "' ";
 
@@ -73,6 +75,7 @@ public class KlienciDAO {
         }
     }
 
+    //Usunięcie klienta po ID
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from klienci where kl_id = '" + id + "'";
         try {
@@ -84,6 +87,7 @@ public class KlienciDAO {
         }
     }
 
+    //Wyszukanie klienta po ID
     public static ObservableList<Klienci> searchByID(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from klienci where kl_id = "+id;
 
@@ -98,6 +102,7 @@ public class KlienciDAO {
         }
     }
 
+    //Wyszukiwanie zaawansowane
     public static ObservableList<Klienci> searchkl_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Klienci where kl_id like '%"+id+"%'";
 
