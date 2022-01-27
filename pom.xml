@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>ProjectDB</artifactId>
+    <artifactId>demo1</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ProjectDB</name>
+    <name>demo1</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -75,10 +75,141 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.demo1/com.example.demo12.HelloApplication</mainClass>
+                            <mainClass>com.example.demo1/com.example.demo12.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+
+<!--            <plugin>-->
+<!--                <groupId>org.openjfx</groupId>-->
+<!--                <artifactId>javafx-maven-plugin</artifactId>-->
+<!--                <version>0.0.7</version>-->
+<!--                <configuration>-->
+<!--                    <compress>2</compress>-->
+<!--                    <noHeaderFiles>true</noHeaderFiles>-->
+<!--                    <stripDebug>true</stripDebug>-->
+<!--                    <noManPages>true</noManPages>-->
+<!--                    <launcher>projectName</launcher>-->
+<!--                    <mainClass>demo1/com.example.demo12.Main</mainClass>-->
+<!--                    <jlinkImageName>demo1</jlinkImageName>-->
+<!--                    <jlinkZipName>demo1</jlinkZipName>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.example.demo12.AppLauncher</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+<!--            <plugin>-->
+<!--                <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <archive>-->
+<!--                        <manifest>-->
+<!--                            <mainClass>com.example.demo12.AppLauncher</mainClass>-->
+<!--                        </manifest>-->
+<!--                    </archive>-->
+<!--                    <descriptorRefs>-->
+<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--                    </descriptorRefs>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <goals>-->
+<!--                        <goal>repackage</goal>-->
+<!--                    </goals>-->
+<!--                    <configuration>-->
+<!--                        <classifier>spring-boot</classifier>-->
+<!--                        <mainClass>demo1.Main</mainClass>-->
+<!--                    </configuration>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+
+<!--            <plugin>-->
+<!--                <groupId>com.akathist.maven.plugins.launch4j</groupId>-->
+<!--                <artifactId>launch4j-maven-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>l4j-clui</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>launch4j</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <dontWrapJar>false</dontWrapJar>-->
+<!--                            <headerType>gui</headerType>-->
+<!--                            &lt;!&ndash; ścieżka do pliku JAR &ndash;&gt;-->
+<!--                            <jar>target/Projekt_Java-1.0-SNAPSHOT-spring-boot.jar</jar>-->
+<!--                            &lt;!&ndash; ścieżka do pliku wyjściowego exe&ndash;&gt;-->
+<!--                            <outfile>target/Projekt_Java.exe</outfile>-->
+<!--                            <downloadUrl>https://www.oracle.com/java/technologies/downloads/</downloadUrl>-->
+<!--                            <stayAlive>true</stayAlive>-->
+<!--                            <priority>high</priority><jre>-->
+<!--                            &lt;!&ndash; Zmienne środowiskowe wskazująceinstalację JDK &ndash;&gt;-->
+<!--                            <path>%JAVA_HOME%;%PATH%</path>-->
+<!--                            <bundledJre64Bit>false</bundledJre64Bit>-->
+<!--                            <bundledJreAsFallback>false</bundledJreAsFallback>-->
+<!--                            <minVersion>17</minVersion>-->
+<!--                            <maxVersion>18</maxVersion>-->
+<!--                            <jdkPreference>preferJdk</jdkPreference>-->
+<!--                            <runtimeBits>64/32</runtimeBits>-->
+<!--                        </jre>-->
+<!--                            <splash>-->
+<!--                                &lt;!&ndash; Wymagania zdjęcia które jestwyświetlane podczasuruchamiania aplikacji:24-bitno colorspace information &ndash;&gt;-->
+<!--                                <file>src\main\resources\img\startapp.bmp</file>-->
+<!--                                <waitForWindow>true</waitForWindow>-->
+<!--                                &lt;!&ndash; Czas w sekundach do wyrzuceniawyjątku Timeout&ndash;&gt;-->
+<!--                                <timeout>60</timeout>-->
+<!--                                <timeoutErr>true</timeoutErr>-->
+<!--                            </splash>-->
+<!--                        </configuration>-->
+<!--            </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <name>JavaDoc</name>
+                    <appVersion>1.0.0</appVersion>
+                    <vendor>com.example</vendor>
+                    <destination>target/dist</destination>
+                    <module>com.example.demo12/com.example.demo12.Main</module>
+                    <runtimeImage>target/JavaDoc</runtimeImage>
+                    <winShortcut>true</winShortcut>
+                    <winDirChooser>true</winDirChooser>
+                    <winConsole>true</winConsole>
+                    <javaOptions>
+                        <option>-Dfile.encoding=UTF-8</option>
+                    </javaOptions>
+                </configuration>
             </plugin>
         </plugins>
     </build>

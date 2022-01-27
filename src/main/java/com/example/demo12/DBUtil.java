@@ -1,10 +1,10 @@
 package com.example.demo12;
 
 import javax.sql.rowset.CachedRowSet;
-import com.sun.rowset.CachedRowSetImpl;
+//import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;
 import javax.sql.rowset.*;
-import com.sun.rowset.CachedRowSetImpl;
+//import com.sun.rowset.CachedRowSetImpl;
 
 public class DBUtil {
     //Łączenie z bazą danych
