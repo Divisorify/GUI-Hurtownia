@@ -1,6 +1,7 @@
 package com.example.demo12;
 
 
+import DataAccessObject.KlienciDAO;
 import DataAccessObject.ProduktyDAO;
 import entities.Produkty;
 import javafx.collections.ObservableList;
@@ -48,7 +49,7 @@ public class ProduktyController {
     //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
-        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
+        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.fxml"));
         Scene scenedostawcy = new Scene(dostawcy);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -58,7 +59,7 @@ public class ProduktyController {
 
     @FXML
     void btnElementyZamówienia(ActionEvent event) throws IOException{
-        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.FXML"));
+        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.fxml"));
         Scene sceneelementyzamowienia = new Scene(elementyzamowienia);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -68,7 +69,7 @@ public class ProduktyController {
 
     @FXML
     void btnKlienci(ActionEvent event) throws IOException {
-        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.FXML"));
+        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.fxml"));
         Scene sceneklienci = new Scene(klienci);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -79,7 +80,7 @@ public class ProduktyController {
 
     @FXML
     void btnProdukty(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.fxml"));
         Scene sceneprodukty = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -89,7 +90,7 @@ public class ProduktyController {
 
     @FXML
     void btnZamówienia(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.fxml"));
         Scene scenezamowienia = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -167,8 +168,32 @@ public class ProduktyController {
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-            ProduktyDAO.dodaj(txtIdDostawcy.getText(), txtNazwaProduktu.getText(), txtCena.getText(),txtWaluta.getText(),txtKrajProdukcji.getText());
-            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            int query = ProduktyDAO.dodaj(txtIdDostawcy.getText(), txtNazwaProduktu.getText(), txtCena.getText(),txtWaluta.getText(),txtKrajProdukcji.getText());
+            if(query == 2){
+                resultConsole.clear();
+                resultConsole.setText("Wypełnij wszystkie komórki. ");
+            }else if (query == 0){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz właściwą cenę.");
+            }else if (query == 1){
+                resultConsole.clear();
+                resultConsole.setText("Sukces! Wartości zostały dodane.");
+            }else if (query == 3){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawne id Dostawcy.");
+            }
+//            else if (query == 4){
+//                resultConsole.setText("Wpisz poprawną nazwę.");
+//            }
+            else if (query == 5){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawną cenę.");
+            }
+//            else if (query == 6){
+//                resultConsole.setText("Wpisz poprawną walutę.");
+//            }else if (query == 7){
+//                resultConsole.setText("Wpisz poprawną nazwę kraju.");
+//            }
             ObservableList<Produkty> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

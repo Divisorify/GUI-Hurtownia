@@ -1,12 +1,14 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import com.example.demo12.HelloController;
 import entities.Dostawcy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 public class DostawcyDAO {
     //Wypisanie wszystkich dostawców
@@ -48,15 +50,34 @@ public class DostawcyDAO {
     }
 
     //Dodanie dostawcy
-    public static void dodaj(String nazwa, String miejscowosc, String ulica, String kraj, String email) throws SQLException,ClassNotFoundException{
-        String sql = "insert into Dostawcy(dost_nazwa,dost_miejscowosc,dost_ulica,dost_kraj,dost_email)values(' "+nazwa+"', '"+miejscowosc+"', '"+ulica+"', '"+kraj+"', '"+email+"')";
-
-        try{
-            DBUtil.dbExecuteQuery(sql);
-        }catch(SQLException e){
-            System.out.println("Wyjątek przy dodawaniu elementu"+ e);
-            e.printStackTrace();
-            throw e;
+    public static int dodaj(String nazwa, String miejscowosc, String ulica, String kraj, String email) throws SQLException,ClassNotFoundException{
+        boolean validEmailAddress = HelloController.isValidEmailAddress(email);
+        if(nazwa =="" || miejscowosc == "" || ulica == "" || kraj == "" || email == ""){
+            return 2;
+        }
+//        else if(Integer.parseInt(nazwa) < 0){
+//            return 3;
+//        }else if(Integer.parseInt(miejscowosc) < 0){
+//            return 4;
+//        }else if(Integer.parseInt(ulica) < 0){
+//            return 5;
+//        }else if(Integer.parseInt(kraj) < 0){
+//            return 6;
+//        }else if(Integer.parseInt(email) < 0){
+//            return 7;
+//        }
+        if(validEmailAddress == true){
+            String sql = "insert into Dostawcy(dost_nazwa,dost_miejscowosc,dost_ulica,dost_kraj,dost_email)values(' "+nazwa+"', '"+miejscowosc+"', '"+ulica+"', '"+kraj+"', '"+email+"')";
+            try{
+                DBUtil.dbExecuteQuery(sql);
+            }catch(SQLException e){
+                System.out.println("Wyjątek przy dodawaniu Dostawcy"+ e);
+                e.printStackTrace();
+                throw e;
+            }
+            return 1;
+        }else{
+            return 0;
         }
     }
 

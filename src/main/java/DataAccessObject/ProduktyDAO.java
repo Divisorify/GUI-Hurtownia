@@ -1,6 +1,7 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import com.example.demo12.HelloController;
 import entities.Produkty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,15 +49,36 @@ public class ProduktyDAO {
     }
 
     //Dodanie produktu
-    public static void dodaj(String Dost_id, String nazwa, String cena, String waluta, String kraj) throws SQLException,ClassNotFoundException{
-        String sql = "insert into produkty(dost_id,prod_nazwa,prod_cena,prod_waluta,prod_kraj)values(' "+Dost_id+"', '"+nazwa+"', '"+cena+"', '"+waluta+"', '"+kraj+"')";
-
-        try{
-            DBUtil.dbExecuteQuery(sql);
-        }catch(SQLException e){
-            System.out.println("Wyjątek przy dodawaniu elementu"+ e);
-            e.printStackTrace();
-            throw e;
+    public static int dodaj(String Dost_id, String nazwa, String cena, String waluta, String kraj) throws SQLException,ClassNotFoundException{
+        if(Dost_id =="" || nazwa == "" || cena == "" || waluta == "" || kraj == ""){
+            return 2;
+        }
+        else if(Integer.parseInt(Dost_id) < 0){
+            return 3;
+        }
+//        else if(Integer.parseInt(nazwa) < 0){
+//            return 4;
+//        }
+        else if(Double.parseDouble(cena) < 0){
+            return 5;
+        }
+//        else if(Integer.parseInt(waluta) < 0){
+//            return 6;
+//        }else if(Integer.parseInt(kraj) < 0){
+//            return 7;
+//        }
+        if(Double.parseDouble(cena) > 0){
+            String sql = "insert into produkty(dost_id,prod_nazwa,prod_cena,prod_waluta,prod_kraj)values(' "+Dost_id+"', '"+nazwa+"', '"+cena+"', '"+waluta+"', '"+kraj+"')";
+            try{
+                DBUtil.dbExecuteQuery(sql);
+            }catch(SQLException e){
+                System.out.println("Wyjątek przy dodawaniu produktu"+ e);
+                e.printStackTrace();
+                throw e;
+            }
+            return 1;
+        }else{
+            return 0;
         }
     }
 

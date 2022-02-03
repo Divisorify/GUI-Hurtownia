@@ -1,6 +1,7 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import com.example.demo12.HelloController;
 import entities.Produkty;
 import entities.Zamowienia;
 import javafx.collections.FXCollections;
@@ -46,15 +47,28 @@ public class ZamowieniaDAO {
     }
 
     //Dodanie zamówienia
-    public static void dodaj(String data, String id) throws SQLException,ClassNotFoundException{
-        String sql = "insert into Zamowienia(zam_data,kl_id)values(' "+data+"', '"+id+"')";
-
-        try{
-            DBUtil.dbExecuteQuery(sql);
-        }catch(SQLException e){
-            System.out.println("Wyjątek przy dodawaniu elementu"+ e);
-            e.printStackTrace();
-            throw e;
+    public static int dodaj(String data, String id) throws SQLException,ClassNotFoundException{
+        if(data =="" || id == ""){
+            return 2;
+        }
+//        else if(Integer.parseInt(data) < 0){
+//            return 3;
+//        }
+        else if(Integer.parseInt(id) < 0){
+            return 4;
+        }
+        if(Integer.parseInt(id) > 0){
+            String sql = "insert into Zamowienia(zam_data,kl_id)values(' "+data+"', '"+id+"')";
+            try{
+                DBUtil.dbExecuteQuery(sql);
+            }catch(SQLException e){
+                System.out.println("Wyjątek przy dodawaniu klienta"+ e);
+                e.printStackTrace();
+                throw e;
+            }
+            return 1;
+        }else{
+            return 0;
         }
     }
 

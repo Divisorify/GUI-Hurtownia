@@ -1,6 +1,7 @@
 package com.example.demo12;
 
 import DataAccessObject.ElementyzamowieniaDAO;
+import DataAccessObject.KlienciDAO;
 import DataAccessObject.ProduktyDAO;
 import entities.Elementyzamowienia;
 import entities.Produkty;
@@ -51,7 +52,7 @@ public class ElementyzamowieniaController {
     //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
-        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
+        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.fxml"));
         Scene scenedostawcy = new Scene(dostawcy);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -61,7 +62,7 @@ public class ElementyzamowieniaController {
 
     @FXML
     void btnElementyZamówienia(ActionEvent event) throws IOException{
-        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.FXML"));
+        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.fxml"));
         Scene sceneelementyzamowienia = new Scene(elementyzamowienia);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -71,7 +72,7 @@ public class ElementyzamowieniaController {
 
     @FXML
     void btnKlienci(ActionEvent event) throws IOException {
-        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.FXML"));
+        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.fxml"));
         Scene sceneklienci = new Scene(klienci);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -82,7 +83,7 @@ public class ElementyzamowieniaController {
 
     @FXML
     void btnProdukty(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.fxml"));
         Scene sceneprodukty = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -92,7 +93,7 @@ public class ElementyzamowieniaController {
 
     @FXML
     void btnZamówienia(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.fxml"));
         Scene scenezamowienia = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -167,8 +168,35 @@ public class ElementyzamowieniaController {
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-            ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
-            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            int query = ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
+            if(query == 2){
+                resultConsole.clear();
+                resultConsole.setText("Wypełnij wszystkie komórki. ");
+            }else if (query == 0){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawne wartości w komórkach.");
+            }else if (query == 1){
+                resultConsole.clear();
+                resultConsole.setText("Sukces! Wartości zostały dodane.");
+            }else if (query == 3){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawną ilość.");
+            }else if (query == 4){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawną cenę elementu.");
+            }else if (query == 5){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawne id Produktu.");
+            }else if (query == 6){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawny element zamówienia.");
+            }else if (query == 7){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawny numer zamówienia.");
+            }else if (query == 10){
+                resultConsole.clear();
+                resultConsole.setText("Nie ma takiego numeru zamówienia w tabeli zamówienia lub id produktu w tabeli produkty.");
+            }
             ObservableList<Elementyzamowienia> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

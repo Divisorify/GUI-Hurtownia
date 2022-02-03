@@ -1,6 +1,7 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import com.example.demo12.HelloController;
 import entities.Elementyzamowienia;
 import entities.Produkty;
 import javafx.collections.FXCollections;
@@ -50,15 +51,32 @@ public class ElementyzamowieniaDAO {
     }
 
     //Dodanie elementu zamówienia
-    public static void dodaj(String numer,String element, String prod_id, String ilosc,String cenaelem,String waluta ) throws SQLException,ClassNotFoundException{
-        String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
-
-        try{
-            DBUtil.dbExecuteQuery(sql);
-        }catch(SQLException e){
-            System.out.println("Wyjątek przy dodawaniu elementu"+ e);
-            e.printStackTrace();
-            throw e;
+    public static int dodaj(String numer,String element, String prod_id, String ilosc,String cenaelem,String waluta) throws SQLException,ClassNotFoundException{
+        if(numer =="" || element == "" || prod_id == "" || ilosc == "" || cenaelem == "" || waluta == ""){
+            return 2;
+        } else if(HelloController.isInteger(numer) == false){
+            return 7;
+        } else if(Integer.parseInt(element) < 0){
+            return 6;
+        } else if(Integer.parseInt(prod_id) < 0){
+            return 5;
+        } else if(Integer.parseInt(ilosc) < 0){
+            return 3;
+        } else if(Double.parseDouble(cenaelem) < 0){
+            return 4;
+        }    else if(Integer.parseInt(ilosc)>= 0 && Double.parseDouble(cenaelem) >= 0){
+            String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
+            try{
+                DBUtil.dbExecuteQuery(sql);
+            }catch(SQLException e){
+                System.out.println("Wyjątek przy dodawaniu elementu zamówienia. "+ e);
+                e.printStackTrace();
+                //throw e;
+                return 10;
+            }
+            return 1;
+        }else{
+            return 0;
         }
     }
 

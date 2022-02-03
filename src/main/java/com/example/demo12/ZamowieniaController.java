@@ -1,5 +1,6 @@
 package com.example.demo12;
 
+import DataAccessObject.ElementyzamowieniaDAO;
 import DataAccessObject.ProduktyDAO;
 import DataAccessObject.ZamowieniaDAO;
 import entities.Produkty;
@@ -42,7 +43,7 @@ public class ZamowieniaController {
     //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
-        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
+        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.fxml"));
         Scene scenedostawcy = new Scene(dostawcy);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -52,7 +53,7 @@ public class ZamowieniaController {
 
     @FXML
     void btnElementyZamówienia(ActionEvent event) throws IOException{
-        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.FXML"));
+        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.fxml"));
         Scene sceneelementyzamowienia = new Scene(elementyzamowienia);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -62,7 +63,7 @@ public class ZamowieniaController {
 
     @FXML
     void btnKlienci(ActionEvent event) throws IOException {
-        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.FXML"));
+        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.fxml"));
         Scene sceneklienci = new Scene(klienci);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -73,7 +74,7 @@ public class ZamowieniaController {
 
     @FXML
     void btnProdukty(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.fxml"));
         Scene sceneprodukty = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -83,7 +84,7 @@ public class ZamowieniaController {
 
     @FXML
     void btnZamówienia(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.fxml"));
         Scene scenezamowienia = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -143,8 +144,24 @@ public class ZamowieniaController {
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-            ZamowieniaDAO.dodaj(txtZamData.getText(), txtKlId.getText());
-            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            int query = ZamowieniaDAO.dodaj(txtZamData.getText(), txtKlId.getText());
+            if(query == 2){
+                resultConsole.clear();
+                resultConsole.setText("Wypełnij wszystkie komórki. ");
+            }else if (query == 0){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawne wartości w komórkach.");
+            }else if (query == 1){
+                resultConsole.clear();
+                resultConsole.setText("Sukces! Wartości zostały dodane.");
+            }
+//            else if (query == 3){
+//                resultConsole.setText("Wpisz poprawną datę.");
+//            }
+            else if (query == 4){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawne id Klienta.");
+            }
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

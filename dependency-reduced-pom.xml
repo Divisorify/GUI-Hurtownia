@@ -23,7 +23,7 @@
           <execution>
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.example.demo1/com.example.demo12.Main</mainClass>
+              <mainClass>com.example.demo12.AppLauncher</mainClass>
             </configuration>
           </execution>
         </executions>

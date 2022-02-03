@@ -65,7 +65,7 @@
                                             </font>
                                         </Text>
                                         <Button layoutX="157.0" layoutY="181.0" mnemonicParsing="false" onAction="#dodaj" text="Dodaj dostawce" />
-                                        <TextArea fx:id="resultConsole" layoutX="12.0" layoutY="341.0" prefHeight="37.0" prefWidth="285.0" />
+                                        <TextArea fx:id="resultConsole" layoutX="12.0" layoutY="341.0" prefHeight="100.0" prefWidth="285.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="317.0" />
                                     </children>
                                 </AnchorPane>
                             </children>

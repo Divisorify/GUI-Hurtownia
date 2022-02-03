@@ -52,7 +52,7 @@ public class KlienciController {
     //Przyciski do zmiany tabel
     @FXML
     void btnDostawcy(ActionEvent event) throws IOException{
-        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.FXML"));
+        Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.fxml"));
         Scene scenedostawcy = new Scene(dostawcy);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -62,7 +62,7 @@ public class KlienciController {
 
     @FXML
     void btnElementyZamówienia(ActionEvent event) throws IOException{
-        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.FXML"));
+        Parent elementyzamowienia = FXMLLoader.load(getClass().getResource("elementyzamowienia.fxml"));
         Scene sceneelementyzamowienia = new Scene(elementyzamowienia);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -72,7 +72,7 @@ public class KlienciController {
 
     @FXML
     void btnKlienci(ActionEvent event) throws IOException {
-        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.FXML"));
+        Parent klienci = FXMLLoader.load(getClass().getResource("klienci.fxml"));
         Scene sceneklienci = new Scene(klienci);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -83,7 +83,7 @@ public class KlienciController {
 
     @FXML
     void btnProdukty(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("produkty.fxml"));
         Scene sceneprodukty = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -93,7 +93,7 @@ public class KlienciController {
 
     @FXML
     void btnZamówienia(ActionEvent event) throws IOException{
-        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.FXML"));
+        Parent produkty = FXMLLoader.load(getClass().getResource("zamowienia.fxml"));
         Scene scenezamowienia = new Scene(produkty);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide();
@@ -173,12 +173,40 @@ public class KlienciController {
     @FXML
     private void dodajKlienta(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-            KlienciDAO.dodajKlienta(txtImie.getText(), txtNazwisko.getText(), txtMiejscowosc.getText(),txtUlica.getText(),txtnrMieszkania.getText(),txtnrTelefonu.getText(),txtEmail.getText());
-            resultConsole.setText("Sukces! Wartości zostały dodane.");
+            int query = KlienciDAO.dodajKlienta(txtImie.getText(), txtNazwisko.getText(), txtMiejscowosc.getText(),txtUlica.getText(),txtnrMieszkania.getText(),txtnrTelefonu.getText(),txtEmail.getText());
+            if(query == 2){
+                resultConsole.clear();
+                resultConsole.setText("Wypełnij wszystkie komórki. ");
+            }else if (query == 0){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawny email.");
+            }else if (query == 1){
+                resultConsole.clear();
+                resultConsole.setText("Sukces! Wartości zostały dodane.");
+            }
+//            else if (query == 3){
+//                resultConsole.setText("Wpisz poprawne imię.");
+//            }else if (query == 4){
+//                resultConsole.setText("Wpisz poprawne nazwisko.");
+//            }else if (query == 5){
+//                resultConsole.setText("Wpisz poprawną miejscowość.");
+//            }else if (query == 6){
+//                resultConsole.setText("Wpisz poprawną ulicę.");
+//            }else if (query == 7){
+//                resultConsole.setText("Wpisz poprawny numer mieszkania.");
+//            }
+            else if (query == 8){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawny numer telefonu.");
+            }
+//            else if (query == 9){
+//                resultConsole.setText("Wpisz poprawny email.");
+//            }
             ObservableList<Klienci> klienciList = getAllRecordsKlienci();
             populateTableKlienci(klienciList);
         }catch(SQLException e){
-            System.out.println("Wystąpił błąd w wartościach."+e);
+            resultConsole.clear();
+            resultConsole.setText("Wystąpił błąd w wartościach."+e);
             e.printStackTrace();
             throw e;
         }

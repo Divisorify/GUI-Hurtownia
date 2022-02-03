@@ -1,15 +1,22 @@
 package DataAccessObject;
 
 import com.example.demo12.DBUtil;
+import com.example.demo12.HelloController;
 import entities.Klienci;
 import entities.Produkty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
+import javax.persistence.EntityManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class KlienciDAO {
+    @FXML
+    private TextArea resultConsole;
+
     //Wypisanie wszystkich klientów
     public static ObservableList<Klienci> getAllRecordsKlienci() throws ClassNotFoundException, SQLException {
         String sql = "select * from Klienci";
@@ -49,16 +56,41 @@ public class KlienciDAO {
         }
     }
 
-    //Dodanie klienta
-    public static void dodajKlienta(String imie,String nazwisko,String miejscowosc, String ulica, String nrMieszkania, String nrTelefonu, String email) throws SQLException,ClassNotFoundException{
-        String sql = "insert into klienci(kl_imie,kl_nazwisko,kl_miejscowosc,kl_ulica,kl_nrMieszkania,kl_nrTelefonu,kl_email)values(' "+imie+"', '"+nazwisko+"', '"+miejscowosc+"', '"+ulica+"', '"+nrMieszkania+"', '"+nrTelefonu+"', '"+email+"')";
-
-        try{
-            DBUtil.dbExecuteQuery(sql);
-        }catch(SQLException e){
-            System.out.println("Wyjątek przy dodawaniu klienta"+ e);
-            e.printStackTrace();
-            throw e;
+    //Dodanie klienta z walidacją
+    public static int dodajKlienta(String imie,String nazwisko,String miejscowosc, String ulica, String nrMieszkania, String nrTelefonu, String email) throws SQLException,ClassNotFoundException{
+        boolean validEmailAddress = HelloController.isValidEmailAddress(email);
+        if(imie =="" || nazwisko == "" || miejscowosc == "" || ulica == "" || nrMieszkania == "" || nrTelefonu== "" || email == ""){
+            return 2;
+        }
+//        else if(Integer.parseInt(imie) < 0){
+//            return 3;
+//        }else if(Integer.parseInt(nazwisko) < 0){
+//            return 4;
+//        }else if(Integer.parseInt(miejscowosc) < 0){
+//            return 5;
+//        }else if(Integer.parseInt(ulica) < 0){
+//            return 6;
+//        }else if(Integer.parseInt(nrMieszkania) < 0){
+//            return 7;
+//        }
+        else if(Integer.parseInt(nrTelefonu) < 0){
+            return 8;
+        }
+//        else if(Integer.parseInt(email) < 0){
+//            return 9;
+//        }
+        if(validEmailAddress == true){
+            String sql = "insert into klienci(kl_imie,kl_nazwisko,kl_miejscowosc,kl_ulica,kl_nrMieszkania,kl_nrTelefonu,kl_email)values(' "+imie+"', '"+nazwisko+"', '"+miejscowosc+"', '"+ulica+"', '"+nrMieszkania+"', '"+nrTelefonu+"', '"+email+"')";
+            try{
+                DBUtil.dbExecuteQuery(sql);
+            }catch(SQLException e){
+                System.out.println("Wyjątek przy dodawaniu klienta"+ e);
+                e.printStackTrace();
+                throw e;
+            }
+            return 1;
+        }else{
+            return 0;
         }
     }
 
