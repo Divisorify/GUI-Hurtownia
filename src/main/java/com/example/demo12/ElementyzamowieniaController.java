@@ -193,6 +193,9 @@ public class ElementyzamowieniaController {
             }else if (query == 7){
                 resultConsole.clear();
                 resultConsole.setText("Wpisz poprawny numer zamówienia.");
+            }else if (query == 8){
+                resultConsole.clear();
+                resultConsole.setText("Wpisz poprawną walutę.");
             }else if (query == 10){
                 resultConsole.clear();
                 resultConsole.setText("Nie ma takiego numeru zamówienia w tabeli zamówienia lub id produktu w tabeli produkty.");

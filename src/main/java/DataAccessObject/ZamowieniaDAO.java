@@ -51,20 +51,21 @@ public class ZamowieniaDAO {
         if(data =="" || id == ""){
             return 2;
         }
-//        else if(Integer.parseInt(data) < 0){
-//            return 3;
-//        }
-        else if(Integer.parseInt(id) < 0){
+        else if(HelloController.isDate(data)==false){
+            return 3;
+        }
+        else if(HelloController.isInteger(id) == false){
             return 4;
         }
-        if(Integer.parseInt(id) > 0){
+        if(HelloController.isInteger(id) == true){
             String sql = "insert into Zamowienia(zam_data,kl_id)values(' "+data+"', '"+id+"')";
             try{
                 DBUtil.dbExecuteQuery(sql);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu klienta"+ e);
                 e.printStackTrace();
-                throw e;
+                //throw e;
+                return 10;
             }
             return 1;
         }else{

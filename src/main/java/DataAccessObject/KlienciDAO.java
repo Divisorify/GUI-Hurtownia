@@ -73,7 +73,7 @@ public class KlienciDAO {
 //        }else if(Integer.parseInt(nrMieszkania) < 0){
 //            return 7;
 //        }
-        else if(Integer.parseInt(nrTelefonu) < 0){
+        else if(HelloController.isInteger(nrTelefonu) == false){
             return 8;
         }
 //        else if(Integer.parseInt(email) < 0){

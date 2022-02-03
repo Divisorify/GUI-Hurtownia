@@ -155,12 +155,15 @@ public class ZamowieniaController {
                 resultConsole.clear();
                 resultConsole.setText("Sukces! Wartości zostały dodane.");
             }
-//            else if (query == 3){
-//                resultConsole.setText("Wpisz poprawną datę.");
-//            }
+            else if (query == 3){
+                resultConsole.setText("Wpisz poprawną datę.");
+            }
             else if (query == 4){
                 resultConsole.clear();
                 resultConsole.setText("Wpisz poprawne id Klienta.");
+            }else if (query == 10){
+                resultConsole.clear();
+                resultConsole.setText("Nie ma klienta z takim numerem ID w tabeli Klienci.");
             }
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);

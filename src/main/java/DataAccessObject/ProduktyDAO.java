@@ -53,13 +53,13 @@ public class ProduktyDAO {
         if(Dost_id =="" || nazwa == "" || cena == "" || waluta == "" || kraj == ""){
             return 2;
         }
-        else if(Integer.parseInt(Dost_id) < 0){
+        else if(HelloController.isInteger(Dost_id) == false){
             return 3;
         }
 //        else if(Integer.parseInt(nazwa) < 0){
 //            return 4;
 //        }
-        else if(Double.parseDouble(cena) < 0){
+        else if(HelloController.isDouble(cena) == false){
             return 5;
         }
 //        else if(Integer.parseInt(waluta) < 0){
@@ -67,14 +67,15 @@ public class ProduktyDAO {
 //        }else if(Integer.parseInt(kraj) < 0){
 //            return 7;
 //        }
-        if(Double.parseDouble(cena) > 0){
+        if(HelloController.isDouble(cena) == true){
             String sql = "insert into produkty(dost_id,prod_nazwa,prod_cena,prod_waluta,prod_kraj)values(' "+Dost_id+"', '"+nazwa+"', '"+cena+"', '"+waluta+"', '"+kraj+"')";
             try{
                 DBUtil.dbExecuteQuery(sql);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu produktu"+ e);
                 e.printStackTrace();
-                throw e;
+                //throw e;
+                return 10;
             }
             return 1;
         }else{

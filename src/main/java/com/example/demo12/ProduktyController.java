@@ -164,7 +164,7 @@ public class ProduktyController {
     @FXML
     private TextField txtKrajProdukcji;
 
-    //Dodanie produktu
+    //Dodanie produktu z walidacją
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
@@ -187,13 +187,16 @@ public class ProduktyController {
 //            }
             else if (query == 5){
                 resultConsole.clear();
-                resultConsole.setText("Wpisz poprawną cenę.");
+                resultConsole.setText("Wpisz poprawną cenę. Sprecyzuj ją do części setnych.");
             }
 //            else if (query == 6){
 //                resultConsole.setText("Wpisz poprawną walutę.");
 //            }else if (query == 7){
 //                resultConsole.setText("Wpisz poprawną nazwę kraju.");
 //            }
+            else if (query == 10){
+                resultConsole.setText("Nie ma dostawcy o podanym numerze ID w tabeli dostawcy.");
+            }
             ObservableList<Produkty> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

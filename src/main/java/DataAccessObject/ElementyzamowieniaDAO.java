@@ -29,7 +29,6 @@ public class ElementyzamowieniaDAO {
     private static ObservableList<Elementyzamowienia> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
             ObservableList<Elementyzamowienia> List = FXCollections.observableArrayList();
-
             while(rsSet.next()){
                 Elementyzamowienia kli = new Elementyzamowienia();
                 kli.setZam_idProperty(rsSet.getInt("zam_id"));
@@ -47,7 +46,6 @@ public class ElementyzamowieniaDAO {
             e.printStackTrace();
             throw e;
         }
-
     }
 
     //Dodanie elementu zamówienia
@@ -56,15 +54,17 @@ public class ElementyzamowieniaDAO {
             return 2;
         } else if(HelloController.isInteger(numer) == false){
             return 7;
-        } else if(Integer.parseInt(element) < 0){
+        } else if(HelloController.isInteger(element) == false){
             return 6;
-        } else if(Integer.parseInt(prod_id) < 0){
+        } else if(HelloController.isInteger(prod_id) == false){
             return 5;
-        } else if(Integer.parseInt(ilosc) < 0){
+        } else if(HelloController.isInteger(ilosc) == false){
             return 3;
-        } else if(Double.parseDouble(cenaelem) < 0){
+        } else if(HelloController.isDouble(cenaelem) == false){
             return 4;
-        }    else if(Integer.parseInt(ilosc)>= 0 && Double.parseDouble(cenaelem) >= 0){
+        } else if(HelloController.isDouble(waluta) == true){
+            return 8;
+        } else if(HelloController.isInteger(ilosc) == true && HelloController.isDouble(cenaelem) == true){
             String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
             try{
                 DBUtil.dbExecuteQuery(sql);
