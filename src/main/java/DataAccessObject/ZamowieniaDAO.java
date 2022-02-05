@@ -74,28 +74,38 @@ public class ZamowieniaDAO {
     }
 
     //Aktualizacja daty zamówienia
-    public static void update(int zamnumer,String data) throws ClassNotFoundException,SQLException {
+    public static int update(String zamnumer,String data) throws ClassNotFoundException,SQLException {
+        if(zamnumer == "" || data == ""){
+            return 4;
+        }
+        if(Integer.valueOf(zamnumer)<1){
+            return 3;
+        }
+        if(data == "" || HelloController.isDate(data) == false){
+            return 2;
+        }
         String sql = "update Zamowienia set zam_data = '" + data + "' where zam_numer = '" + zamnumer + "' ";
-
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Usunięcie zamówienia po ID
-    public static void delete(int numer) throws ClassNotFoundException,SQLException {
+    public static int delete(int numer) throws ClassNotFoundException,SQLException {
         String sql = "delete from Zamowienia where zam_numer = '" + numer + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Wyszukanie zamówienia po numerze

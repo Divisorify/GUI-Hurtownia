@@ -186,8 +186,16 @@ public class ZamowieniaController {
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            ZamowieniaDAO.update(Integer.parseInt(searchZamNumer.getText()),updateDataZam.getText());
-            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            int query = ZamowieniaDAO.update(searchZamNumer.getText(),updateDataZam.getText());
+            if(query == 1){
+                resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            }else if (query == 2){
+                resultConsole.setText("Wpisz poprawną datę do zaktualizowania. ");
+            }else if (query == 3){
+                resultConsole.setText("Wpisz poprawny numer zamówienia do zaktualizowania.");
+            }else if (query == 4){
+                resultConsole.setText("Wpisz numer zamówienia oraz zaktualizowaną datę.");
+            }
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);
         }catch (SQLException e){
@@ -201,8 +209,12 @@ public class ZamowieniaController {
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            ZamowieniaDAO.delete(Integer.parseInt(searchZamNumer.getText()));
-            resultConsole.setText("Usunięto pomyślnie.");
+            int query = ZamowieniaDAO.delete(Integer.parseInt(searchZamNumer.getText()));
+            if (query == 1){
+                resultConsole.setText("Usunięto pomyślnie.");
+            }else if (query == 10){
+                resultConsole.setText("Nie można usunąć tego zamówienia, ponieważ znajduje się ono w tabeli ElementyZamówienia.");
+            }
             ObservableList<Zamowienia> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

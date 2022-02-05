@@ -20,6 +20,7 @@ import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.hibernate.mapping.List;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -216,12 +217,23 @@ public class ProduktyController {
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            ProduktyDAO.update(Integer.parseInt(searchId.getText()),searchNazwa.getText());
-            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            int query = ProduktyDAO.update(searchId.getText(),searchNazwa.getText());
+            if(query == 1){
+                resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            }else if (query == 2){
+                resultConsole.setText("Wpisz zaktualizowaną nazwę produktu.");
+            }else if (query == 3){
+                resultConsole.setText("Nie ma takiego ID Produktu.");
+            }else if (query == 4){
+                resultConsole.setText("Wpisz ID produktu oraz nazwę którą chcesz zaktualizować.");
+            }
+            else if (query == 10){
+                resultConsole.setText("Nie ma takiego ID Produktu.");
+            }
             ObservableList<Produkty> List = getAllRecords();
             populateTable(List);
         }catch (SQLException e){
-            System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
+            resultConsole.setText("Wystąpił błąd podczas aktualizacji danych"+e);
             e.printStackTrace();
             throw e;
         }
@@ -231,8 +243,12 @@ public class ProduktyController {
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            ProduktyDAO.deleteByID(Integer.parseInt(searchId.getText()));
-            resultConsole.setText("Produkt usunięty pomyślnie.");
+            int query = ProduktyDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            if(query == 1){
+                resultConsole.setText("Produkt usunięty pomyślnie.");
+            }else{
+                resultConsole.setText("Nie można usunąć tego produktu, ponieważ jest on w zamówionych elementach.");
+            }
             ObservableList<Produkty> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

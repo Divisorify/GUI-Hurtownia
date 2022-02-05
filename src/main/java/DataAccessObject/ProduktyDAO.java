@@ -84,34 +84,44 @@ public class ProduktyDAO {
     }
 
     //Aktualizacja nazwy produktu
-    public static void update(int id,String nazwa) throws ClassNotFoundException,SQLException {
+    public static int update(String id,String nazwa) throws ClassNotFoundException,SQLException {
+        if(id == "" || nazwa == ""){
+            return 4;
+        }
+        if(Integer.valueOf(id)<1){
+            return 3;
+        }
+        if(nazwa == ""){
+            return 2;
+        }
         String sql = "update produkty set prod_nazwa = '" + nazwa + "' where prod_id = '" + id + "' ";
-
         try {
+
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Usunięcie produktu po ID
-    public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
+    public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from produkty where prod_id = '" + id + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Wyszukanie produktu po ID
     public static ObservableList<Produkty> searchByID(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from produkty where prod_id like "+id;
-
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Produkty>  list = getObjects(rsSet);

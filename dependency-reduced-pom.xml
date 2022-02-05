@@ -48,6 +48,43 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+        <artifactId>launch4j-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>l4j-clui</id>
+            <phase>package</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <dontWrapJar>false</dontWrapJar>
+              <headerType>gui</headerType>
+              <jar>target/Projekt_Java-1.0-SNAPSHOT-spring-boot.jar</jar>
+              <outfile>target/Projekt_Java.exe</outfile>
+              <downloadUrl>https://www.oracle.com/java/technologies/downloads/</downloadUrl>
+              <stayAlive>true</stayAlive>
+              <priority>high</priority>
+              <jre>
+                <path>%JAVA_HOME%;%PATH%</path>
+                <bundledJre64Bit>false</bundledJre64Bit>
+                <bundledJreAsFallback>false</bundledJreAsFallback>
+                <minVersion>17</minVersion>
+                <maxVersion>18</maxVersion>
+                <jdkPreference>preferJdk</jdkPreference>
+                <runtimeBits>64/32</runtimeBits>
+              </jre>
+              <splash>
+                <file>src\main\resources\img\startapp.bmp</file>
+                <waitForWindow>true</waitForWindow>
+                <timeout>60</timeout>
+                <timeoutErr>true</timeoutErr>
+              </splash>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.panteleyev</groupId>
         <artifactId>jpackage-maven-plugin</artifactId>
         <version>1.4.0</version>

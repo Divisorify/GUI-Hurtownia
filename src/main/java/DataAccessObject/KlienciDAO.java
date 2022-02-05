@@ -95,7 +95,16 @@ public class KlienciDAO {
     }
 
     //Aktualizacja emaila klienta
-    public static void update(int id,String email) throws ClassNotFoundException,SQLException {
+    public static int update(String id,String email) throws ClassNotFoundException,SQLException {
+        if(id == "" || email == ""){
+            return 4;
+        }
+        if(Integer.valueOf(id)<1){
+            return 3;
+        }
+        if(HelloController.isValidEmailAddress(email) == false){
+            return 2;
+        }
         String sql = "update Klienci set kl_email = '" + email + "' where kl_id = '" + id + "' ";
 
         try {
@@ -103,20 +112,22 @@ public class KlienciDAO {
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Usunięcie klienta po ID
-    public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
+    public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from klienci where kl_id = '" + id + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Wyszukanie klienta po ID

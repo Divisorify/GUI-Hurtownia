@@ -202,8 +202,19 @@ public class DostawcyController {
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            DostawcyDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
-            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            int query = DostawcyDAO.update(searchId.getText(),searchEmail.getText());
+            if(query == 1){
+                resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            }else if (query == 2){
+                resultConsole.setText("Wpisz poprawny email.");
+            }else if (query == 3){
+                resultConsole.setText("Nie ma takiego ID klienta.");
+            }else if (query == 4){
+                resultConsole.setText("Wpisz ID klienta oraz email który chcesz zaktualizować.");
+            }
+            else if (query == 10){
+                resultConsole.setText("Nie ma takiego ID Produktu.");
+            }
             ObservableList<Dostawcy> List = getAllRecords();
             populateTable(List);
         }catch (SQLException e){
@@ -217,8 +228,13 @@ public class DostawcyController {
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            DostawcyDAO.deleteByID(Integer.parseInt(searchId.getText()));
-            resultConsole.setText("Usunięto pomyślnie.");
+            int query = DostawcyDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            if (query == 1){
+                resultConsole.setText("Usunięto pomyślnie.");
+            }else{
+                resultConsole.setText("Nie można usunąć tego dostawcy, ponieważ dostarcza produkty do Hurtowni.");
+            }
+
             ObservableList<Dostawcy> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

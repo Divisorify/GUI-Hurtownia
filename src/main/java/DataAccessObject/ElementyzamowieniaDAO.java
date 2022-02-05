@@ -81,7 +81,16 @@ public class ElementyzamowieniaDAO {
     }
 
     //Aktualizacja ilości zamówionych produktów
-    public static void update(int id,String ilosc) throws ClassNotFoundException,SQLException {
+    public static int update(String id,String ilosc) throws ClassNotFoundException,SQLException {
+        if(id == "" || ilosc == ""){
+            return 4;
+        }
+        if(Integer.valueOf(id)<1){
+            return 3;
+        }
+        if(HelloController.isInteger(ilosc) == false){
+            return 2;
+        }
         String sql = "update Elementyzamowienia set ilosc = '" + ilosc + "' where zam_id = '" + id + "' ";
 
         try {
@@ -89,8 +98,9 @@ public class ElementyzamowieniaDAO {
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Usunięcie elementu zamówienia po ID
@@ -217,4 +227,17 @@ public class ElementyzamowieniaDAO {
         }
     }
 
+//    public static ObservableList<Elementyzamowienia> suma(string cena_elem, String liczba, String waluta) throws ClassNotFoundException,SQLException{
+//        String sql = "select concat(round(cena_elem*ilosc,2)," ",waluta) as suma from elementyzamowienia"
+//
+//        try{
+//            ResultSet rsSet = DBUtil.dbExecute(sql);
+//            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+//            return list;
+//        }catch(SQLException e){
+//            System.out.println("Błąd przy szukaniu waluty. "+e);
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 }

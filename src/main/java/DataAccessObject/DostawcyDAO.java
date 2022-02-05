@@ -82,7 +82,16 @@ public class DostawcyDAO {
     }
 
     //Aktualizacja emailu dostawcy
-    public static void update(int id,String email) throws ClassNotFoundException,SQLException {
+    public static int update(String id,String email) throws ClassNotFoundException,SQLException {
+        if(id == "" || email == ""){
+            return 4;
+        }
+        if(Integer.valueOf(id)<1){
+            return 3;
+        }
+        if(HelloController.isValidEmailAddress(email) == false){
+            return 2;
+        }
         String sql = "update Dostawcy set dost_email = '" + email + "' where dost_id = '" + id + "' ";
 
         try {
@@ -90,20 +99,22 @@ public class DostawcyDAO {
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Usunięcie dostawcy po ID
-    public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
+    public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
         String sql = "delete from Dostawcy where dost_id = '" + id + "'";
         try {
             DBUtil.dbExecuteQuery(sql);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
-            throw e;
+            return 10;
         }
+        return 1;
     }
 
     //Wyszukanie dostawcy po ID

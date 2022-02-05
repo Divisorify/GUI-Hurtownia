@@ -219,8 +219,18 @@ public class ElementyzamowieniaController {
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            ElementyzamowieniaDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
-            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            int query = ElementyzamowieniaDAO.update(searchId.getText(),searchEmail.getText());
+            if(query == 1){
+                resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            }else if (query == 2){
+                resultConsole.setText("Wpisz poprawną ilość.");
+            }else if (query == 3){
+                resultConsole.setText("Nie ma takiego ID zamówienia.");
+            }else if (query == 4){
+                resultConsole.setText("Wpisz ID zamówienia oraz ilość którą chcesz zaktualizować.");
+            }else if (query == 10){
+                resultConsole.setText("Nie ma takiego ID Produktu.");
+            }
             ObservableList<Elementyzamowienia> List = getAllRecords();
             populateTable(List);
         }catch (SQLException e){
@@ -336,5 +346,15 @@ public class ElementyzamowieniaController {
         }
     }
 
-
+//    private void suma(ActionEvent event)throws ClassNotFoundException,SQLException{
+//        try{
+//            ElementyzamowieniaDAO.suma();
+//            ObservableList<Elementyzamowienia> List = getAllRecords();
+//            populateTable(List);
+//        }catch(SQLException e){
+//            System.out.println("Błąd przy wykonywaniu zapytania SQL w kolumnie suma.");
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 }

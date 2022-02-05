@@ -222,8 +222,19 @@ public class KlienciController {
     @FXML
     private void updateKlienci(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            KlienciDAO.update(Integer.parseInt(searchId.getText()),searchEmail.getText());
-            resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            int query = KlienciDAO.update(searchId.getText(),searchEmail.getText());
+            if(query == 1){
+                resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
+            }else if (query == 2){
+                resultConsole.setText("Wpisz poprawny email.");
+            }else if (query == 3){
+                resultConsole.setText("Nie ma takiego ID klienta.");
+            }else if (query == 4){
+                resultConsole.setText("Wpisz ID klienta oraz email który chcesz zaktualizować.");
+            }
+            else if (query == 10){
+                resultConsole.setText("Nie ma takiego ID Produktu.");
+            }
             ObservableList<Klienci> klienciList = getAllRecordsKlienci();
             populateTableKlienci(klienciList);
         }catch (SQLException e){
@@ -237,8 +248,13 @@ public class KlienciController {
     @FXML
     private void deleteKlienci(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            KlienciDAO.deleteByID(Integer.parseInt(searchId.getText()));
-            resultConsole.setText("Klient usunięty pomyślnie.");
+            int query = KlienciDAO.deleteByID(Integer.parseInt(searchId.getText()));
+            if (query == 1){
+                resultConsole.setText("Klient usunięty pomyślnie.");
+            }
+            else if (query == 10){
+                resultConsole.setText("Nie można usunąć tego klienta, ponieważ ma on złożone zamówienie.");
+            }
             ObservableList<Klienci> klienciList = getAllRecordsKlienci();
             populateTableKlienci(klienciList);
         }catch(SQLException e){
