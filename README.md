@@ -1,4 +1,12 @@
 # GUI-Hurtownia
+
+Projekt to graficzny interfejs użytkownika służący do obsługi bazy danych Hurtowni.<br>
+Użyte w projekcie technologie to JavaFX, JDBC, Hibernate, MySQL.<br>
+Aplikacja pozwala na przeglądanie wszystkich tabel, wszystkich wierszy oraz poszczególnych wierszy wybranych przez użytkownika.<br>
+Pozwala on na edycję komórek, dodawanie, usuwanie, edytowanie wierszy w każdej tabeli.<br>
+W programie został dodany i skonfigurowany framework Hibernate, natomiast zapytania wykonywane są za pomocą JDBC z użyciem dialektu mySQL.<br>
+Dane w tabelach zostały wygenerowane losowo za pomocą strony www.mockaroo.com.
+
 Dokumentacja oraz instrukcja obsługi bazy danych Hurtowni.<br>
 [Dokumentacja Konrad Pelc PO.pdf](https://github.com/Divisorify/GUI-Hurtownia/files/8370986/Dokumentacja.Konrad.Pelc.PO.pdf)
 
@@ -34,7 +42,7 @@ Przy wypełnianiu pól należy pamiętać, że możliwe jest dodanie tylko takie
 
    
 Gdy wypełnimy pola tekstowe poprawnymi danymi należy kliknąć przycisk „Dodaj produkt”.<br>
-      <br><p align="center">
+     <br><p align="center">
  ![obraz](https://user-images.githubusercontent.com/76397174/160682004-7e475c92-6e4a-4838-86e5-6fe88b80688d.png)
 
 Dane zostaną wpisane do tabeli i będą znajdować się w miejscu uporządkowanym przez nadane automatycznie ID produktu. Konsola rezultatów w zależności od sukcesu lub jego braku wyświetli odpowiedni komunikat. 
@@ -43,47 +51,47 @@ Dane zostaną wpisane do tabeli i będą znajdować się w miejscu uporządkowan
 
 <b>Usuwanie wiersza:</b>
 Usuwanie wiersza następuje poprzez wpisanie numeru ID klucza głównego (np. prod_id z tabeli Produkty) w pole tekstowe obok „ID” i naciśnięcie przycisku „Usuń”. Jeśli operacja się powiedzie, konsola rezultatów wypisze informacje o pomyślnym usunięciu wiersza.<br>
-        <br><p align="center">
+<br><p align="center">
 ![obraz](https://user-images.githubusercontent.com/76397174/160682021-d9c3d0aa-60a7-4268-9b41-67aa91e06e74.png)
 
  
 W przypadku próby usunięcia wiersza który jest potrzebny w innej tabeli, w konsoli zostanie wypisany błąd opisujący niepowodzenie.<br>
-          <br><p align="center">
+<br><p align="center">
 ![obraz](https://user-images.githubusercontent.com/76397174/160682034-a702f289-76b3-4d95-a149-a3b29c0bf896.png)
 
  
 
-<b>Aktualizacja:</b>
+<b>Aktualizacja danych w komórce:</b>
 - <b>Emaila w tabeli Klienci</b> następuje po wpisaniu ID Klienta którego maila chcemy zmienić w polu tekstowym „ID” oraz wpisaniu zaktualizowanego emaila w pole „Email” . Pola te znajdują się powyżej wyświetlanej tabeli bazy danych. Zmianę zatwierdza się przyciskiem „Aktualizuj”.<br>
-            <br><p align="center">
-- ![obraz](https://user-images.githubusercontent.com/76397174/160682047-ade0cf4d-edf6-4c6c-9418-8e3046f14c39.png)
+<br><p align="center">
+ ![obraz](https://user-images.githubusercontent.com/76397174/160682047-ade0cf4d-edf6-4c6c-9418-8e3046f14c39.png)
 
  
 - <b>Emaila w tabeli Dostawcy</b> następuje po wpisaniu ID Dostawcy w polu tekstowym „ID” oraz wpisaniu zaktualizowanego emaila w pole „Email” . Pola te znajdują się powyżej wyświetlanej tabeli bazy danych. Zmianę zatwierdza się przyciskiem „Aktualizuj”.<br>
-              <br><p align="center">
-- ![obraz](https://user-images.githubusercontent.com/76397174/160682066-fbef9779-4dc5-4a83-bc40-0bb0784720ff.png)
+<br><p align="center">
+ ![obraz](https://user-images.githubusercontent.com/76397174/160682066-fbef9779-4dc5-4a83-bc40-0bb0784720ff.png)
 
  
 
 - <b>Nazwy produktu w tabeli Produkty</b> następuje po wpisaniu ID Produktu którego nazwę chcemy zmienić w polu tekstowym „ID” oraz wpisaniu zaktualizowanej daty w pole „Data zamówienia” . Pola te znajdują się powyżej wyświetlanej tabeli bazy danych. Zmianę zatwierdza się przyciskiem „Aktualizuj”. <br>
-                <br><p align="center">
--  ![obraz](https://user-images.githubusercontent.com/76397174/160682079-d552df22-1ca2-4f08-80c7-e55070243d60.png)
+<br><p align="center">
+ ![obraz](https://user-images.githubusercontent.com/76397174/160682079-d552df22-1ca2-4f08-80c7-e55070243d60.png)
 
 - <b>Daty zamówienia w tabeli zamówienia</b> następuje po wpisaniu numeru zamówienia którego datę chcemy zmienić w polu tekstowym „Numer zamówienia” oraz wpisaniu zaktualizowanej daty w pole „Data zamówienia” . Pola te znajdują się powyżej wyświetlanej tabeli bazy danych. Zmianę zatwierdza się przyciskiem „Aktualizuj”.<br>
-                  <br><p align="center">
-- ![obraz](https://user-images.githubusercontent.com/76397174/160682093-0e4a077b-6534-4932-9999-46951b282650.png)
+<br><p align="center">
+ ![obraz](https://user-images.githubusercontent.com/76397174/160682093-0e4a077b-6534-4932-9999-46951b282650.png)
 
  
 - <b>Ilości zamówień w tabeli ElementyZamówienia</b> następuje po wpisaniu ID zamówienia którego ilość chcemy zaktualizować w pole tekstowe „ID” oraz po wpisaniu zaktualizowanej ilości w pole „Ilość”. Pola te znajdują się powyżej wyświetlanej tabeli bazy danych. Zmianę zatwierdza się przyciskiem „Aktualizuj”.<br>
-                    <br><p align="center">
-- ![obraz](https://user-images.githubusercontent.com/76397174/160682107-13063d4c-7b12-499b-9aa0-39cc90f102f3.png)
+<br><p align="center">
+ ![obraz](https://user-images.githubusercontent.com/76397174/160682107-13063d4c-7b12-499b-9aa0-39cc90f102f3.png)
 
  
 
 <b>Aktualizacja wybranej komórki:</b>
 Aktualizacja dowolnej komórki w aplikacji następuje po dwukrotnym kliknięciu na pole które chcemy edytować.  
 Następnie wpisujemy dane zgodnie z potrzebami. Zatwierdzenie aktualizacji następuje kliknięciem przez użytkownika przycisku Enter znajdującego się na klawiaturze użytkownika.<br>
-                      <br><p align="center">
+<br><p align="center">
 ![obraz](https://user-images.githubusercontent.com/76397174/160682130-0d46aa4f-0205-4621-ac84-d1a3f653b7d4.png)
 
 
