@@ -1,4 +1,4 @@
-# GUI-Hurtownia
+# GUI-Hurtownia JavaFX Application
 
 Projekt to graficzny interfejs użytkownika służący do obsługi bazy danych Hurtowni.<br>
 Użyte w projekcie technologie to JavaFX, JDBC, Hibernate, MySQL.<br>
