@@ -8,7 +8,8 @@ W programie został dodany i skonfigurowany framework Hibernate, natomiast zapyt
 Dane w tabelach zostały wygenerowane losowo za pomocą strony www.mockaroo.com.
 
 Dokumentacja oraz instrukcja obsługi bazy danych Hurtowni.<br>
-[Dokumentacja Konrad Pelc PO.pdf](https://github.com/Divisorify/GUI-Hurtownia/files/8370986/Dokumentacja.Konrad.Pelc.PO.pdf)
+[Dokumentacja Konrad Pelc PO.pdf](https://github.com/Divisorify/GUI-Hurtownia/files/8863797/Dokumentacja.Konrad.Pelc.PO.pdf)
+
 
 <h2>Opis działania aplikacji + Screenshoty</h2>
 
