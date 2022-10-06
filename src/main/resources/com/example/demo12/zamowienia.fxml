@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ZamowieniaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ZamowieniaController">
     <children>
         <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
             <menus>
@@ -47,6 +47,7 @@
                                 <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="306.0" text="Produkty" />
                                 <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="306.0" text="Zamówienia" />
                                 <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
+                                <Button mnemonicParsing="false" onAction="#btnHistoryczna" prefHeight="35.0" prefWidth="306.0" text="Historyczna" />
                                 <AnchorPane prefHeight="361.0" prefWidth="305.0">
                                     <children>
                                         <TextField fx:id="txtZamData" layoutX="133.0" layoutY="45.0" />
@@ -80,19 +81,18 @@
                                 <Font size="15.0" />
                             </font>
                         </Text>
-                        <TextField fx:id="searchZamNumer" layoutX="127.0" layoutY="31.0" prefHeight="25.0" prefWidth="92.0" />
-                        <TextField fx:id="searchId" layoutX="321.0" layoutY="31.0" prefHeight="25.0" prefWidth="92.0" />
-                        <Text layoutX="257.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Klienta" />
-                        <Text layoutX="14.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer zamówienia" />
-                        <Button layoutX="168.0" layoutY="63.0" mnemonicParsing="false" onAction="#search" text="Wyszukaj" />
-                        <Button layoutX="274.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
-                        <Button layoutX="380.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
-                        <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
-                  <Text layoutX="435.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data zamówienia" />
-                  <TextField fx:id="updateDataZam" layoutX="534.0" layoutY="31.0" />
+                        <TextField fx:id="searchZamNumer" layoutX="228.0" layoutY="31.0" prefHeight="25.0" prefWidth="92.0" />
+                        <Text layoutX="117.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numer zamówienia" />
+                        <Button layoutX="135.0" layoutY="63.0" mnemonicParsing="false" onAction="#search" text="Wyszukaj" />
+                        <Button layoutX="240.0" layoutY="63.0" mnemonicParsing="false" onAction="#update" text="Aktualizuj" />
+                        <Button layoutX="342.0" layoutY="63.0" mnemonicParsing="false" onAction="#delete" text="Usuń" />
+                        <Button layoutX="416.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
+                  <Text layoutX="342.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data zamówienia" />
+                  <TextField fx:id="updateDataZam" layoutX="439.0" layoutY="31.0" />
                   <TextField fx:id="txtZamNumersearch" layoutY="96.0" onAction="#advencedsearchzam_numer" prefHeight="25.0" prefWidth="75.0" />
                   <TextField fx:id="txtZamDatasearch" layoutX="75.0" layoutY="96.0" onAction="#advencedsearchzam_data" prefHeight="25.0" prefWidth="140.0" />
                   <TextField fx:id="txtKlIdsearch" layoutX="215.0" layoutY="96.0" onAction="#advencedsearchkl_id" prefHeight="25.0" prefWidth="100.0" />
+                  <Button layoutX="540.0" layoutY="63.0" mnemonicParsing="false" onAction="#archive" text="Archiwizuj" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

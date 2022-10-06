@@ -1,10 +1,7 @@
 package com.example.demo12;
 
-import DataAccessObject.ElementyzamowieniaDAO;
-import DataAccessObject.ProduktyDAO;
-import DataAccessObject.ZamowieniaDAO;
-import entities.Produkty;
-import entities.Zamowienia;
+import DataAccessObject.HistorycznaDAO;
+import entities.Historyczna;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +20,9 @@ import javafx.util.converter.IntegerStringConverter;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static DataAccessObject.ZamowieniaDAO.getAllRecords;
+import static DataAccessObject.HistorycznaDAO.getAllRecords;
 
-public class ZamowieniaController {
+public class HistorycznaController {
     //Pole do wypisywania rezultatów oraz stworzenie tabeli
     @FXML
     private TextArea resultConsole;
@@ -34,15 +31,17 @@ public class ZamowieniaController {
 
     //Tworzenie kolumn
     @FXML
-    private TableColumn<Zamowienia, Integer> colzam_numer;
+    private TableColumn<Historyczna, Integer> colhist_id;
     @FXML
-    private TableColumn<Zamowienia, String> colzam_data;
-    @FXML
-    private TableColumn<Zamowienia, Integer> colkl_id;
+    private TableColumn<Historyczna, Integer> colzam_numer;
+//    @FXML
+//    private TableColumn<Historyczna, String> colzam_data;
+//    @FXML
+//    private TableColumn<Historyczna, Integer> colkl_id;
 
     //Przyciski do zmiany tabel
     @FXML
-    void btnDostawcy(ActionEvent event) throws IOException{
+    void btnDostawcy(ActionEvent event) throws IOException {
         Parent dostawcy = FXMLLoader.load(getClass().getResource("dostawcy.fxml"));
         Scene scenedostawcy = new Scene(dostawcy);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -107,27 +106,29 @@ public class ZamowieniaController {
         Table.setEditable(true);  //Ustawienie możliwości edytowania tabeli
 
         //Wypisanie danych z bazy
+        colhist_id.setCellValueFactory(cellData -> cellData.getValue().hist_idPropertyProperty().asObject());
         colzam_numer.setCellValueFactory(cellData -> cellData.getValue().zam_numerPropertyProperty().asObject());
-        colzam_data.setCellValueFactory(cellData -> cellData.getValue().zam_dataPropertyProperty());
-        colkl_id.setCellValueFactory(cellData -> cellData.getValue().kl_idPropertyProperty().asObject());
+//        colzam_data.setCellValueFactory(cellData -> cellData.getValue().zam_dataPropertyProperty());
+//        colkl_id.setCellValueFactory(cellData -> cellData.getValue().kl_idPropertyProperty().asObject());
 
         //Edycja komórki
+        colhist_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         colzam_numer.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        colzam_data.setCellFactory(TextFieldTableCell.forTableColumn());
-        colkl_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+//        colzam_data.setCellFactory(TextFieldTableCell.forTableColumn());
+//        colkl_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-        ObservableList<Zamowienia> List = getAllRecords();
+        ObservableList<Historyczna> List = getAllRecords();
         populateTable(List);
     }
 
-    private void populateTable(ObservableList<Zamowienia> List) {
+    private void populateTable(ObservableList<Historyczna> List) {
         Table.setItems(List);
     }
 
     //Wyszukiwanie pojedyńczej komórki po ID
     @FXML
-    private void search(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> list = ZamowieniaDAO.search(searchZamNumer.getText());
+    private void search(ActionEvent event)throws ClassNotFoundException, SQLException {
+        ObservableList<Historyczna> list = HistorycznaDAO.search(searchHistId.getText());
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
@@ -140,63 +141,67 @@ public class ZamowieniaController {
     //Wyszukiwanie wszystkich wierszy
     @FXML
     private void searchAll(ActionEvent event) throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> List = getAllRecords();
+        ObservableList<Historyczna> List = getAllRecords();
         populateTable(List);
     }
 
-    //Pola tekstowe do dodania zamówienia
-    @FXML
-    private TextField txtZamData;
-    @FXML
-    private TextField txtKlId;
-
-    //Dodanie zamówienia
-    @FXML
-    private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
-        try{
-            int query = ZamowieniaDAO.dodaj(txtZamData.getText(), txtKlId.getText());
-            if(query == 2){
-                resultConsole.clear();
-                resultConsole.setText("Wypełnij wszystkie komórki. ");
-            }else if (query == 0){
-                resultConsole.clear();
-                resultConsole.setText("Wpisz poprawne wartości w komórkach.");
-            }else if (query == 1){
-                resultConsole.clear();
-                resultConsole.setText("Sukces! Wartości zostały dodane.");
-            }
-            else if (query == 3){
-                resultConsole.setText("Wpisz poprawną datę.");
-            }
-            else if (query == 4){
-                resultConsole.clear();
-                resultConsole.setText("Wpisz poprawne id Klienta.");
-            }else if (query == 10){
-                resultConsole.clear();
-                resultConsole.setText("Nie ma klienta z takim numerem ID w tabeli Klienci.");
-            }
-            ObservableList<Zamowienia> List = getAllRecords();
-            populateTable(List);
-        }catch(SQLException e){
-            System.out.println("Wystąpił błąd w wartościach."+e);
-            e.printStackTrace();
-            throw e;
-        }
-    }
+//    //Pola tekstowe do dodania zamówienia
+//    @FXML
+//    private TextField txtZamData;
+//    @FXML
+//    private TextField txtKlId;
+//
+//    //Dodanie zamówienia
+//    @FXML
+//    private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
+//        try{
+//            int query = ZamowieniaDAO.dodaj(txtZamData.getText(), txtKlId.getText());
+//            if(query == 2){
+//                resultConsole.clear();
+//                resultConsole.setText("Wypełnij wszystkie komórki. ");
+//            }else if (query == 0){
+//                resultConsole.clear();
+//                resultConsole.setText("Wpisz poprawne wartości w komórkach.");
+//            }else if (query == 1){
+//                resultConsole.clear();
+//                resultConsole.setText("Sukces! Wartości zostały dodane.");
+//            }
+//            else if (query == 3){
+//                resultConsole.setText("Wpisz poprawną datę.");
+//            }
+//            else if (query == 4){
+//                resultConsole.clear();
+//                resultConsole.setText("Wpisz poprawne id Klienta.");
+//            }else if (query == 10){
+//                resultConsole.clear();
+//                resultConsole.setText("Nie ma klienta z takim numerem ID w tabeli Klienci.");
+//            }
+//            ObservableList<Zamowienia> List = getAllRecords();
+//            populateTable(List);
+//        }catch(SQLException e){
+//            System.out.println("Wystąpił błąd w wartościach."+e);
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 
     //Pola tekstowe do wyszukiwania
+    @FXML
+    private TextField searchHistId;
     @FXML
     private TextField searchId;
     @FXML
     private TextField searchZamNumer;
     @FXML
     private TextField updateDataZam;
+    @FXML
+    private TextField updateZamNumer;
 
     //Aktualizacja
     @FXML
     private void update(ActionEvent event) throws ClassNotFoundException, SQLException{
         try{
-            int query = ZamowieniaDAO.update(searchZamNumer.getText(),updateDataZam.getText());
+            int query = HistorycznaDAO.update(searchHistId.getText(),updateZamNumer.getText());
             if(query == 1){
                 resultConsole.setText("Sukces! Dane zostały zaktualizowane.");
             }else if (query == 2){
@@ -206,7 +211,7 @@ public class ZamowieniaController {
             }else if (query == 4){
                 resultConsole.setText("Wpisz numer zamówienia oraz zaktualizowaną datę.");
             }
-            ObservableList<Zamowienia> List = getAllRecords();
+            ObservableList<Historyczna> List = getAllRecords();
             populateTable(List);
         }catch (SQLException e){
             System.out.println("Wystąpił błąd podczas aktualizacji danych"+e);
@@ -219,13 +224,13 @@ public class ZamowieniaController {
     @FXML
     private void delete(ActionEvent event) throws ClassNotFoundException,SQLException{
         try{
-            int query = ZamowieniaDAO.delete(Integer.parseInt(searchZamNumer.getText()));
+            int query = HistorycznaDAO.delete(Integer.parseInt(searchHistId.getText()));
             if (query == 1){
                 resultConsole.setText("Usunięto pomyślnie.");
             }else if (query == 10){
                 resultConsole.setText("Nie można usunąć tego zamówienia, ponieważ znajduje się ono w tabeli ElementyZamówienia.");
             }
-            ObservableList<Zamowienia> List = getAllRecords();
+            ObservableList<Historyczna> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){
             System.out.println("Błąd przy usuwaniu numerze zamówienia: "+ searchId);
@@ -234,21 +239,9 @@ public class ZamowieniaController {
         }
     }
 
-    @FXML
-    private void archive(ActionEvent event) throws ClassNotFoundException,SQLException{
-        try{
-            String query = ZamowieniaDAO.archiwizuj(updateDataZam.getText());
-
-            ObservableList<Zamowienia> List = getAllRecords();
-            populateTable(List);
-        }catch(SQLException e){
-            System.out.println("Błąd przy archiwizacji. ");
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
     //Pola tekstowe do wyszukiwania
+    @FXML
+    private TextField txtHistIDsearch;
     @FXML
     private TextField txtZamNumersearch;
     @FXML
@@ -257,8 +250,20 @@ public class ZamowieniaController {
     private TextField txtKlIdsearch;
 
     @FXML
+    private void advencedsearchhist_id(ActionEvent event)throws ClassNotFoundException,SQLException{
+        ObservableList<Historyczna> list = HistorycznaDAO.searchkl_id(txtHistIDsearch.getText());
+        populateTable(list);
+        if(list.size()>0){
+            populateTable(list);
+            resultConsole.setText("Zamówienie zostało znalezione.");
+        }else{
+            resultConsole.setText("Nie znaleziono takiego zamówienia po ID.");
+        }
+    }
+
+    @FXML
     private void advencedsearchkl_id(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> list = ZamowieniaDAO.searchkl_id(txtKlIdsearch.getText());
+        ObservableList<Historyczna> list = HistorycznaDAO.searchkl_id(txtKlIdsearch.getText());
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
@@ -270,7 +275,7 @@ public class ZamowieniaController {
 
     @FXML
     private void advencedsearchzam_data(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> list = ZamowieniaDAO.searchzam_data(txtZamDatasearch.getText());
+        ObservableList<Historyczna> list = HistorycznaDAO.searchzam_data(txtZamDatasearch.getText());
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
@@ -282,7 +287,7 @@ public class ZamowieniaController {
 
     @FXML
     private void advencedsearchzam_numer(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Zamowienia> list = ZamowieniaDAO.searchzam_numer(txtZamNumersearch.getText());
+        ObservableList<Historyczna> list = HistorycznaDAO.searchzam_numer(txtZamNumersearch.getText());
         populateTable(list);
         if(list.size()>0){
             populateTable(list);
@@ -291,7 +296,4 @@ public class ZamowieniaController {
             resultConsole.setText("Nie znaleziono takiego numeru zamówienia.");
         }
     }
-
-
-
 }

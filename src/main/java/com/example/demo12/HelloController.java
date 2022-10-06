@@ -68,6 +68,16 @@ public class HelloController {
         app_stage.show();
     }
 
+    @FXML
+    void btnHistoryczna(ActionEvent event) throws IOException {
+        Parent historyczna = FXMLLoader.load(getClass().getResource("historyczna.fxml"));
+        Scene scenehistoryczna = new Scene(historyczna);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.hide();
+        app_stage.setScene(scenehistoryczna);
+        app_stage.show();
+    }
+
     public static boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -122,27 +132,6 @@ public class HelloController {
     }
 
     public static boolean isDate(String str) {
-        if (str == null) {
-            return false;
-        }
-        int length = str.length();
-        if (length == 0) {
-            return false;
-        }
-        int i = 0;
-        if (str.charAt(0) == '-') {
-            return false;
-        }
-        for (; i < length; i++) {
-            char c = str.charAt(i);
-            if (c < '0' || c > '9') {
-                if(c=='/'){
-                    continue;
-                }else {
-                    return false;
-                }
-            }
-        }
         return true;
     }
 }

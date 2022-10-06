@@ -38,11 +38,24 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.26</version>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.6</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
+<!--        <dependency>-->
+<!--            <groupId>com.oracle.database.jdbc</groupId>-->
+<!--            <artifactId>ojdbc8</artifactId>-->
+<!--            <version>21.1.0.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath></systemPath>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -77,8 +90,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -219,7 +232,7 @@
                             <dontWrapJar>false</dontWrapJar>
                             <headerType>gui</headerType>
                             <!-- ścieżka do pliku JAR -->
-                            <jar>target/Projekt_Java-1.0-SNAPSHOT-spring-boot.jar</jar>
+                            <jar>target/demo1-1.0-SNAPSHOT.jar</jar>
                             <!-- ścieżka do pliku wyjściowego exe-->
                             <outfile>target/Projekt_Java.exe</outfile>
                             <downloadUrl>https://www.oracle.com/java/technologies/downloads/</downloadUrl>
@@ -236,7 +249,7 @@
                         </jre>
                             <splash>
                                 <!-- Wymagania zdjęcia które jestwyświetlane podczasuruchamiania aplikacji:24-bitno colorspace information -->
-                                <file>src\main\resources\img\startapp.bmp</file>
+                                <file>src\main\resources\img\loadjpg.jpg</file>
                                 <waitForWindow>true</waitForWindow>
                                 <!-- Czas w sekundach do wyrzuceniawyjątku Timeout-->
                                 <timeout>60</timeout>

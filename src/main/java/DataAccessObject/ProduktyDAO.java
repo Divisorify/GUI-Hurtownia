@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ProduktyDAO {
     //Wypisanie wszystkich produktów
     public static ObservableList<Produkty> getAllRecords() throws ClassNotFoundException, SQLException {
-        String sql = "select * from Produkty";
+        String sql = "select * from pokazprodukty()";
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Produkty> List = getObjects(rsSet);
@@ -50,31 +50,24 @@ public class ProduktyDAO {
 
     //Dodanie produktu
     public static int dodaj(String Dost_id, String nazwa, String cena, String waluta, String kraj) throws SQLException,ClassNotFoundException{
-        if(Dost_id =="" || nazwa == "" || cena == "" || waluta == "" || kraj == ""){
+        if(Dost_id.equals("") || nazwa.equals("") || cena.equals("") || waluta.equals("") || kraj.equals("")){
             return 2;
         }
-        else if(HelloController.isInteger(Dost_id) == false){
+        else if(!HelloController.isInteger(Dost_id)){
             return 3;
         }
-//        else if(Integer.parseInt(nazwa) < 0){
-//            return 4;
-//        }
-        else if(HelloController.isDouble(cena) == false){
+
+        else if(!HelloController.isDouble(cena)){
             return 5;
         }
-//        else if(Integer.parseInt(waluta) < 0){
-//            return 6;
-//        }else if(Integer.parseInt(kraj) < 0){
-//            return 7;
-//        }
-        if(HelloController.isDouble(cena) == true){
-            String sql = "insert into produkty(dost_id,prod_nazwa,prod_cena,prod_waluta,prod_kraj)values(' "+Dost_id+"', '"+nazwa+"', '"+cena+"', '"+waluta+"', '"+kraj+"')";
+
+        if(HelloController.isDouble(cena)){
+            String sql = "CALL dodajprodukty(?,?,?,?,?)";
             try{
-                DBUtil.dbExecuteQuery(sql);
+                DBUtil.dbExecuteQueryProdukty(sql,Dost_id,nazwa,cena,waluta,kraj);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu produktu"+ e);
                 e.printStackTrace();
-                //throw e;
                 return 10;
             }
             return 1;
@@ -85,19 +78,19 @@ public class ProduktyDAO {
 
     //Aktualizacja nazwy produktu
     public static int update(String id,String nazwa) throws ClassNotFoundException,SQLException {
-        if(id == "" || nazwa == ""){
+        if(id.equals("") || nazwa.equals("")){
             return 4;
         }
-        if(Integer.valueOf(id)<1){
+        if(Integer.parseInt(id)<1){
             return 3;
         }
-        if(nazwa == ""){
+        if(nazwa.equals("")){
             return 2;
         }
-        String sql = "update produkty set prod_nazwa = '" + nazwa + "' where prod_id = '" + id + "' ";
+        String sql = "CALL zaktualizujprodukty(?,?)";
         try {
 
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryZaktualizujProdukty(sql, id, nazwa);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
@@ -108,9 +101,9 @@ public class ProduktyDAO {
 
     //Usunięcie produktu po ID
     public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
-        String sql = "delete from produkty where prod_id = '" + id + "'";
+        String sql = "CALL usunprodukty(?)";
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryUsun(sql, id);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
@@ -121,7 +114,7 @@ public class ProduktyDAO {
 
     //Wyszukanie produktu po ID
     public static ObservableList<Produkty> searchByID(String id) throws ClassNotFoundException,SQLException{
-        String sql = "select * from produkty where prod_id like "+id;
+        String sql = "select * from produkty where prod_id = "+id;
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Produkty>  list = getObjects(rsSet);

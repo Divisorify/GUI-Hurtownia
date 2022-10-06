@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ElementyzamowieniaController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="1044.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.ElementyzamowieniaController">
     <children>
         <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1044.0">
             <menus>
@@ -47,6 +47,7 @@
                                 <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="306.0" text="Produkty" />
                                 <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="306.0" text="Zamówienia" />
                                 <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
+                                <Button mnemonicParsing="false" onAction="#btnHistoryczna" prefHeight="35.0" prefWidth="306.0" text="Historyczna" />
                                 <AnchorPane prefHeight="361.0" prefWidth="305.0">
                                     <children>
                                         <TextField fx:id="txtZamNumer" layoutX="133.0" layoutY="45.0" />
@@ -80,7 +81,6 @@
                             <columns>
                                 <TableColumn fx:id="colzam_id" prefWidth="75.0" text="zam_id" />
                                 <TableColumn fx:id="colzam_numer" prefWidth="75.0" text="zam_numer" />
-                                <TableColumn fx:id="colzam_elem" prefWidth="75.0" text="zam_elem" />
                                 <TableColumn fx:id="colprod_id" prefWidth="75.0" text="prod_id" />
                                 <TableColumn fx:id="colilosc" prefWidth="75.0" text="ilosc" />
                                 <TableColumn fx:id="colcena_elem" prefWidth="78.0" text="cena_elem" />
@@ -102,11 +102,10 @@
                         <Button layoutX="464.0" layoutY="63.0" mnemonicParsing="false" onAction="#searchAll" text="Pokaż wszystko" />
                   <TextField fx:id="txtIdZamowieniasearch" layoutY="96.0" onAction="#advencedsearchZam_id" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="0.0" />
                   <TextField fx:id="txtNumZamowieniasearch" layoutX="74.0" layoutY="96.0" onAction="#advencedsearchZam_numer" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="75.0" />
-                  <TextField fx:id="txtElemZamowieniasearch" layoutX="149.0" layoutY="96.0" onAction="#advencedsearchZam_elem" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="150.0" />
-                  <TextField fx:id="txtIdProduktusearch" layoutX="224.0" layoutY="96.0" onAction="#advencedsearchProd_id" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="225.0" />
-                  <TextField fx:id="txtIloscsearch" layoutX="299.0" layoutY="96.0" onAction="#advencedsearchIlosc" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="300.0" />
-                  <TextField fx:id="txtCenaElemsearch" layoutX="380.0" layoutY="96.0" onAction="#advencedsearchCena_elem" prefHeight="25.0" prefWidth="78.0" AnchorPane.leftAnchor="375.0" />
-                  <TextField fx:id="txtwalutasearch" layoutX="452.0" layoutY="96.0" onAction="#advencedsearchWaluta" prefHeight="25.0" prefWidth="90.0" AnchorPane.leftAnchor="453.0" />
+                  <TextField fx:id="txtIdProduktusearch" layoutX="150.0" layoutY="96.0" onAction="#advencedsearchProd_id" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="150.0" />
+                  <TextField fx:id="txtIloscsearch" layoutX="225.0" layoutY="96.0" onAction="#advencedsearchIlosc" prefHeight="25.0" prefWidth="75.0" AnchorPane.leftAnchor="225.0" />
+                  <TextField fx:id="txtCenaElemsearch" layoutX="300.0" layoutY="96.0" onAction="#advencedsearchCena_elem" prefHeight="25.0" prefWidth="78.0" AnchorPane.leftAnchor="300.0" />
+                  <TextField fx:id="txtwalutasearch" layoutX="378.0" layoutY="96.0" onAction="#advencedsearchWaluta" prefHeight="25.0" prefWidth="90.0" AnchorPane.leftAnchor="378.0" />
                     </children></AnchorPane>
             </items>
         </SplitPane>

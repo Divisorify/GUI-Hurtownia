@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 import javax.persistence.EntityManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,7 +20,8 @@ public class KlienciDAO {
 
     //Wypisanie wszystkich klientów
     public static ObservableList<Klienci> getAllRecordsKlienci() throws ClassNotFoundException, SQLException {
-        String sql = "select * from Klienci";
+
+        String sql = "select * from pokazklientow()";
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Klienci> klienciList = getKlienciObjects(rsSet);
@@ -29,6 +31,7 @@ public class KlienciDAO {
             e.printStackTrace();
             throw e;
         }
+
     }
 
     //Przyporządkowanie danych kolumnom
@@ -62,27 +65,15 @@ public class KlienciDAO {
         if(imie =="" || nazwisko == "" || miejscowosc == "" || ulica == "" || nrMieszkania == "" || nrTelefonu== "" || email == ""){
             return 2;
         }
-//        else if(Integer.parseInt(imie) < 0){
-//            return 3;
-//        }else if(Integer.parseInt(nazwisko) < 0){
-//            return 4;
-//        }else if(Integer.parseInt(miejscowosc) < 0){
-//            return 5;
-//        }else if(Integer.parseInt(ulica) < 0){
-//            return 6;
-//        }else if(Integer.parseInt(nrMieszkania) < 0){
-//            return 7;
-//        }
-        else if(HelloController.isInteger(nrTelefonu) == false){
+
+        else if(!HelloController.isInteger(nrTelefonu)){
             return 8;
         }
-//        else if(Integer.parseInt(email) < 0){
-//            return 9;
-//        }
-        if(validEmailAddress == true){
-            String sql = "insert into klienci(kl_imie,kl_nazwisko,kl_miejscowosc,kl_ulica,kl_nrMieszkania,kl_nrTelefonu,kl_email)values(' "+imie+"', '"+nazwisko+"', '"+miejscowosc+"', '"+ulica+"', '"+nrMieszkania+"', '"+nrTelefonu+"', '"+email+"')";
+
+        if(validEmailAddress){
+            String sql = "CALL dodajklientow(?,?,?,?,?,?,?)";
             try{
-                DBUtil.dbExecuteQuery(sql);
+                DBUtil.dbExecuteQuery(sql, imie, nazwisko, miejscowosc, ulica, nrMieszkania, nrTelefonu, email);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu klienta"+ e);
                 e.printStackTrace();
@@ -96,19 +87,19 @@ public class KlienciDAO {
 
     //Aktualizacja emaila klienta
     public static int update(String id,String email) throws ClassNotFoundException,SQLException {
-        if(id == "" || email == ""){
+        if(id.equals("") || email.equals("")){
             return 4;
         }
-        if(Integer.valueOf(id)<1){
+        if(Integer.parseInt(id)<1){
             return 3;
         }
-        if(HelloController.isValidEmailAddress(email) == false){
+        if(!HelloController.isValidEmailAddress(email)){
             return 2;
         }
-        String sql = "update Klienci set kl_email = '" + email + "' where kl_id = '" + id + "' ";
+        String sql = "CALL zaktualizujklientow(?,?)";
 
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryZaktualizujKlientow(sql, id, email);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
@@ -119,9 +110,9 @@ public class KlienciDAO {
 
     //Usunięcie klienta po ID
     public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
-        String sql = "delete from klienci where kl_id = '" + id + "'";
+        String sql = "CALL usunklientow(?)";
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryUsun(sql, id);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();

@@ -102,13 +102,23 @@ public class ElementyzamowieniaController {
     }
 
     @FXML
+    void btnHistoryczna(ActionEvent event) throws IOException {
+        Parent historyczna = FXMLLoader.load(getClass().getResource("historyczna.fxml"));
+        Scene scenehistoryczna = new Scene(historyczna);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.hide();
+        app_stage.setScene(scenehistoryczna);
+        app_stage.show();
+    }
+
+    @FXML
     private void initialize() throws Exception{
         Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
 
         //Wypisanie danych z bazy
         colzam_id.setCellValueFactory(cellData -> cellData.getValue().zam_idPropertyProperty().asObject());
         colzam_numer.setCellValueFactory(cellData -> cellData.getValue().zam_numerPropertyProperty().asObject());
-        colzam_elem.setCellValueFactory(cellData -> cellData.getValue().zam_elemPropertyProperty().asObject());
+        //colzam_elem.setCellValueFactory(cellData -> cellData.getValue().zam_elemPropertyProperty().asObject());
         colprod_id.setCellValueFactory(cellData -> cellData.getValue().prod_idPropertyProperty().asObject());
         colilosc.setCellValueFactory(cellData -> cellData.getValue().iloscPropertyProperty().asObject());
         colcena_elem.setCellValueFactory(cellData -> cellData.getValue().cena_elemPropertyProperty().asObject());
@@ -117,7 +127,7 @@ public class ElementyzamowieniaController {
         //Edycja komórki
         colzam_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         colzam_numer.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        colzam_elem.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        //colzam_elem.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         colprod_id.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         colilosc.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         colcena_elem.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
@@ -153,8 +163,8 @@ public class ElementyzamowieniaController {
     //Pola tekstowe do dodania elementu zamówienia
     @FXML
     private TextField txtZamNumer;
-    @FXML
-    private TextField txtZamElem;
+//    @FXML
+//    private TextField txtZamElem;
     @FXML
     private TextField txtProdId;
     @FXML
@@ -168,7 +178,7 @@ public class ElementyzamowieniaController {
     @FXML
     private void dodaj(ActionEvent event) throws ClassNotFoundException, SQLException {
         try{
-            int query = ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(), txtZamElem.getText(), txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
+            int query = ElementyzamowieniaDAO.dodaj(txtZamNumer.getText(),txtProdId.getText(),txtIlosc.getText(),txtCenaElem.getText(),txtWaluta.getText());
             if(query == 2){
                 resultConsole.clear();
                 resultConsole.setText("Wypełnij wszystkie komórki. ");
@@ -259,8 +269,8 @@ public class ElementyzamowieniaController {
     private TextField txtIdZamowieniasearch;
     @FXML
     private TextField txtNumZamowieniasearch;
-    @FXML
-    private TextField txtElemZamowieniasearch;
+//    @FXML
+//    private TextField txtElemZamowieniasearch;
     @FXML
     private TextField txtIdProduktusearch;
     @FXML
@@ -292,17 +302,17 @@ public class ElementyzamowieniaController {
             resultConsole.setText("Nie znaleziono takiego numeru elementu zamówienia.");
         }
     }
-    @FXML
-    private void advencedsearchZam_elem(ActionEvent event)throws ClassNotFoundException,SQLException{
-        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchzam_elem(txtElemZamowieniasearch.getText());
-        populateTable(list);
-        if(list.size()>0){
-            populateTable(list);
-            resultConsole.setText("Element zamówienia został znaleziony.");
-        }else{
-            resultConsole.setText("Nie znaleziono takiego elementu zamówienia.");
-        }
-    }
+//    @FXML
+//    private void advencedsearchZam_elem(ActionEvent event)throws ClassNotFoundException,SQLException{
+//        ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchzam_elem(txtElemZamowieniasearch.getText());
+//        populateTable(list);
+//        if(list.size()>0){
+//            populateTable(list);
+//            resultConsole.setText("Element zamówienia został znaleziony.");
+//        }else{
+//            resultConsole.setText("Nie znaleziono takiego elementu zamówienia.");
+//        }
+//    }
     @FXML
     private void advencedsearchProd_id(ActionEvent event)throws ClassNotFoundException,SQLException{
         ObservableList<Elementyzamowienia> list = ElementyzamowieniaDAO.searchprod_id(txtIdProduktusearch.getText());

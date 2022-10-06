@@ -9,14 +9,5 @@
         <module name="demo1" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="demo1" target="17" />
-      <module name="Projekt" target="17" />
-    </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="demo1" options="" />
-    </option>
   </component>
 </project>

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class ElementyzamowieniaDAO {
     //Wypisanie wszystkich elementów zamówienia
     public static ObservableList<Elementyzamowienia> getAllRecords() throws ClassNotFoundException, SQLException {
-        String sql = "select * from Elementyzamowienia";
+        String sql = "select * from pokazelementyzamowienia()";
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Elementyzamowienia> List = getObjects(rsSet);
@@ -33,7 +33,7 @@ public class ElementyzamowieniaDAO {
                 Elementyzamowienia kli = new Elementyzamowienia();
                 kli.setZam_idProperty(rsSet.getInt("zam_id"));
                 kli.setZam_numerProperty(rsSet.getInt("zam_numer"));
-                kli.setZam_elemProperty(rsSet.getInt("zam_elem"));
+                //kli.setZam_elemProperty(rsSet.getInt("zam_elem"));
                 kli.setProd_idProperty(rsSet.getInt("prod_id"));
                 kli.setIloscProperty(rsSet.getInt("ilosc"));
                 kli.setCena_elemProperty(rsSet.getDouble("cena_elem"));
@@ -49,25 +49,23 @@ public class ElementyzamowieniaDAO {
     }
 
     //Dodanie elementu zamówienia
-    public static int dodaj(String numer,String element, String prod_id, String ilosc,String cenaelem,String waluta) throws SQLException,ClassNotFoundException{
-        if(numer =="" || element == "" || prod_id == "" || ilosc == "" || cenaelem == "" || waluta == ""){
+    public static int dodaj(String numer, String prod_id, String ilosc,String cenaelem,String waluta) throws SQLException,ClassNotFoundException{
+        if(numer =="" || prod_id == "" || ilosc == "" || cenaelem == "" || waluta == ""){
             return 2;
-        } else if(HelloController.isInteger(numer) == false){
+        } else if(!HelloController.isInteger(numer)){
             return 7;
-        } else if(HelloController.isInteger(element) == false){
-            return 6;
-        } else if(HelloController.isInteger(prod_id) == false){
+        } else if(!HelloController.isInteger(prod_id)){
             return 5;
-        } else if(HelloController.isInteger(ilosc) == false){
+        } else if(!HelloController.isInteger(ilosc)){
             return 3;
-        } else if(HelloController.isDouble(cenaelem) == false){
+        } else if(!HelloController.isDouble(cenaelem)){
             return 4;
-        } else if(HelloController.isDouble(waluta) == true){
+        } else if(HelloController.isDouble(waluta)){
             return 8;
-        } else if(HelloController.isInteger(ilosc) == true && HelloController.isDouble(cenaelem) == true){
-            String sql = "insert into Elementyzamowienia(zam_numer,zam_elem,prod_id,ilosc,cena_elem,waluta)values('"+numer+"', '"+element+"', '"+prod_id+"', '"+ilosc+"', '"+cenaelem+"', '"+waluta+"')";
+        } else if(HelloController.isInteger(ilosc) && HelloController.isDouble(cenaelem)){
+            String sql = "CALL dodajelementyzamowienia(?,?,?,?,?)";
             try{
-                DBUtil.dbExecuteQuery(sql);
+                DBUtil.dbExecuteQueryElementy(sql,numer,prod_id,ilosc,cenaelem,waluta);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu elementu zamówienia. "+ e);
                 e.printStackTrace();
@@ -82,19 +80,19 @@ public class ElementyzamowieniaDAO {
 
     //Aktualizacja ilości zamówionych produktów
     public static int update(String id,String ilosc) throws ClassNotFoundException,SQLException {
-        if(id == "" || ilosc == ""){
+        if(id.equals("") || ilosc.equals("")){
             return 4;
         }
-        if(Integer.valueOf(id)<1){
+        if(Integer.parseInt(id)<1){
             return 3;
         }
-        if(HelloController.isInteger(ilosc) == false){
+        if(!HelloController.isInteger(ilosc)){
             return 2;
         }
-        String sql = "update Elementyzamowienia set ilosc = '" + ilosc + "' where zam_id = '" + id + "' ";
+        String sql = "CALL zaktualizujelementyzamowienia(?,?)";
 
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryZaktualizujElementy(sql, id, ilosc);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
@@ -105,9 +103,9 @@ public class ElementyzamowieniaDAO {
 
     //Usunięcie elementu zamówienia po ID
     public static void deleteByID(int id) throws ClassNotFoundException,SQLException {
-        String sql = "delete from Elementyzamowienia where zam_id = '" + id + "'";
+        String sql = "CALL usunelementyzamowienia(?)";
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryUsun(sql, id);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();
@@ -159,19 +157,19 @@ public class ElementyzamowieniaDAO {
         }
     }
 
-    public static ObservableList<Elementyzamowienia> searchzam_elem(String id) throws ClassNotFoundException,SQLException{
-        String sql = "select * from Elementyzamowienia where zam_elem like '%"+id+"%'";
-
-        try{
-            ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
-            return list;
-        }catch(SQLException e){
-            System.out.println("Błąd przy szukaniu elementów zamówienia. "+e);
-            e.printStackTrace();
-            throw e;
-        }
-    }
+//    public static ObservableList<Elementyzamowienia> searchzam_elem(String id) throws ClassNotFoundException,SQLException{
+//        String sql = "select * from Elementyzamowienia where zam_elem like '%"+id+"%'";
+//
+//        try{
+//            ResultSet rsSet = DBUtil.dbExecute(sql);
+//            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
+//            return list;
+//        }catch(SQLException e){
+//            System.out.println("Błąd przy szukaniu elementów zamówienia. "+e);
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 
     public static ObservableList<Elementyzamowienia> searchprod_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from Elementyzamowienia where prod_id like '%"+id+"%'";
@@ -227,17 +225,5 @@ public class ElementyzamowieniaDAO {
         }
     }
 
-//    public static ObservableList<Elementyzamowienia> suma(string cena_elem, String liczba, String waluta) throws ClassNotFoundException,SQLException{
-//        String sql = "select concat(round(cena_elem*ilosc,2)," ",waluta) as suma from elementyzamowienia"
-//
-//        try{
-//            ResultSet rsSet = DBUtil.dbExecute(sql);
-//            ObservableList<Elementyzamowienia>  list = getObjects(rsSet);
-//            return list;
-//        }catch(SQLException e){
-//            System.out.println("Błąd przy szukaniu waluty. "+e);
-//            e.printStackTrace();
-//            throw e;
-//        }
-//    }
+
 }

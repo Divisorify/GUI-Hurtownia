@@ -12,7 +12,7 @@ public class Dostawcy {
 
     @Id
     //@OneToMany(targetEntity = Produkty.class)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private int dost_id;
 
     @Column

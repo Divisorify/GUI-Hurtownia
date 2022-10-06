@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DostawcyDAO {
     //Wypisanie wszystkich dostawców
     public static ObservableList<Dostawcy> getAllRecords() throws ClassNotFoundException, SQLException {
-        String sql = "select * from Dostawcy";
+        String sql = "select * from pokazdostawcow()";
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
             ObservableList<Dostawcy> List = getObjects(rsSet);
@@ -55,21 +55,11 @@ public class DostawcyDAO {
         if(nazwa =="" || miejscowosc == "" || ulica == "" || kraj == "" || email == ""){
             return 2;
         }
-//        else if(Integer.parseInt(nazwa) < 0){
-//            return 3;
-//        }else if(Integer.parseInt(miejscowosc) < 0){
-//            return 4;
-//        }else if(Integer.parseInt(ulica) < 0){
-//            return 5;
-//        }else if(Integer.parseInt(kraj) < 0){
-//            return 6;
-//        }else if(Integer.parseInt(email) < 0){
-//            return 7;
-//        }
-        if(validEmailAddress == true){
-            String sql = "insert into Dostawcy(dost_nazwa,dost_miejscowosc,dost_ulica,dost_kraj,dost_email)values(' "+nazwa+"', '"+miejscowosc+"', '"+ulica+"', '"+kraj+"', '"+email+"')";
+
+        if(validEmailAddress){
+            String sql = "CALL dodajdostawcow(?,?,?,?,?)";
             try{
-                DBUtil.dbExecuteQuery(sql);
+                DBUtil.dbExecuteQuery(sql, nazwa, miejscowosc, ulica, kraj, email);
             }catch(SQLException e){
                 System.out.println("Wyjątek przy dodawaniu Dostawcy"+ e);
                 e.printStackTrace();
@@ -83,19 +73,19 @@ public class DostawcyDAO {
 
     //Aktualizacja emailu dostawcy
     public static int update(String id,String email) throws ClassNotFoundException,SQLException {
-        if(id == "" || email == ""){
+        if(id.equals("") || email.equals("")){
             return 4;
         }
-        if(Integer.valueOf(id)<1){
+        if(Integer.parseInt(id)<1){
             return 3;
         }
-        if(HelloController.isValidEmailAddress(email) == false){
+        if(!HelloController.isValidEmailAddress(email)){
             return 2;
         }
-        String sql = "update Dostawcy set dost_email = '" + email + "' where dost_id = '" + id + "' ";
+        String sql = "CALL zaktualizujdostawcow(?,?)";
 
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryZaktualizujDostawcow(sql, id, email);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
@@ -106,9 +96,9 @@ public class DostawcyDAO {
 
     //Usunięcie dostawcy po ID
     public static int deleteByID(int id) throws ClassNotFoundException,SQLException {
-        String sql = "delete from Dostawcy where dost_id = '" + id + "'";
+        String sql = "CALL usundostawcow(?)";
         try {
-            DBUtil.dbExecuteQuery(sql);
+            DBUtil.dbExecuteQueryUsun(sql, id);
         } catch (SQLException e) {
             System.out.println("Błąd przy usuwaniu.");
             e.printStackTrace();

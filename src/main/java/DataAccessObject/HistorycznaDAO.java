@@ -2,20 +2,20 @@ package DataAccessObject;
 
 import com.example.demo12.DBUtil;
 import com.example.demo12.HelloController;
-import entities.Zamowienia;
+import entities.Historyczna;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ZamowieniaDAO {
+public class HistorycznaDAO {
     //Wypisanie wszystkich zamówień
-    public static ObservableList<Zamowienia> getAllRecords() throws ClassNotFoundException, SQLException {
-        String sql = "select * from pokazzamowienia()";
+    public static ObservableList<Historyczna> getAllRecords() throws ClassNotFoundException, SQLException {
+        String sql = "select * from pokazhistoryczna()";
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Zamowienia> List = getObjects(rsSet);
+            ObservableList<Historyczna> List = getObjects(rsSet);
             return List;
         }catch(SQLException e){
             System.out.println("Błąd przy łączeniu z bazą danych"+e);
@@ -25,15 +25,16 @@ public class ZamowieniaDAO {
     }
 
     //Przyporządkowanie danych kolumnom
-    private static ObservableList<Zamowienia> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
+    private static ObservableList<Historyczna> getObjects(ResultSet rsSet) throws ClassNotFoundException,SQLException{
         try{
-            ObservableList<Zamowienia> List = FXCollections.observableArrayList();
+            ObservableList<Historyczna> List = FXCollections.observableArrayList();
 
             while(rsSet.next()){
-                Zamowienia kli = new Zamowienia();
+                Historyczna kli = new Historyczna();
+                kli.setHist_idProperty(rsSet.getInt("hist_id"));
                 kli.setZam_numerProperty(rsSet.getInt("zam_numer"));
-                kli.setZam_dataProperty(rsSet.getString("zam_data"));
-                kli.setKl_idProperty(rsSet.getInt("kl_id"));
+//                kli.setZam_dataProperty(rsSet.getString("zam_data"));
+//                kli.setKl_idProperty(rsSet.getInt("kl_id"));
                 List.add(kli);
             }
             return List;
@@ -57,7 +58,7 @@ public class ZamowieniaDAO {
             return 4;
         }
         if(HelloController.isInteger(id)){
-            String sql = "CALL dodajzamowienia(?,?)";
+            String sql = "CALL dodajhistoryczna(?,?)";
             try{
                 DBUtil.dbExecuteQuery(sql,data, id);
             }catch(SQLException e){
@@ -73,19 +74,19 @@ public class ZamowieniaDAO {
     }
 
     //Aktualizacja daty zamówienia
-    public static int update(String zamnumer,String data) throws ClassNotFoundException,SQLException {
-        if(zamnumer.equals("") || data.equals("")){
+    public static int update(String histid,String zamnumer) throws ClassNotFoundException,SQLException {
+        if(histid.equals("") || zamnumer.equals("")){
             return 4;
         }
-        if(Integer.parseInt(zamnumer)<1){
+        if(Integer.parseInt(histid)<1){
             return 3;
         }
-        if(data.equals("") || !HelloController.isDate(data)){
-            return 2;
-        }
-        String sql = "CALL zaktualizujzamowienia(?,?)";
+//        if(zamnumer.equals("") || !HelloController.isDate(zamnumer)){
+//            return 2;
+//        }
+        String sql = "CALL zaktualizujhistoryczna(?,?)";
         try {
-            DBUtil.dbExecuteQueryZaktualizujZamowienia(sql, zamnumer, data);
+            DBUtil.dbExecuteQueryZaktualizujZamowienia(sql, histid, zamnumer);
         } catch (SQLException e) {
             System.out.println("Wyjątek przy aktualizacji!");
             e.printStackTrace();
@@ -96,7 +97,7 @@ public class ZamowieniaDAO {
 
     //Usunięcie zamówienia po ID
     public static int delete(int numer) throws ClassNotFoundException,SQLException {
-        String sql = "CALL usunzamowienia(?)";
+        String sql = "CALL usunhistoryczna(?)";
         try {
             DBUtil.dbExecuteQueryUsun(sql, numer);
         } catch (SQLException e) {
@@ -107,25 +108,15 @@ public class ZamowieniaDAO {
         return 1;
     }
 
-    public static String archiwizuj(String data) throws ClassNotFoundException,SQLException {
-        String sql = "CALL transfer("+"'"+data+"'"+")";
-        try {
-            DBUtil.dbExecute(sql);
-        } catch (SQLException e) {
-            System.out.println("Błąd przy archiwizowaniu.");
-            e.printStackTrace();
-            return "Błąd w archiwizacji.";
-        }
-        return "Zarchiwizowano poprawnie.";
-    }
+
 
     //Wyszukanie zamówienia po numerze
-    public static ObservableList<Zamowienia> search(String zamnumer) throws ClassNotFoundException,SQLException{
-        String sql = "select * from Zamowienia where zam_numer = "+zamnumer;
+    public static ObservableList<Historyczna> search(String hist_id) throws ClassNotFoundException,SQLException{
+        String sql = "select * from historyczna where hist_id = "+hist_id;
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            ObservableList<Historyczna>  list = getObjects(rsSet);
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po numerze zamówienia "+e);
@@ -135,12 +126,12 @@ public class ZamowieniaDAO {
     }
 
     //Wyszukiwanie zaawansowane
-    public static ObservableList<Zamowienia> searchzam_numer(String numer) throws ClassNotFoundException,SQLException{
-        String sql = "select * from zamowienia where zam_numer like '%"+numer+"%'";
+    public static ObservableList<Historyczna> searchhist_id(String numer) throws ClassNotFoundException,SQLException{
+        String sql = "select * from historyczna where hist_id = "+numer;
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            ObservableList<Historyczna>  list = getObjects(rsSet);
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po numerze zamówienia. "+e);
@@ -149,12 +140,26 @@ public class ZamowieniaDAO {
         }
     }
 
-    public static ObservableList<Zamowienia> searchzam_data(String data) throws ClassNotFoundException,SQLException{
-        String sql = "select * from zamowienia where zam_data like '%"+data+"%'";
+    public static ObservableList<Historyczna> searchzam_numer(String numer) throws ClassNotFoundException,SQLException{
+        String sql = "select * from historyczna where zam_numer like '%"+numer+"%'";
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            ObservableList<Historyczna>  list = getObjects(rsSet);
+            return list;
+        }catch(SQLException e){
+            System.out.println("Błąd przy szukaniu po numerze zamówienia. "+e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ObservableList<Historyczna> searchzam_data(String data) throws ClassNotFoundException,SQLException{
+        String sql = "select * from historyczna where zam_data like '%"+data+"%'";
+
+        try{
+            ResultSet rsSet = DBUtil.dbExecute(sql);
+            ObservableList<Historyczna>  list = getObjects(rsSet);
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po dacie. "+e);
@@ -162,12 +167,12 @@ public class ZamowieniaDAO {
             throw e;
         }
     }
-    public static ObservableList<Zamowienia> searchkl_id(String id) throws ClassNotFoundException,SQLException{
+    public static ObservableList<Historyczna> searchkl_id(String id) throws ClassNotFoundException,SQLException{
         String sql = "select * from zamowienia where kl_id like '%"+id+"%'";
 
         try{
             ResultSet rsSet = DBUtil.dbExecute(sql);
-            ObservableList<Zamowienia>  list = getObjects(rsSet);
+            ObservableList<Historyczna>  list = getObjects(rsSet);
             return list;
         }catch(SQLException e){
             System.out.println("Błąd przy szukaniu po ID. "+e);

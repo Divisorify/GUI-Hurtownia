@@ -102,6 +102,16 @@ public class KlienciController {
     }
 
     @FXML
+    void btnHistoryczna(ActionEvent event) throws IOException {
+        Parent historyczna = FXMLLoader.load(getClass().getResource("historyczna.fxml"));
+        Scene scenehistoryczna = new Scene(historyczna);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.hide();
+        app_stage.setScene(scenehistoryczna);
+        app_stage.show();
+    }
+
+    @FXML
     private void initialize() throws Exception{
         KlienciTable.setEditable(true); //Ustawienie możliwości edytowania tabeli
 
@@ -184,24 +194,12 @@ public class KlienciController {
                 resultConsole.clear();
                 resultConsole.setText("Sukces! Wartości zostały dodane.");
             }
-//            else if (query == 3){
-//                resultConsole.setText("Wpisz poprawne imię.");
-//            }else if (query == 4){
-//                resultConsole.setText("Wpisz poprawne nazwisko.");
-//            }else if (query == 5){
-//                resultConsole.setText("Wpisz poprawną miejscowość.");
-//            }else if (query == 6){
-//                resultConsole.setText("Wpisz poprawną ulicę.");
-//            }else if (query == 7){
-//                resultConsole.setText("Wpisz poprawny numer mieszkania.");
-//            }
+
             else if (query == 8){
                 resultConsole.clear();
                 resultConsole.setText("Wpisz poprawny numer telefonu.");
             }
-//            else if (query == 9){
-//                resultConsole.setText("Wpisz poprawny email.");
-//            }
+
             ObservableList<Klienci> klienciList = getAllRecordsKlienci();
             populateTableKlienci(klienciList);
         }catch(SQLException e){

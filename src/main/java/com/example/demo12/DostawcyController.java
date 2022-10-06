@@ -97,6 +97,17 @@ public class DostawcyController {
         app_stage.setScene(scenezamowienia);
         app_stage.show();
     }
+
+    @FXML
+    void btnHistoryczna(ActionEvent event) throws IOException {
+        Parent historyczna = FXMLLoader.load(getClass().getResource("historyczna.fxml"));
+        Scene scenehistoryczna = new Scene(historyczna);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.hide();
+        app_stage.setScene(scenehistoryczna);
+        app_stage.show();
+    }
+
     @FXML
     private void initialize() throws Exception{
         Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
@@ -172,17 +183,7 @@ public class DostawcyController {
                 resultConsole.clear();
                 resultConsole.setText("Sukces! Wartości zostały dodane.");
             }
-//            else if (query == 3){
-//                resultConsole.setText("Wpisz poprawną nazwę.");
-//            }else if (query == 4){
-//                resultConsole.setText("Wpisz poprawną miejscowość.");
-//            }else if (query == 5){
-//                resultConsole.setText("Wpisz poprawną ulicę.");
-//            }else if (query == 6){
-//                resultConsole.setText("Wpisz poprawną nazwę kraju.");
-//            }else if (query == 7){
-//                resultConsole.setText("Wpisz poprawny email.");
-//            }
+
             ObservableList<Dostawcy> List = getAllRecords();
             populateTable(List);
         }catch(SQLException e){

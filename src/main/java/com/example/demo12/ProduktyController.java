@@ -100,6 +100,16 @@ public class ProduktyController {
     }
 
     @FXML
+    void btnHistoryczna(ActionEvent event) throws IOException {
+        Parent historyczna = FXMLLoader.load(getClass().getResource("historyczna.fxml"));
+        Scene scenehistoryczna = new Scene(historyczna);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.hide();
+        app_stage.setScene(scenehistoryczna);
+        app_stage.show();
+    }
+
+    @FXML
     private void initialize() throws Exception{
         Table.setEditable(true); //Ustawienie możliwości edytowania tabeli
 

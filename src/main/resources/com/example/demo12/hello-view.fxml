@@ -43,6 +43,7 @@
                                 <Button mnemonicParsing="false" onAction="#btnProdukty" prefHeight="35.0" prefWidth="306.0" text="Produkty" />
                                 <Button mnemonicParsing="false" onAction="#btnZamówienia" prefHeight="35.0" prefWidth="306.0" text="Zamówienia" />
                                 <Button mnemonicParsing="false" onAction="#btnElementyZamówienia" prefHeight="35.0" prefWidth="306.0" text="ElementyZamówienia" />
+                                <Button mnemonicParsing="false" onAction="#btnHistoryczna" prefHeight="35.0" prefWidth="306.0" text="Historyczna" />
                                 <AnchorPane prefHeight="361.0" prefWidth="305.0">
 
                                 </AnchorPane>
